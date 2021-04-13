@@ -1,0 +1,18 @@
+from building import *
+
+cwd = GetCurrentDir()
+src = []
+
+LIBPATH = [cwd]
+LIBS = []
+if GetDepend(['ARCH_ARM_ARM9']):
+	if rtconfig.CROSS_TOOL == 'keil':
+		LIBS += ['NUemWin_ARM9_Keil']
+	elif rtconfig.CROSS_TOOL == 'gcc':
+		LIBS += ['libNUemWin_ARM9_GCC']
+
+CPPPATH += [cwd + '/../Include']
+
+group = DefineGroup('NUemWin', src, depend = ['PKG_USING_NUEMWIN'], CPPPATH = CPPPATH, LIBS = LIBS, LIBPATH=LIBPATH)
+
+Return('group')
