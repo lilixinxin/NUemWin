@@ -7,11 +7,11 @@ objs = []
 if GetDepend('PKG_USING_NUEMWIN_GUIDEMO'):
     path = os.path.join(cwd, 'GUIDemo')
     if os.path.isfile(os.path.join(path, 'SConscript')):
-        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+        objs = objs + SConscript(os.path.join('GUIDemo', 'SConscript'))
 
 if GetDepend('PKG_USING_NUEMWIN_SIMPLEDEMO'):
     path = os.path.join(cwd, 'SimpleDemo')
     if os.path.isfile(os.path.join(path, 'SConscript')):
-        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+        objs = objs + SConscript(os.path.join('SimpleDemo', 'SConscript'))
 
 Return('objs')
