@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -47,7 +47,8 @@ Purpose     : Config / System dependent externals for GUI
 *
 *       Global data
 */
-volatile GUI_TIMER_TIME OS_TimeMS;
+static rt_mutex_t osMutex = RT_NULL;
+static rt_sem_t osSemaphore = RT_NULL;
 
 /*********************************************************************
 *
@@ -60,37 +61,20 @@ volatile GUI_TIMER_TIME OS_TimeMS;
   1 ms.
 */
 
-GUI_TIMER_TIME GUI_X_GetTime(void) { 
-  return OS_TimeMS; 
+GUI_TIMER_TIME GUI_X_GetTime(void)
+{
+    return (GUI_TIMER_TIME)rt_tick_get();
 }
 
-void GUI_X_Delay(int ms) { 
-  int tEnd = OS_TimeMS + ms;
-  while ((tEnd - OS_TimeMS) > 0);
+void GUI_X_Delay(int ms)
+{
+    rt_thread_mdelay(ms);
 }
 
-/*********************************************************************
-*
-*       GUI_X_Init()
-*
-* Note:
-*     GUI_X_Init() is called from GUI_Init is a possibility to init
-*     some hardware which needs to be up and running before the GUI.
-*     If not required, leave this routine blank.
-*/
-
-void GUI_X_Init(void) {}
-
-
-/*********************************************************************
-*
-*       GUI_X_ExecIdle
-*
-* Note:
-*  Called if WM is in idle state
-*/
-
-void GUI_X_ExecIdle(void) {}
+void GUI_X_ExecIdle(void)
+{
+    GUI_X_Delay(1);
+}
 
 /*********************************************************************
 *
@@ -106,9 +90,18 @@ Note:
 
 */
 
-void GUI_X_Log     (const char *s) { GUI_USE_PARA(s); }
-void GUI_X_Warn    (const char *s) { GUI_USE_PARA(s); }
-void GUI_X_ErrorOut(const char *s) { GUI_USE_PARA(s); }
+void GUI_X_Log(const char *s)
+{
+    GUI_USE_PARA(s);
+}
+void GUI_X_Warn(const char *s)
+{
+    GUI_USE_PARA(s);
+}
+void GUI_X_ErrorOut(const char *s)
+{
+    GUI_USE_PARA(s);
+}
 
 /*********************************************************************
 *
@@ -127,12 +120,37 @@ void GUI_X_ErrorOut(const char *s) { GUI_USE_PARA(s); }
 *                       #define GUI_OS 1
 *  needs to be in GUIConf.h
 */
+void GUI_X_Init(void)
+{
+}
 
-void GUI_X_InitOS(void)    {  }
-void GUI_X_Unlock(void)    {  }
-void GUI_X_Lock(void)      {  }
-U32  GUI_X_GetTaskId(void) { return 1; }
+void GUI_X_InitOS(void)
+{
+    /* Create the Mutex used by the two threads */
+    osMutex = rt_mutex_create("NUemWin", RT_IPC_FLAG_FIFO);
+    RT_ASSERT(osMutex != RT_NULL);
 
+    /* Create the Semaphore used by the two threads */
+    osSemaphore = rt_sem_create("NUemWin", 1, RT_IPC_FLAG_FIFO);
+    RT_ASSERT(osSemaphore != RT_NULL);
+}
+
+void GUI_X_Unlock(void)
+{
+    rt_mutex_release(osMutex);
+}
+
+void GUI_X_Lock(void)
+{
+    rt_err_t ret;
+    ret = rt_mutex_take(osMutex, RT_WAITING_FOREVER);
+    RT_ASSERT(ret == RT_EOK);
+}
+
+U32 GUI_X_GetTaskId(void)
+{
+    return ((U32)rt_thread_self());
+}
 
 /*********************************************************************
 *
@@ -143,8 +161,21 @@ U32  GUI_X_GetTaskId(void) { return 1; }
 *                 GUI_X_SignalEvent()
 */
 
-void GUI_X_WaitEvent(void)            {  }
-void GUI_X_SignalEvent(void)          {  }
-void GUI_X_WaitEventTimed(int Period) {  }
+void GUI_X_WaitEvent(void)
+{
+    rt_err_t ret;
+    ret = rt_sem_take(osSemaphore, RT_WAITING_FOREVER);
+    RT_ASSERT(ret == RT_EOK);
+}
+
+void GUI_X_SignalEvent(void)
+{
+    rt_sem_release(osSemaphore);
+}
+
+void GUI_X_WaitEventTimed(int Period)
+{
+    rt_sem_take(osSemaphore, Period);
+}
 
 /*************************** End of file ****************************/

@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -59,11 +59,11 @@ Purpose     : Debug macros
 #define GUI_DEBUG_LEVEL_LOG_ALL       5  /* Errors, Warnings and Messages are recorded. */
 
 #ifndef GUI_DEBUG_LEVEL
-  #ifdef WIN32
-    #define GUI_DEBUG_LEVEL GUI_DEBUG_LEVEL_LOG_WARNINGS  /* Simulation should log all warnings */
-  #else
-    #define GUI_DEBUG_LEVEL GUI_DEBUG_LEVEL_NOCHECK       /* For most targets, min. size is important */
-  #endif
+    #ifdef WIN32
+        #define GUI_DEBUG_LEVEL GUI_DEBUG_LEVEL_LOG_WARNINGS  /* Simulation should log all warnings */
+    #else
+        #define GUI_DEBUG_LEVEL GUI_DEBUG_LEVEL_NOCHECK       /* For most targets, min. size is important */
+    #endif
 #endif
 
 #define GUI_LOCK_H(hMem)   GUI_ALLOC_LockH(hMem)
@@ -77,9 +77,9 @@ Purpose     : Debug macros
 */
 
 #ifdef WIN32
-  #define GUI_DEBUG_GETCMDLINE() SIM_GetCmdLine()
+    #define GUI_DEBUG_GETCMDLINE() SIM_GetCmdLine()
 #else
-  #define GUI_DEBUG_GETCMDLINE() 0
+    #define GUI_DEBUG_GETCMDLINE() 0
 #endif
 
 /*******************************************************************
@@ -92,27 +92,27 @@ Purpose     : Debug macros
 /* Make sure the macros are actually defined */
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_LOG_ERRORS
-  #define GUI_DEBUG_ERROROUT(s)              GUI_ErrorOut(s)
-  #define GUI_DEBUG_ERROROUT1(s,p0)          GUI_ErrorOut1(s,p0)
-  #define GUI_DEBUG_ERROROUT2(s,p0,p1)       GUI_ErrorOut2(s,p0,p1)
-  #define GUI_DEBUG_ERROROUT3(s,p0,p1,p2)    GUI_ErrorOut3(s,p0,p1,p2)
-  #define GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3) GUI_ErrorOut4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_ERROROUT_IF(exp,s)              { if (exp) GUI_DEBUG_ERROROUT(s); }
-  #define GUI_DEBUG_ERROROUT1_IF(exp,s,p0)          { if (exp) GUI_DEBUG_ERROROUT1(s,p0); }
-  #define GUI_DEBUG_ERROROUT2_IF(exp,s,p0,p1)       { if (exp) GUI_DEBUG_ERROROUT2(s,p0,p1); }
-  #define GUI_DEBUG_ERROROUT3_IF(exp,s,p0,p1,p2)    { if (exp) GUI_DEBUG_ERROROUT3(s,p0,p1,p2); }
-  #define GUI_DEBUG_ERROROUT4_IF(exp,s,p0,p1,p2,p3) { if (exp) GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3); }
+    #define GUI_DEBUG_ERROROUT(s)              GUI_ErrorOut(s)
+    #define GUI_DEBUG_ERROROUT1(s,p0)          GUI_ErrorOut1(s,p0)
+    #define GUI_DEBUG_ERROROUT2(s,p0,p1)       GUI_ErrorOut2(s,p0,p1)
+    #define GUI_DEBUG_ERROROUT3(s,p0,p1,p2)    GUI_ErrorOut3(s,p0,p1,p2)
+    #define GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3) GUI_ErrorOut4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_ERROROUT_IF(exp,s)              { if (exp) GUI_DEBUG_ERROROUT(s); }
+    #define GUI_DEBUG_ERROROUT1_IF(exp,s,p0)          { if (exp) GUI_DEBUG_ERROROUT1(s,p0); }
+    #define GUI_DEBUG_ERROROUT2_IF(exp,s,p0,p1)       { if (exp) GUI_DEBUG_ERROROUT2(s,p0,p1); }
+    #define GUI_DEBUG_ERROROUT3_IF(exp,s,p0,p1,p2)    { if (exp) GUI_DEBUG_ERROROUT3(s,p0,p1,p2); }
+    #define GUI_DEBUG_ERROROUT4_IF(exp,s,p0,p1,p2,p3) { if (exp) GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3); }
 #else
-  #define GUI_DEBUG_ERROROUT(s)
-  #define GUI_DEBUG_ERROROUT1(s,p0)
-  #define GUI_DEBUG_ERROROUT2(s,p0,p1)
-  #define GUI_DEBUG_ERROROUT3(s,p0,p1,p2)
-  #define GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_ERROROUT_IF(exp,s)
-  #define GUI_DEBUG_ERROROUT1_IF(exp,s,p0)
-  #define GUI_DEBUG_ERROROUT2_IF(exp,s,p0,p1)
-  #define GUI_DEBUG_ERROROUT3_IF(exp,s,p0,p1,p2)
-  #define GUI_DEBUG_ERROROUT4_IF(exp,s,p0,p1,p2,p3)
+    #define GUI_DEBUG_ERROROUT(s)
+    #define GUI_DEBUG_ERROROUT1(s,p0)
+    #define GUI_DEBUG_ERROROUT2(s,p0,p1)
+    #define GUI_DEBUG_ERROROUT3(s,p0,p1,p2)
+    #define GUI_DEBUG_ERROROUT4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_ERROROUT_IF(exp,s)
+    #define GUI_DEBUG_ERROROUT1_IF(exp,s,p0)
+    #define GUI_DEBUG_ERROROUT2_IF(exp,s,p0,p1)
+    #define GUI_DEBUG_ERROROUT3_IF(exp,s,p0,p1,p2)
+    #define GUI_DEBUG_ERROROUT4_IF(exp,s,p0,p1,p2,p3)
 #endif
 
 /*******************************************************************
@@ -125,27 +125,27 @@ Purpose     : Debug macros
 /* Make sure the macros are actually defined */
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_LOG_WARNINGS
-  #define GUI_DEBUG_WARN(s)              GUI_Warn(s)
-  #define GUI_DEBUG_WARN1(s,p0)          GUI_Warn1(s,p0)
-  #define GUI_DEBUG_WARN2(s,p0,p1)       GUI_Warn2(s,p0,p1)
-  #define GUI_DEBUG_WARN3(s,p0,p1,p2)    GUI_Warn3(s,p0,p1,p2)
-  #define GUI_DEBUG_WARN4(s,p0,p1,p2,p3) GUI_Warn4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_WARN_IF(exp,s)                  { if (exp) GUI_DEBUG_WARN(s); }
-  #define GUI_DEBUG_WARN1_IF(exp,s,p0)              { if (exp) GUI_DEBUG_WARN1(s,p0); }
-  #define GUI_DEBUG_WARN2_IF(exp,s,p0,p1)           { if (exp) GUI_DEBUG_WARN2(s,p0,p1); }
-  #define GUI_DEBUG_WARN3_IF(exp,s,p0,p1,p2)        { if (exp) GUI_DEBUG_WARN3(s,p0,p1,p2); }
-  #define GUI_DEBUG_WARN4_IF(exp,s,p0,p1,p2,p3)     { if (exp) GUI_DEBUG_WARN4(s,p0,p1,p2,p3); }
+    #define GUI_DEBUG_WARN(s)              GUI_Warn(s)
+    #define GUI_DEBUG_WARN1(s,p0)          GUI_Warn1(s,p0)
+    #define GUI_DEBUG_WARN2(s,p0,p1)       GUI_Warn2(s,p0,p1)
+    #define GUI_DEBUG_WARN3(s,p0,p1,p2)    GUI_Warn3(s,p0,p1,p2)
+    #define GUI_DEBUG_WARN4(s,p0,p1,p2,p3) GUI_Warn4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_WARN_IF(exp,s)                  { if (exp) GUI_DEBUG_WARN(s); }
+    #define GUI_DEBUG_WARN1_IF(exp,s,p0)              { if (exp) GUI_DEBUG_WARN1(s,p0); }
+    #define GUI_DEBUG_WARN2_IF(exp,s,p0,p1)           { if (exp) GUI_DEBUG_WARN2(s,p0,p1); }
+    #define GUI_DEBUG_WARN3_IF(exp,s,p0,p1,p2)        { if (exp) GUI_DEBUG_WARN3(s,p0,p1,p2); }
+    #define GUI_DEBUG_WARN4_IF(exp,s,p0,p1,p2,p3)     { if (exp) GUI_DEBUG_WARN4(s,p0,p1,p2,p3); }
 #else
-  #define GUI_DEBUG_WARN(s)
-  #define GUI_DEBUG_WARN1(s,p0)
-  #define GUI_DEBUG_WARN2(s,p0,p1)
-  #define GUI_DEBUG_WARN3(s,p0,p1,p2)
-  #define GUI_DEBUG_WARN4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_WARN_IF(exp,s)
-  #define GUI_DEBUG_WARN1_IF(exp,s,p0)
-  #define GUI_DEBUG_WARN2_IF(exp,s,p0,p1)
-  #define GUI_DEBUG_WARN3_IF(exp,s,p0,p1,p2)
-  #define GUI_DEBUG_WARN4_IF(exp,s,p0,p1,p2,p3)
+    #define GUI_DEBUG_WARN(s)
+    #define GUI_DEBUG_WARN1(s,p0)
+    #define GUI_DEBUG_WARN2(s,p0,p1)
+    #define GUI_DEBUG_WARN3(s,p0,p1,p2)
+    #define GUI_DEBUG_WARN4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_WARN_IF(exp,s)
+    #define GUI_DEBUG_WARN1_IF(exp,s,p0)
+    #define GUI_DEBUG_WARN2_IF(exp,s,p0,p1)
+    #define GUI_DEBUG_WARN3_IF(exp,s,p0,p1,p2)
+    #define GUI_DEBUG_WARN4_IF(exp,s,p0,p1,p2,p3)
 #endif
 
 /*******************************************************************
@@ -157,27 +157,27 @@ Purpose     : Debug macros
 /* Make sure the macros are actually defined */
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_LOG_ALL
-  #define GUI_DEBUG_LOG(s)              GUI_Log(s)
-  #define GUI_DEBUG_LOG1(s,p0)          GUI_Log1(s,p0)
-  #define GUI_DEBUG_LOG2(s,p0,p1)       GUI_Log2(s,p0,p1)
-  #define GUI_DEBUG_LOG3(s,p0,p1,p2)    GUI_Log3(s,p0,p1,p2)
-  #define GUI_DEBUG_LOG4(s,p0,p1,p2,p3) GUI_Log4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_LOG_IF(exp,s)                   { if (exp) GUI_DEBUG_LOG(s); }
-  #define GUI_DEBUG_LOG1_IF(exp,s,p0)               { if (exp) GUI_DEBUG_LOG1(s,p0); }
-  #define GUI_DEBUG_LOG2_IF(exp,s,p0,p1)            { if (exp) GUI_DEBUG_LOG2(s,p0,p1); }
-  #define GUI_DEBUG_LOG3_IF(exp,s,p0,p1,p2)         { if (exp) GUI_DEBUG_LOG3(s,p0,p1,p2); }
-  #define GUI_DEBUG_LOG4_IF(exp,s,p0,p1,p2,p3)      { if (exp) GUI_DEBUG_LOG4(s,p0,p1,p2,p3); }
+    #define GUI_DEBUG_LOG(s)              GUI_Log(s)
+    #define GUI_DEBUG_LOG1(s,p0)          GUI_Log1(s,p0)
+    #define GUI_DEBUG_LOG2(s,p0,p1)       GUI_Log2(s,p0,p1)
+    #define GUI_DEBUG_LOG3(s,p0,p1,p2)    GUI_Log3(s,p0,p1,p2)
+    #define GUI_DEBUG_LOG4(s,p0,p1,p2,p3) GUI_Log4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_LOG_IF(exp,s)                   { if (exp) GUI_DEBUG_LOG(s); }
+    #define GUI_DEBUG_LOG1_IF(exp,s,p0)               { if (exp) GUI_DEBUG_LOG1(s,p0); }
+    #define GUI_DEBUG_LOG2_IF(exp,s,p0,p1)            { if (exp) GUI_DEBUG_LOG2(s,p0,p1); }
+    #define GUI_DEBUG_LOG3_IF(exp,s,p0,p1,p2)         { if (exp) GUI_DEBUG_LOG3(s,p0,p1,p2); }
+    #define GUI_DEBUG_LOG4_IF(exp,s,p0,p1,p2,p3)      { if (exp) GUI_DEBUG_LOG4(s,p0,p1,p2,p3); }
 #else
-  #define GUI_DEBUG_LOG(s)
-  #define GUI_DEBUG_LOG1(s,p0)
-  #define GUI_DEBUG_LOG2(s,p0,p1)
-  #define GUI_DEBUG_LOG3(s,p0,p1,p2)
-  #define GUI_DEBUG_LOG4(s,p0,p1,p2,p3)
-  #define GUI_DEBUG_LOG_IF(exp,s)
-  #define GUI_DEBUG_LOG1_IF(exp,s,p0)
-  #define GUI_DEBUG_LOG2_IF(exp,s,p0,p1)
-  #define GUI_DEBUG_LOG3_IF(exp,s,p0,p1,p2)
-  #define GUI_DEBUG_LOG4_IF(exp,s,p0,p1,p2,p3)
+    #define GUI_DEBUG_LOG(s)
+    #define GUI_DEBUG_LOG1(s,p0)
+    #define GUI_DEBUG_LOG2(s,p0,p1)
+    #define GUI_DEBUG_LOG3(s,p0,p1,p2)
+    #define GUI_DEBUG_LOG4(s,p0,p1,p2,p3)
+    #define GUI_DEBUG_LOG_IF(exp,s)
+    #define GUI_DEBUG_LOG1_IF(exp,s,p0)
+    #define GUI_DEBUG_LOG2_IF(exp,s,p0,p1)
+    #define GUI_DEBUG_LOG3_IF(exp,s,p0,p1,p2)
+    #define GUI_DEBUG_LOG4_IF(exp,s,p0,p1,p2,p3)
 #endif
 
 /*******************************************************************
@@ -187,9 +187,9 @@ Purpose     : Debug macros
 ********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_LOG_ERRORS
-  #define GUI_DEBUG_ASSERT(exp)                     { if (!exp) GUI_DEBUG_ERROROUT(#exp); }
+    #define GUI_DEBUG_ASSERT(exp)                     { if (!exp) GUI_DEBUG_ERROROUT(#exp); }
 #else
-  #define GUI_DEBUG_ASSERT(exp)
+    #define GUI_DEBUG_ASSERT(exp)
 #endif
 
 #endif /* LCD_H */

@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,7 +51,7 @@ Purpose     : MENU include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     // Make sure we have C-declarations in C++ programs
+extern "C" {     // Make sure we have C-declarations in C++ programs
 #endif
 
 /*********************************************************************
@@ -108,7 +108,7 @@ Purpose     : MENU include
 #define MENU_ON_OPEN                    3   // Internal message of menu widget (only send to submenus)
 #define MENU_ON_CLOSE                   4   // Internal message of menu widget (only send to submenus)
 #define MENU_IS_MENU                    5   // Internal message of menu widget. Owner must call
-                                            // WM_DefaultProc() when not handle the message
+// WM_DefaultProc() when not handle the message
 #define MENU_ON_ITEMACTIVATE            6   // Send to owner when highlighting a menu item
 #define MENU_ON_ITEMPRESSED             7   // Send to owner when a menu item has been pressed
 
@@ -131,54 +131,57 @@ Purpose     : MENU include
 
 typedef WM_HMEM MENU_Handle;
 
-typedef struct {
-  //
-  // Background
-  //  
-  GUI_COLOR aBkColorH[2];
-  GUI_COLOR BkColorV;
-  GUI_COLOR FrameColorH;
-  GUI_COLOR FrameColorV;
-  //
-  // Selection
-  //
-  GUI_COLOR aSelColorH[2];
-  GUI_COLOR aSelColorV[2];
-  GUI_COLOR FrameColorSelH;
-  GUI_COLOR FrameColorSelV;
-  //
-  // Separator
-  //
-  GUI_COLOR aSepColorH[2];
-  GUI_COLOR aSepColorV[2];
-  //
-  // Arrow
-  //
-  GUI_COLOR ArrowColor;
-  //
-  // Text
-  //
-  GUI_COLOR TextColor;
+typedef struct
+{
+    //
+    // Background
+    //
+    GUI_COLOR aBkColorH[2];
+    GUI_COLOR BkColorV;
+    GUI_COLOR FrameColorH;
+    GUI_COLOR FrameColorV;
+    //
+    // Selection
+    //
+    GUI_COLOR aSelColorH[2];
+    GUI_COLOR aSelColorV[2];
+    GUI_COLOR FrameColorSelH;
+    GUI_COLOR FrameColorSelV;
+    //
+    // Separator
+    //
+    GUI_COLOR aSepColorH[2];
+    GUI_COLOR aSepColorV[2];
+    //
+    // Arrow
+    //
+    GUI_COLOR ArrowColor;
+    //
+    // Text
+    //
+    GUI_COLOR TextColor;
 } MENU_SKINFLEX_PROPS;
 
 /*********************************************************************
 *
 *       Menu message data
 */
-typedef struct {
-  U16 MsgType;
-  U16 ItemId;
+typedef struct
+{
+    U16 MsgType;
+    U16 ItemId;
 } MENU_MSG_DATA;
 
 /*********************************************************************
 *
 *       Menu item data
 */
-typedef struct {
-  const char  * pText;
-  U16           Id;
-  U16           Flags;
-  MENU_Handle   hSubmenu;
+typedef struct
+{
+    const char   *pText;
+    U16           Id;
+    U16           Flags;
+    MENU_Handle   hSubmenu;
 } MENU_ITEM_DATA;
 
 /*********************************************************************
@@ -187,9 +190,9 @@ typedef struct {
 *
 **********************************************************************
 */
-MENU_Handle MENU_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
-MENU_Handle MENU_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
-MENU_Handle MENU_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
+MENU_Handle MENU_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
+MENU_Handle MENU_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
+MENU_Handle MENU_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
 
 /*********************************************************************
 *
@@ -198,7 +201,7 @@ MENU_Handle MENU_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hP
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void MENU_Callback(WM_MESSAGE * pMsg);
+void MENU_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -206,29 +209,29 @@ void MENU_Callback(WM_MESSAGE * pMsg);
 *
 **********************************************************************
 */
-void             MENU_AddItem       (MENU_Handle hObj, const MENU_ITEM_DATA * pItemData);
-void             MENU_Attach        (MENU_Handle hObj, WM_HWIN hDestWin, int x, int y, int xSize, int ySize, int Flags);
-void             MENU_DeleteItem    (MENU_Handle hObj, U16 ItemId);
-void             MENU_DisableItem   (MENU_Handle hObj, U16 ItemId);
-void             MENU_EnableItem    (MENU_Handle hObj, U16 ItemId);
-GUI_COLOR        MENU_GetBkColor    (MENU_Handle hObj, unsigned ColorIndex);
-const GUI_FONT * MENU_GetFont       (MENU_Handle hObj);
-void             MENU_GetItem       (MENU_Handle hObj, U16 ItemId, MENU_ITEM_DATA * pItemData);
-void             MENU_GetItemText   (MENU_Handle hObj, U16 ItemId, char * pBuffer, unsigned BufferSize);
-unsigned         MENU_GetNumItems   (MENU_Handle hObj);
-WM_HWIN          MENU_GetOwner      (MENU_Handle hObj);
-GUI_COLOR        MENU_GetTextColor  (MENU_Handle hObj, unsigned ColorIndex);
-int              MENU_GetUserData   (MENU_Handle hObj, void * pDest, int NumBytes);
-void             MENU_InsertItem    (MENU_Handle hObj, U16 ItemId, const MENU_ITEM_DATA * pItemData);
-void             MENU_Popup         (MENU_Handle hObj, WM_HWIN hDestWin, int x, int y, int xSize, int ySize, int Flags);
-void             MENU_SetBkColor    (MENU_Handle hObj, unsigned ColorIndex, GUI_COLOR Color);
-void             MENU_SetBorderSize (MENU_Handle hObj, unsigned BorderIndex, U8 BorderSize);
-void             MENU_SetFont       (MENU_Handle hObj, const GUI_FONT * pFont);
-void             MENU_SetItem       (MENU_Handle hObj, U16 ItemId, const MENU_ITEM_DATA * pItemData);
-void             MENU_SetOwner      (MENU_Handle hObj, WM_HWIN hOwner);
-int              MENU_SetSel        (MENU_Handle hObj, int Sel);
-void             MENU_SetTextColor  (MENU_Handle hObj, unsigned ColorIndex, GUI_COLOR Color);
-int              MENU_SetUserData   (MENU_Handle hObj, const void * pSrc, int NumBytes);
+void             MENU_AddItem(MENU_Handle hObj, const MENU_ITEM_DATA *pItemData);
+void             MENU_Attach(MENU_Handle hObj, WM_HWIN hDestWin, int x, int y, int xSize, int ySize, int Flags);
+void             MENU_DeleteItem(MENU_Handle hObj, U16 ItemId);
+void             MENU_DisableItem(MENU_Handle hObj, U16 ItemId);
+void             MENU_EnableItem(MENU_Handle hObj, U16 ItemId);
+GUI_COLOR        MENU_GetBkColor(MENU_Handle hObj, unsigned ColorIndex);
+const GUI_FONT *MENU_GetFont(MENU_Handle hObj);
+void             MENU_GetItem(MENU_Handle hObj, U16 ItemId, MENU_ITEM_DATA *pItemData);
+void             MENU_GetItemText(MENU_Handle hObj, U16 ItemId, char *pBuffer, unsigned BufferSize);
+unsigned         MENU_GetNumItems(MENU_Handle hObj);
+WM_HWIN          MENU_GetOwner(MENU_Handle hObj);
+GUI_COLOR        MENU_GetTextColor(MENU_Handle hObj, unsigned ColorIndex);
+int              MENU_GetUserData(MENU_Handle hObj, void *pDest, int NumBytes);
+void             MENU_InsertItem(MENU_Handle hObj, U16 ItemId, const MENU_ITEM_DATA *pItemData);
+void             MENU_Popup(MENU_Handle hObj, WM_HWIN hDestWin, int x, int y, int xSize, int ySize, int Flags);
+void             MENU_SetBkColor(MENU_Handle hObj, unsigned ColorIndex, GUI_COLOR Color);
+void             MENU_SetBorderSize(MENU_Handle hObj, unsigned BorderIndex, U8 BorderSize);
+void             MENU_SetFont(MENU_Handle hObj, const GUI_FONT *pFont);
+void             MENU_SetItem(MENU_Handle hObj, U16 ItemId, const MENU_ITEM_DATA *pItemData);
+void             MENU_SetOwner(MENU_Handle hObj, WM_HWIN hOwner);
+int              MENU_SetSel(MENU_Handle hObj, int Sel);
+void             MENU_SetTextColor(MENU_Handle hObj, unsigned ColorIndex, GUI_COLOR Color);
+int              MENU_SetUserData(MENU_Handle hObj, const void *pSrc, int NumBytes);
 
 /*********************************************************************
 *
@@ -236,16 +239,16 @@ int              MENU_SetUserData   (MENU_Handle hObj, const void * pSrc, int Nu
 *
 **********************************************************************
 */
-GUI_COLOR             MENU_GetDefaultTextColor  (unsigned ColorIndex);
-GUI_COLOR             MENU_GetDefaultBkColor    (unsigned ColorIndex);
-U8                    MENU_GetDefaultBorderSize (unsigned BorderIndex);
-const WIDGET_EFFECT * MENU_GetDefaultEffect     (void);
-const GUI_FONT      * MENU_GetDefaultFont       (void);
-void                  MENU_SetDefaultTextColor  (unsigned ColorIndex, GUI_COLOR Color);
-void                  MENU_SetDefaultBkColor    (unsigned ColorIndex, GUI_COLOR Color);
-void                  MENU_SetDefaultBorderSize (unsigned BorderIndex, U8 BorderSize);
-void                  MENU_SetDefaultEffect     (const WIDGET_EFFECT * pEffect);
-void                  MENU_SetDefaultFont       (const GUI_FONT * pFont);
+GUI_COLOR             MENU_GetDefaultTextColor(unsigned ColorIndex);
+GUI_COLOR             MENU_GetDefaultBkColor(unsigned ColorIndex);
+U8                    MENU_GetDefaultBorderSize(unsigned BorderIndex);
+const WIDGET_EFFECT *MENU_GetDefaultEffect(void);
+const GUI_FONT       *MENU_GetDefaultFont(void);
+void                  MENU_SetDefaultTextColor(unsigned ColorIndex, GUI_COLOR Color);
+void                  MENU_SetDefaultBkColor(unsigned ColorIndex, GUI_COLOR Color);
+void                  MENU_SetDefaultBorderSize(unsigned BorderIndex, U8 BorderSize);
+void                  MENU_SetDefaultEffect(const WIDGET_EFFECT *pEffect);
+void                  MENU_SetDefaultFont(const GUI_FONT *pFont);
 
 /*********************************************************************
 *
@@ -253,17 +256,17 @@ void                  MENU_SetDefaultFont       (const GUI_FONT * pFont);
 *
 **********************************************************************
 */
-int                     MENU_DrawSkinFlex         (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-void                    MENU_GetSkinFlexProps     (MENU_SKINFLEX_PROPS * pProps, int Index);
-WIDGET_DRAW_ITEM_FUNC * MENU_SetDefaultSkin       (WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
+int                     MENU_DrawSkinFlex(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+void                    MENU_GetSkinFlexProps(MENU_SKINFLEX_PROPS *pProps, int Index);
+WIDGET_DRAW_ITEM_FUNC *MENU_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
 void                    MENU_SetDefaultSkinClassic(void);
-void                    MENU_SetSkinClassic       (MENU_Handle hObj);
-void                    MENU_SetSkin              (MENU_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
-void                    MENU_SetSkinFlexProps     (const MENU_SKINFLEX_PROPS * pProps, int Index);
-void                    MENU_SkinEnableArrow      (MENU_Handle hObj, int OnOff);
+void                    MENU_SetSkinClassic(MENU_Handle hObj);
+void                    MENU_SetSkin(MENU_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
+void                    MENU_SetSkinFlexProps(const MENU_SKINFLEX_PROPS *pProps, int Index);
+void                    MENU_SkinEnableArrow(MENU_Handle hObj, int OnOff);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

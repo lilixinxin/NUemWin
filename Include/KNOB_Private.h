@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -55,35 +55,37 @@ Purpose     : KNOB include
 *
 **********************************************************************
 */
-typedef struct {
-  I32 Snap;          // Position where the knob snaps
-  I32 Period;        // Time it takes to stop the knob in ms
-  GUI_COLOR BkColor; // The Bk color
-  I32 Offset;        // the offset
-  I32 MinRange;
-  I32 MaxRange;
-  I32 MinVRange;
-  I32 MaxVRange;
-  I32 TickSize;      // Minimum movement range in 1/10 of degree
-  I32 KeyValue;      // Range of movement for one key push
-  U8  Invert;
+typedef struct
+{
+    I32 Snap;          // Position where the knob snaps
+    I32 Period;        // Time it takes to stop the knob in ms
+    GUI_COLOR BkColor; // The Bk color
+    I32 Offset;        // the offset
+    I32 MinRange;
+    I32 MaxRange;
+    I32 MinVRange;
+    I32 MaxVRange;
+    I32 TickSize;      // Minimum movement range in 1/10 of degree
+    I32 KeyValue;      // Range of movement for one key push
+    U8  Invert;
 } KNOB_PROPS;
 
-typedef struct {
-  WIDGET Widget;
-  WIDGET_DRAW_ITEM_FUNC * pfOwnerDraw;
-  void (* pfRotate)(GUI_MEMDEV_Handle hSrc, GUI_MEMDEV_Handle hDst, int dx, int dy, int a, int Mag);
-  KNOB_PROPS Props;
-  WM_HMEM hContext;
-  I32 Angle;
-  I32 Value;
-  int xSize;
-  int ySize;
-  I32 AngleRotate;
-  GUI_MEMDEV_Handle hMemSrc;
-  GUI_MEMDEV_Handle hMemDst;
-  GUI_MEMDEV_Handle hMemBk;
-  I32               VRangeABS;
+typedef struct
+{
+    WIDGET Widget;
+    WIDGET_DRAW_ITEM_FUNC *pfOwnerDraw;
+    void (* pfRotate)(GUI_MEMDEV_Handle hSrc, GUI_MEMDEV_Handle hDst, int dx, int dy, int a, int Mag);
+    KNOB_PROPS Props;
+    WM_HMEM hContext;
+    I32 Angle;
+    I32 Value;
+    int xSize;
+    int ySize;
+    I32 AngleRotate;
+    GUI_MEMDEV_Handle hMemSrc;
+    GUI_MEMDEV_Handle hMemDst;
+    GUI_MEMDEV_Handle hMemBk;
+    I32               VRangeABS;
 } KNOB_OBJ;
 
 /*********************************************************************
@@ -93,16 +95,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define KNOB_INIT_ID(p) p->Widget.DebugId = KNOB_ID
+    #define KNOB_INIT_ID(p) p->Widget.DebugId = KNOB_ID
 #else
-  #define KNOB_INIT_ID(p)
+    #define KNOB_INIT_ID(p)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  KNOB_OBJ * KNOB_LockH(KNOB_Handle h);
-  #define KNOB_LOCK_H(h)   KNOB_LockH(h)
+    KNOB_OBJ *KNOB_LockH(KNOB_Handle h);
+    #define KNOB_LOCK_H(h)   KNOB_LockH(h)
 #else
-  #define KNOB_LOCK_H(h)   (KNOB_OBJ *)GUI_LOCK_H(h)
+    #define KNOB_LOCK_H(h)   (KNOB_OBJ *)GUI_LOCK_H(h)
 #endif
 
 /*********************************************************************

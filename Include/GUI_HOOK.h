@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -59,11 +59,12 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 **********************************************************************
 */
 
-typedef int GUI_HOOK_FUNC(WM_MESSAGE* pMsg);
+typedef int GUI_HOOK_FUNC(WM_MESSAGE *pMsg);
 
-typedef struct GUI_HOOK {
-  struct GUI_HOOK* pNext;
-  GUI_HOOK_FUNC*   pHookFunc;
+typedef struct GUI_HOOK
+{
+    struct GUI_HOOK *pNext;
+    GUI_HOOK_FUNC   *pHookFunc;
 } GUI_HOOK;
 
 /*********************************************************************
@@ -73,11 +74,11 @@ typedef struct GUI_HOOK {
 **********************************************************************
 */
 
-void GUI_HOOK_Add   (GUI_HOOK** ppFirstHook, GUI_HOOK* pNewHook, GUI_HOOK_FUNC* pHookFunc);
-void GUI_HOOK_Remove(GUI_HOOK** ppFirstHook, GUI_HOOK* pHook);
+void GUI_HOOK_Add(GUI_HOOK **ppFirstHook, GUI_HOOK *pNewHook, GUI_HOOK_FUNC *pHookFunc);
+void GUI_HOOK_Remove(GUI_HOOK **ppFirstHook, GUI_HOOK *pHook);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif   /* GUI_WINSUPPORT */

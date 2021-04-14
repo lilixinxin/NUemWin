@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -59,24 +59,26 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 **********************************************************************
 */
-typedef struct {
-  WM_HWIN    hWin;
-  int        Cmd;         /* WIDGET_ITEM_GET_XSIZE, WIDGET_ITEM_GET_YSIZE, WIDGET_ITEM_DRAW, */
-  int        ItemIndex;
-  int        Col;
-  int        x0, y0, x1, y1;
-  I32        Angle;
-  void     * p;
+typedef struct
+{
+    WM_HWIN    hWin;
+    int        Cmd;         /* WIDGET_ITEM_GET_XSIZE, WIDGET_ITEM_GET_YSIZE, WIDGET_ITEM_DRAW, */
+    int        ItemIndex;
+    int        Col;
+    int        x0, y0, x1, y1;
+    I32        Angle;
+    void      *p;
 } WIDGET_ITEM_DRAW_INFO;
 
-typedef int  WIDGET_DRAW_ITEM_FUNC(const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-typedef void WIDGET_PAINT         (WM_HWIN hObj);
-typedef void WIDGET_CREATE        (WM_HWIN hObj);
+typedef int  WIDGET_DRAW_ITEM_FUNC(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+typedef void WIDGET_PAINT(WM_HWIN hObj);
+typedef void WIDGET_CREATE(WM_HWIN hObj);
 
-typedef struct {
-  WIDGET_PAINT  * pfPaint;
-  WIDGET_CREATE * pfCreate;
-  void          * pSkinPrivate;
+typedef struct
+{
+    WIDGET_PAINT   *pfPaint;
+    WIDGET_CREATE *pfCreate;
+    void           *pSkinPrivate;
 } WIDGET_SKIN;
 
 /*********************************************************************
@@ -136,31 +138,31 @@ typedef struct {
 */
 
 #ifndef   WIDGET_USE_PARENT_EFFECT
-  #define WIDGET_USE_PARENT_EFFECT 0
+#define WIDGET_USE_PARENT_EFFECT 0
 #endif
 #ifndef   WIDGET_USE_FLEX_SKIN
-  #if WM_SUPPORT_TRANSPARENCY
-    #define WIDGET_USE_FLEX_SKIN     1
-  #else
-    #define WIDGET_USE_FLEX_SKIN     0
-  #endif
+#if WM_SUPPORT_TRANSPARENCY
+#define WIDGET_USE_FLEX_SKIN     1
+#else
+#define WIDGET_USE_FLEX_SKIN     0
+#endif
 #endif
 #if !defined(WIDGET_USE_SCHEME_SMALL) && !defined(WIDGET_USE_SCHEME_MEDIUM) && !defined(WIDGET_USE_SCHEME_LARGE)
-  #define WIDGET_USE_SCHEME_SMALL  1
-  #define WIDGET_USE_SCHEME_MEDIUM 0
-  #define WIDGET_USE_SCHEME_LARGE  0
+#define WIDGET_USE_SCHEME_SMALL  1
+#define WIDGET_USE_SCHEME_MEDIUM 0
+#define WIDGET_USE_SCHEME_LARGE  0
 #endif
 #ifndef   WIDGET_USE_SCHEME_SMALL
-  #define WIDGET_USE_SCHEME_SMALL  0
+#define WIDGET_USE_SCHEME_SMALL  0
 #endif
 #ifndef   WIDGET_USE_SCHEME_MEDIUM
-  #define WIDGET_USE_SCHEME_MEDIUM 0
+#define WIDGET_USE_SCHEME_MEDIUM 0
 #endif
 #ifndef   WIDGET_USE_SCHEME_LARGE
-  #define WIDGET_USE_SCHEME_LARGE  0
+#define WIDGET_USE_SCHEME_LARGE  0
 #endif
 #if (WIDGET_USE_SCHEME_SMALL + WIDGET_USE_SCHEME_MEDIUM + WIDGET_USE_SCHEME_LARGE) > 1
-  #error Only one scheme can be selected!
+#error Only one scheme can be selected!
 #endif
 
 /*********************************************************************
@@ -212,7 +214,7 @@ typedef struct {
 #define WIDGET_ITEM_GET_YSIZE          27
 #define WIDGET_ITEM_GET_RADIUS         28
 #define WIDGET_ITEM_APPLY_PROPS        29  // Not to be documented. Use this message identifier to update the
-                                           // properties of attached widgets from <WIDGET>_DrawSkinFlex().
+// properties of attached widgets from <WIDGET>_DrawSkinFlex().
 #define WIDGET_DRAW_BACKGROUND         30
 
 #define WIDGET_ITEM_DRAW_BUTTON_U      WIDGET_ITEM_DRAW_BUTTON_R
@@ -240,24 +242,26 @@ typedef struct {
 *
 * The widget object is the base class for most widgets
 */
-typedef struct {
-  int EffectSize;
-  void (* pfDrawUp)      (void);
-  void (* pfDrawUpRect)  (const GUI_RECT * pRect);
-  void (* pfDrawDown)    (void);
-  void (* pfDrawDownRect)(const GUI_RECT * pRect);
-  void (* pfDrawFlat)    (void);
-  void (* pfDrawFlatRect)(const GUI_RECT * pRect);
+typedef struct
+{
+    int EffectSize;
+    void (* pfDrawUp)(void);
+    void (* pfDrawUpRect)(const GUI_RECT *pRect);
+    void (* pfDrawDown)(void);
+    void (* pfDrawDownRect)(const GUI_RECT *pRect);
+    void (* pfDrawFlat)(void);
+    void (* pfDrawFlatRect)(const GUI_RECT *pRect);
 } WIDGET_EFFECT;
 
-typedef struct {
-  WM_Obj      Win;
-  const WIDGET_EFFECT* pEffect;
-  I16 Id;
-  U16 State;
-  #if GUI_DEBUG_LEVEL > 1
+typedef struct
+{
+    WM_Obj      Win;
+    const WIDGET_EFFECT *pEffect;
+    I16 Id;
+    U16 State;
+#if GUI_DEBUG_LEVEL > 1
     U32 DebugId;
-  #endif  
+#endif
 } WIDGET;
 
 
@@ -271,42 +275,45 @@ typedef struct {
 */
 /* Declare Object struct */
 typedef struct GUI_DRAW GUI_DRAW;
-typedef void   GUI_DRAW_SELF_CB (WM_HWIN hWin);
+typedef void   GUI_DRAW_SELF_CB(WM_HWIN hWin);
 typedef WM_HMEM GUI_DRAW_HANDLE;
 
 /* Declare Object constants (member functions etc)  */
-typedef struct {
-  void (* pfDraw)    (GUI_DRAW_HANDLE hDrawObj, WM_HWIN hObj, int x, int y);
-  int  (* pfGetXSize)(GUI_DRAW_HANDLE hDrawObj);
-  int  (* pfGetYSize)(GUI_DRAW_HANDLE hDrawObj);
+typedef struct
+{
+    void (* pfDraw)(GUI_DRAW_HANDLE hDrawObj, WM_HWIN hObj, int x, int y);
+    int (* pfGetXSize)(GUI_DRAW_HANDLE hDrawObj);
+    int (* pfGetYSize)(GUI_DRAW_HANDLE hDrawObj);
 } GUI_DRAW_CONSTS;
 
 /* Declare Object */
-struct GUI_DRAW {
-  const GUI_DRAW_CONSTS * pConsts;
-  union {
-    const void * pData;
-    GUI_DRAW_SELF_CB * pfDraw;
-  } Data;
-  I16 xOff, yOff;
+struct GUI_DRAW
+{
+    const GUI_DRAW_CONSTS *pConsts;
+    union
+    {
+        const void *pData;
+        GUI_DRAW_SELF_CB *pfDraw;
+    } Data;
+    I16 xOff, yOff;
 };
 
 /* GUI_DRAW_ API */
-void GUI_DRAW__Draw    (GUI_DRAW_HANDLE hDrawObj, WM_HWIN hObj, int x, int y);
+void GUI_DRAW__Draw(GUI_DRAW_HANDLE hDrawObj, WM_HWIN hObj, int x, int y);
 int  GUI_DRAW__GetXSize(GUI_DRAW_HANDLE hDrawObj);
 int  GUI_DRAW__GetYSize(GUI_DRAW_HANDLE hDrawObj);
 
 void GUI_DrawStreamedEnableAuto(void);
 
 /* GUI_DRAW_ Constructurs for different objects */
-WM_HMEM GUI_DRAW_BITMAP_Create     (const GUI_BITMAP * pBitmap, int x, int y);
-WM_HMEM GUI_DRAW_BMP_Create        (const void * pBMP, int x, int y);
-WM_HMEM GUI_DRAW_STREAMED_Create   (const GUI_BITMAP_STREAM * pBitmap, int x, int y);
-WM_HMEM GUI_DRAW_SELF_Create       (GUI_DRAW_SELF_CB * pfDraw, int x, int y);
-WM_HMEM GUI_DRAW_BITMAP_HQHR_Create(const GUI_BITMAP * pBitmap, int x, int y);
+WM_HMEM GUI_DRAW_BITMAP_Create(const GUI_BITMAP *pBitmap, int x, int y);
+WM_HMEM GUI_DRAW_BMP_Create(const void *pBMP, int x, int y);
+WM_HMEM GUI_DRAW_STREAMED_Create(const GUI_BITMAP_STREAM *pBitmap, int x, int y);
+WM_HMEM GUI_DRAW_SELF_Create(GUI_DRAW_SELF_CB *pfDraw, int x, int y);
+WM_HMEM GUI_DRAW_BITMAP_HQHR_Create(const GUI_BITMAP *pBitmap, int x, int y);
 
 #if (GUI_SUPPORT_MEMDEV == 1)
-  void GUI_MEMDEV_DrawBitmapObj32HQHR  (GUI_DRAW_HANDLE hDrawObj, WM_HWIN hWin, int x0HR, int y0HR);  // This function uses parameter which are only available when Widgets and WM are available
+void GUI_MEMDEV_DrawBitmapObj32HQHR(GUI_DRAW_HANDLE hDrawObj, WM_HWIN hWin, int x0HR, int y0HR);    // This function uses parameter which are only available when Widgets and WM are available
 #endif
 
 /*********************************************************************
@@ -329,30 +336,30 @@ extern const WIDGET_EFFECT WIDGET_Effect_Simple;
 **********************************************************************
 */
 
-void      WIDGET__DrawFocusRect      (WIDGET * pWidget, const GUI_RECT * pRect, int Dist);
-void      WIDGET__DrawHLine          (WIDGET * pWidget, int y, int x0, int x1);
-void      WIDGET__DrawTriangle       (WIDGET * pWidget, int x, int y, int Size, int Inc);
-void      WIDGET__DrawVLine          (WIDGET * pWidget, int x, int y0, int y1);
-void      WIDGET__EFFECT_DrawDownRect(WIDGET * pWidget, GUI_RECT * pRect);
-void      WIDGET__EFFECT_DrawDown    (WIDGET * pWidget);
-void      WIDGET__EFFECT_DrawUpRect  (WIDGET * pWidget, GUI_RECT * pRect);
-void      WIDGET__FillRectEx         (WIDGET * pWidget, const GUI_RECT * pRect);
-int       WIDGET__GetWindowSizeX     (WM_HWIN hWin);
-GUI_COLOR WIDGET__GetBkColor         (WM_HWIN hObj);
-int       WIDGET__GetXSize           (const WIDGET * pWidget);
-int       WIDGET__GetYSize           (const WIDGET * pWidget);
-void      WIDGET__GetClientRect      (WIDGET * pWidget, GUI_RECT * pRect);
-void      WIDGET__GetInsideRect      (WIDGET * pWidget, GUI_RECT * pRect);
-void      WIDGET__Init               (WIDGET * pWidget, int Id, U16 State);
-void      WIDGET__RotateRect90       (WIDGET * pWidget, GUI_RECT * pDest, const GUI_RECT * pRect);
-void      WIDGET__SetScrollState     (WM_HWIN hWin, const WM_SCROLL_STATE * pVState, const WM_SCROLL_STATE * pState);
-void      WIDGET__FillStringInRect   (const char * pText, const GUI_RECT * pFillRect, const GUI_RECT * pTextRectMax, const GUI_RECT * pTextRectAct);
+void      WIDGET__DrawFocusRect(WIDGET *pWidget, const GUI_RECT *pRect, int Dist);
+void      WIDGET__DrawHLine(WIDGET *pWidget, int y, int x0, int x1);
+void      WIDGET__DrawTriangle(WIDGET *pWidget, int x, int y, int Size, int Inc);
+void      WIDGET__DrawVLine(WIDGET *pWidget, int x, int y0, int y1);
+void      WIDGET__EFFECT_DrawDownRect(WIDGET *pWidget, GUI_RECT *pRect);
+void      WIDGET__EFFECT_DrawDown(WIDGET *pWidget);
+void      WIDGET__EFFECT_DrawUpRect(WIDGET *pWidget, GUI_RECT *pRect);
+void      WIDGET__FillRectEx(WIDGET *pWidget, const GUI_RECT *pRect);
+int       WIDGET__GetWindowSizeX(WM_HWIN hWin);
+GUI_COLOR WIDGET__GetBkColor(WM_HWIN hObj);
+int       WIDGET__GetXSize(const WIDGET *pWidget);
+int       WIDGET__GetYSize(const WIDGET *pWidget);
+void      WIDGET__GetClientRect(WIDGET *pWidget, GUI_RECT *pRect);
+void      WIDGET__GetInsideRect(WIDGET *pWidget, GUI_RECT *pRect);
+void      WIDGET__Init(WIDGET *pWidget, int Id, U16 State);
+void      WIDGET__RotateRect90(WIDGET *pWidget, GUI_RECT *pDest, const GUI_RECT *pRect);
+void      WIDGET__SetScrollState(WM_HWIN hWin, const WM_SCROLL_STATE *pVState, const WM_SCROLL_STATE *pState);
+void      WIDGET__FillStringInRect(const char *pText, const GUI_RECT *pFillRect, const GUI_RECT *pTextRectMax, const GUI_RECT *pTextRectAct);
 
 //
 // Function pointers for drawing streamed bitmaps
 //
-extern void (* GUI__pfDrawStreamedBitmap)  (const void * p, int x, int y);
-extern int  (* GUI__pfDrawStreamedBitmapEx)(GUI_GET_DATA_FUNC * pfGetData, const void * p, int x, int y);
+extern void (* GUI__pfDrawStreamedBitmap)(const void *p, int x, int y);
+extern int (* GUI__pfDrawStreamedBitmapEx)(GUI_GET_DATA_FUNC *pfGetData, const void *p, int x, int y);
 
 /*********************************************************************
 *
@@ -360,30 +367,30 @@ extern int  (* GUI__pfDrawStreamedBitmapEx)(GUI_GET_DATA_FUNC * pfGetData, const
 *
 **********************************************************************
 */
-void  WIDGET_SetState     (WM_HWIN hObj, int State);
-void  WIDGET_AndState     (WM_HWIN hObj, int State);
-void  WIDGET_OrState      (WM_HWIN hObj, int State);
-int   WIDGET_HandleActive (WM_HWIN hObj, WM_MESSAGE* pMsg);
-int   WIDGET_GetState     (WM_HWIN hObj);
-int   WIDGET_SetWidth     (WM_HWIN hObj, int Width);
-void  WIDGET_SetFocusable (WM_HWIN hObj, int State);
+void  WIDGET_SetState(WM_HWIN hObj, int State);
+void  WIDGET_AndState(WM_HWIN hObj, int State);
+void  WIDGET_OrState(WM_HWIN hObj, int State);
+int   WIDGET_HandleActive(WM_HWIN hObj, WM_MESSAGE *pMsg);
+int   WIDGET_GetState(WM_HWIN hObj);
+int   WIDGET_SetWidth(WM_HWIN hObj, int Width);
+void  WIDGET_SetFocusable(WM_HWIN hObj, int State);
 
 void  WIDGET_EFFECT_3D_DrawUp(void);
 
-const WIDGET_EFFECT* WIDGET_SetDefaultEffect(const WIDGET_EFFECT* pEffect);
+const WIDGET_EFFECT *WIDGET_SetDefaultEffect(const WIDGET_EFFECT *pEffect);
 
-void  WIDGET_SetEffect              (WM_HWIN hObj, const WIDGET_EFFECT* pEffect);
+void  WIDGET_SetEffect(WM_HWIN hObj, const WIDGET_EFFECT *pEffect);
 
-const WIDGET_EFFECT* WIDGET_GetDefaultEffect(void);
+const WIDGET_EFFECT *WIDGET_GetDefaultEffect(void);
 
-void WIDGET_EFFECT_3D_SetColor    (unsigned Index, GUI_COLOR Color);
-void WIDGET_EFFECT_3D1L_SetColor  (unsigned Index, GUI_COLOR Color);
-void WIDGET_EFFECT_3D2L_SetColor  (unsigned Index, GUI_COLOR Color);
+void WIDGET_EFFECT_3D_SetColor(unsigned Index, GUI_COLOR Color);
+void WIDGET_EFFECT_3D1L_SetColor(unsigned Index, GUI_COLOR Color);
+void WIDGET_EFFECT_3D2L_SetColor(unsigned Index, GUI_COLOR Color);
 void WIDGET_EFFECT_Simple_SetColor(unsigned Index, GUI_COLOR Color);
 
-GUI_COLOR WIDGET_EFFECT_3D_GetColor    (unsigned Index);
-GUI_COLOR WIDGET_EFFECT_3D1L_GetColor  (unsigned Index);
-GUI_COLOR WIDGET_EFFECT_3D2L_GetColor  (unsigned Index);
+GUI_COLOR WIDGET_EFFECT_3D_GetColor(unsigned Index);
+GUI_COLOR WIDGET_EFFECT_3D1L_GetColor(unsigned Index);
+GUI_COLOR WIDGET_EFFECT_3D2L_GetColor(unsigned Index);
 GUI_COLOR WIDGET_EFFECT_Simple_GetColor(unsigned Index);
 
 int WIDGET_EFFECT_3D_GetNumColors(void);
@@ -408,7 +415,7 @@ int WIDGET_EFFECT_Simple_GetNumColors(void);
 #endif /* GUI_WINSUPPORT */
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif   /* SLIDER_H */

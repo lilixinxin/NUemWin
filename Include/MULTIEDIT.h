@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -50,7 +50,7 @@ Purpose     : MULTIEDIT include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 #define MULTIEDIT_CF_READONLY        (1 << 0)
@@ -88,10 +88,10 @@ typedef WM_HMEM MULTIEDIT_HANDLE;
 *
 **********************************************************************
 */
-MULTIEDIT_HANDLE MULTIEDIT_Create        (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, int ExFlags, const char * pText, int MaxLen);
-MULTIEDIT_HANDLE MULTIEDIT_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int BufferSize, const char * pText);
-MULTIEDIT_HANDLE MULTIEDIT_CreateIndirect(const GUI_WIDGET_CREATE_INFO* pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
-MULTIEDIT_HANDLE MULTIEDIT_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int BufferSize, const char * pText, int NumExtraBytes);
+MULTIEDIT_HANDLE MULTIEDIT_Create(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, int ExFlags, const char *pText, int MaxLen);
+MULTIEDIT_HANDLE MULTIEDIT_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int BufferSize, const char *pText);
+MULTIEDIT_HANDLE MULTIEDIT_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
+MULTIEDIT_HANDLE MULTIEDIT_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int BufferSize, const char *pText, int NumExtraBytes);
 
 /*********************************************************************
 *
@@ -100,7 +100,7 @@ MULTIEDIT_HANDLE MULTIEDIT_CreateUser    (int x0, int y0, int xSize, int ySize, 
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void MULTIEDIT_Callback(WM_MESSAGE * pMsg);
+void MULTIEDIT_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -109,44 +109,44 @@ void MULTIEDIT_Callback(WM_MESSAGE * pMsg);
 **********************************************************************
 */
 
-int              MULTIEDIT_AddKey           (MULTIEDIT_HANDLE hObj, U16 Key);
-int              MULTIEDIT_AddText          (MULTIEDIT_HANDLE hObj, const char * s);
-void             MULTIEDIT_EnableBlink      (MULTIEDIT_HANDLE hObj, int Period, int OnOff);
-GUI_COLOR        MULTIEDIT_GetBkColor       (MULTIEDIT_HANDLE hObj, unsigned Index);
-int              MULTIEDIT_GetCursorCharPos (MULTIEDIT_HANDLE hObj);
-void             MULTIEDIT_GetCursorPixelPos(MULTIEDIT_HANDLE hObj, int * pxPos, int * pyPos);
-const GUI_FONT * MULTIEDIT_GetFont          (MULTIEDIT_HANDLE hObj);
-int              MULTIEDIT_GetNumChars      (MULTIEDIT_HANDLE hObj);
-void             MULTIEDIT_GetPrompt        (MULTIEDIT_HANDLE hObj, char* sDest, int MaxNumChars);
-void             MULTIEDIT_GetText          (MULTIEDIT_HANDLE hObj, char* sDest, int MaxNumChars);
-GUI_COLOR        MULTIEDIT_GetTextColor     (MULTIEDIT_HANDLE hObj, unsigned Index);
-int              MULTIEDIT_GetTextFromLine  (MULTIEDIT_HANDLE hObj, char * sDest, int MaxLen, unsigned CharPos, unsigned Line);
-int              MULTIEDIT_GetTextFromPos   (MULTIEDIT_HANDLE hObj, char * sDest, int MaxLen, int CharStart, int LineStart, int CharEnd, int LineEnd);
-int              MULTIEDIT_GetTextSize      (MULTIEDIT_HANDLE hObj);
-int              MULTIEDIT_GetUserData      (MULTIEDIT_HANDLE hObj, void * pDest, int NumBytes);
-void             MULTIEDIT_SetTextAlign     (MULTIEDIT_HANDLE hObj, int Align);
-void             MULTIEDIT_SetAutoScrollH   (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetAutoScrollV   (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetBkColor       (MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
-void             MULTIEDIT_SetCursorCharPos (MULTIEDIT_HANDLE hObj, int x, int y);       /* Not yet implemented */
+int              MULTIEDIT_AddKey(MULTIEDIT_HANDLE hObj, U16 Key);
+int              MULTIEDIT_AddText(MULTIEDIT_HANDLE hObj, const char *s);
+void             MULTIEDIT_EnableBlink(MULTIEDIT_HANDLE hObj, int Period, int OnOff);
+GUI_COLOR        MULTIEDIT_GetBkColor(MULTIEDIT_HANDLE hObj, unsigned Index);
+int              MULTIEDIT_GetCursorCharPos(MULTIEDIT_HANDLE hObj);
+void             MULTIEDIT_GetCursorPixelPos(MULTIEDIT_HANDLE hObj, int *pxPos, int *pyPos);
+const GUI_FONT *MULTIEDIT_GetFont(MULTIEDIT_HANDLE hObj);
+int              MULTIEDIT_GetNumChars(MULTIEDIT_HANDLE hObj);
+void             MULTIEDIT_GetPrompt(MULTIEDIT_HANDLE hObj, char *sDest, int MaxNumChars);
+void             MULTIEDIT_GetText(MULTIEDIT_HANDLE hObj, char *sDest, int MaxNumChars);
+GUI_COLOR        MULTIEDIT_GetTextColor(MULTIEDIT_HANDLE hObj, unsigned Index);
+int              MULTIEDIT_GetTextFromLine(MULTIEDIT_HANDLE hObj, char *sDest, int MaxLen, unsigned CharPos, unsigned Line);
+int              MULTIEDIT_GetTextFromPos(MULTIEDIT_HANDLE hObj, char *sDest, int MaxLen, int CharStart, int LineStart, int CharEnd, int LineEnd);
+int              MULTIEDIT_GetTextSize(MULTIEDIT_HANDLE hObj);
+int              MULTIEDIT_GetUserData(MULTIEDIT_HANDLE hObj, void *pDest, int NumBytes);
+void             MULTIEDIT_SetTextAlign(MULTIEDIT_HANDLE hObj, int Align);
+void             MULTIEDIT_SetAutoScrollH(MULTIEDIT_HANDLE hObj, int OnOff);
+void             MULTIEDIT_SetAutoScrollV(MULTIEDIT_HANDLE hObj, int OnOff);
+void             MULTIEDIT_SetBkColor(MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
+void             MULTIEDIT_SetCursorCharPos(MULTIEDIT_HANDLE hObj, int x, int y);        /* Not yet implemented */
 void             MULTIEDIT_SetCursorPixelPos(MULTIEDIT_HANDLE hObj, int x, int y);       /* Not yet implemented */
-void             MULTIEDIT_SetCursorOffset  (MULTIEDIT_HANDLE hObj, int Offset);
-void             MULTIEDIT_SetHBorder       (MULTIEDIT_HANDLE hObj, unsigned HBorder);
-void             MULTIEDIT_SetFocusable     (MULTIEDIT_HANDLE hObj, int State);
-void             MULTIEDIT_SetFont          (MULTIEDIT_HANDLE hObj, const GUI_FONT * pFont);
-void             MULTIEDIT_SetInsertMode    (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetBufferSize    (MULTIEDIT_HANDLE hObj, int BufferSize);
-void             MULTIEDIT_SetMaxNumChars   (MULTIEDIT_HANDLE hObj, unsigned MaxNumChars);
-void             MULTIEDIT_SetPrompt        (MULTIEDIT_HANDLE hObj, const char* sPrompt);
-void             MULTIEDIT_SetReadOnly      (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetPasswordMode  (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetText          (MULTIEDIT_HANDLE hObj, const char* s);
-void             MULTIEDIT_SetTextColor     (MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
-int              MULTIEDIT_SetUserData      (MULTIEDIT_HANDLE hObj, const void * pSrc, int NumBytes);
-void             MULTIEDIT_SetWrapNone      (MULTIEDIT_HANDLE hObj);
-void             MULTIEDIT_SetWrapChar      (MULTIEDIT_HANDLE hObj);
-void             MULTIEDIT_SetWrapWord      (MULTIEDIT_HANDLE hObj);
-int              MULTIEDIT_ShowCursor       (MULTIEDIT_HANDLE hObj, unsigned OnOff);
+void             MULTIEDIT_SetCursorOffset(MULTIEDIT_HANDLE hObj, int Offset);
+void             MULTIEDIT_SetHBorder(MULTIEDIT_HANDLE hObj, unsigned HBorder);
+void             MULTIEDIT_SetFocusable(MULTIEDIT_HANDLE hObj, int State);
+void             MULTIEDIT_SetFont(MULTIEDIT_HANDLE hObj, const GUI_FONT *pFont);
+void             MULTIEDIT_SetInsertMode(MULTIEDIT_HANDLE hObj, int OnOff);
+void             MULTIEDIT_SetBufferSize(MULTIEDIT_HANDLE hObj, int BufferSize);
+void             MULTIEDIT_SetMaxNumChars(MULTIEDIT_HANDLE hObj, unsigned MaxNumChars);
+void             MULTIEDIT_SetPrompt(MULTIEDIT_HANDLE hObj, const char *sPrompt);
+void             MULTIEDIT_SetReadOnly(MULTIEDIT_HANDLE hObj, int OnOff);
+void             MULTIEDIT_SetPasswordMode(MULTIEDIT_HANDLE hObj, int OnOff);
+void             MULTIEDIT_SetText(MULTIEDIT_HANDLE hObj, const char *s);
+void             MULTIEDIT_SetTextColor(MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
+int              MULTIEDIT_SetUserData(MULTIEDIT_HANDLE hObj, const void *pSrc, int NumBytes);
+void             MULTIEDIT_SetWrapNone(MULTIEDIT_HANDLE hObj);
+void             MULTIEDIT_SetWrapChar(MULTIEDIT_HANDLE hObj);
+void             MULTIEDIT_SetWrapWord(MULTIEDIT_HANDLE hObj);
+int              MULTIEDIT_ShowCursor(MULTIEDIT_HANDLE hObj, unsigned OnOff);
 
 #define MULTIEDIT_SetFocussable MULTIEDIT_SetFocusable
 
@@ -161,7 +161,7 @@ int              MULTIEDIT_ShowCursor       (MULTIEDIT_HANDLE hObj, unsigned OnO
 #define MULTIEDIT_GetStringSize           MULTIEDIT_GetTextSize
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

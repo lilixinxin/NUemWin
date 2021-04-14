@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -67,27 +67,30 @@ Purpose     : Internal header file
 *
 **********************************************************************
 */
-typedef struct {
-  WIDGET_DRAW_ITEM_FUNC * pfDrawSkin;
+typedef struct
+{
+    WIDGET_DRAW_ITEM_FUNC *pfDrawSkin;
 } PROGBAR_SKIN_PRIVATE;
 
-typedef struct {
-  const GUI_FONT * pFont;
-  GUI_COLOR aBarColor[2];
-  GUI_COLOR aTextColor[2];
-  PROGBAR_SKIN_PRIVATE SkinPrivate;
+typedef struct
+{
+    const GUI_FONT *pFont;
+    GUI_COLOR aBarColor[2];
+    GUI_COLOR aTextColor[2];
+    PROGBAR_SKIN_PRIVATE SkinPrivate;
 } PROGBAR_PROPS;
 
-typedef struct {
-  WIDGET Widget;
-  int v;
-  WM_HMEM hpText;
-  I16 XOff, YOff;
-  I16 TextAlign;
-  int Min, Max;
-  PROGBAR_PROPS Props;
-  WIDGET_SKIN const * pWidgetSkin;
-  U8 Flags;
+typedef struct
+{
+    WIDGET Widget;
+    int v;
+    WM_HMEM hpText;
+    I16 XOff, YOff;
+    I16 TextAlign;
+    int Min, Max;
+    PROGBAR_PROPS Props;
+    WIDGET_SKIN const *pWidgetSkin;
+    U8 Flags;
 } PROGBAR_Obj;
 
 /*********************************************************************
@@ -97,16 +100,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define PROGBAR_INIT_ID(p) p->Widget.DebugId = PROGBAR_ID
+    #define PROGBAR_INIT_ID(p) p->Widget.DebugId = PROGBAR_ID
 #else
-  #define PROGBAR_INIT_ID(p)
+    #define PROGBAR_INIT_ID(p)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  PROGBAR_Obj * PROGBAR_LockH(PROGBAR_Handle h);
-  #define PROGBAR_LOCK_H(h)   PROGBAR_LockH(h)
+    PROGBAR_Obj *PROGBAR_LockH(PROGBAR_Handle h);
+    #define PROGBAR_LOCK_H(h)   PROGBAR_LockH(h)
 #else
-  #define PROGBAR_LOCK_H(h)   (PROGBAR_Obj *)GUI_LOCK_H(h)
+    #define PROGBAR_LOCK_H(h)   (PROGBAR_Obj *)GUI_LOCK_H(h)
 #endif
 
 /*********************************************************************
@@ -120,7 +123,7 @@ extern PROGBAR_PROPS PROGBAR__DefaultProps;
 extern const WIDGET_SKIN PROGBAR__SkinClassic;
 extern       WIDGET_SKIN PROGBAR__Skin;
 
-extern WIDGET_SKIN const * PROGBAR__pSkinDefault;
+extern WIDGET_SKIN const *PROGBAR__pSkinDefault;
 
 /*********************************************************************
 *
@@ -128,9 +131,9 @@ extern WIDGET_SKIN const * PROGBAR__pSkinDefault;
 *
 **********************************************************************
 */
-char * PROGBAR__GetTextLocked(const PROGBAR_Obj * pObj);
-void   PROGBAR__GetTextRect  (const PROGBAR_Obj * pObj, GUI_RECT * pRect, const char * pText);
-int    PROGBAR__Value2Pos    (const PROGBAR_Obj * pObj, int v);
+char *PROGBAR__GetTextLocked(const PROGBAR_Obj *pObj);
+void   PROGBAR__GetTextRect(const PROGBAR_Obj *pObj, GUI_RECT *pRect, const char *pText);
+int    PROGBAR__Value2Pos(const PROGBAR_Obj *pObj, int v);
 
 #endif /* GUI_WINSUPPORT */
 #endif /* PROGBAR_PRIVATE_H */

@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -63,38 +63,41 @@ Purpose     : Private SPINBOX include
 *
 **********************************************************************
 */
-typedef struct {
-  WIDGET_DRAW_ITEM_FUNC * pfDrawSkin;
+typedef struct
+{
+    WIDGET_DRAW_ITEM_FUNC *pfDrawSkin;
 } SPINBOX_SKIN_PRIVATE;
 
-typedef struct {
-  GUI_COLOR            aButtonBkColor[3];    // Button background color for the states (disabled, pressed, unpressed).
-  GUI_COLOR            aButtonUpperColor[3]; // Upper color for the button states (disabled, pressed, unpressed).
-  GUI_COLOR            aButtonLowerColor[3]; // Lower color for the button states (disabled, pressed, unpressed).
-  GUI_COLOR            aButtonOuterColor[3]; // Outer color for the button states (disabled, pressed, unpressed).
-  GUI_COLOR            aTriangleColor[3];    // Color of the triangle for the button states (disabled, pressed, unpressed).
-  GUI_COLOR            aBkColor[2];          // Background color for the states (enabled, disabled).
-  GUI_COLOR            aTextColor[2];        // Text       color for the states (enabled, disabled).
-  I32                  Min;                  // Minimum allowed value.
-  I32                  Max;                  // Maximum allowed value.
-  U16                  Step;                 // Value will be increased/decreased by this amount when a button is clicked.
-  U16                  ButtonSize;           // Size of the button depending on the orientation.
-  U8                   Edge;                 // Buttons reside on the left or right edge of the widget.
-  U32                  PeriodStart;          // Period after auto increment starts (holding button)
-  U32                  PeriodTimer;          // Period between two increments after auto increment starts (holding button)
-  SPINBOX_SKIN_PRIVATE SkinPrivate;          // Structure containing a pointer to the used DrawSkin-function.
+typedef struct
+{
+    GUI_COLOR            aButtonBkColor[3];    // Button background color for the states (disabled, pressed, unpressed).
+    GUI_COLOR            aButtonUpperColor[3]; // Upper color for the button states (disabled, pressed, unpressed).
+    GUI_COLOR            aButtonLowerColor[3]; // Lower color for the button states (disabled, pressed, unpressed).
+    GUI_COLOR            aButtonOuterColor[3]; // Outer color for the button states (disabled, pressed, unpressed).
+    GUI_COLOR            aTriangleColor[3];    // Color of the triangle for the button states (disabled, pressed, unpressed).
+    GUI_COLOR            aBkColor[2];          // Background color for the states (enabled, disabled).
+    GUI_COLOR            aTextColor[2];        // Text       color for the states (enabled, disabled).
+    I32                  Min;                  // Minimum allowed value.
+    I32                  Max;                  // Maximum allowed value.
+    U16                  Step;                 // Value will be increased/decreased by this amount when a button is clicked.
+    U16                  ButtonSize;           // Size of the button depending on the orientation.
+    U8                   Edge;                 // Buttons reside on the left or right edge of the widget.
+    U32                  PeriodStart;          // Period after auto increment starts (holding button)
+    U32                  PeriodTimer;          // Period between two increments after auto increment starts (holding button)
+    SPINBOX_SKIN_PRIVATE SkinPrivate;          // Structure containing a pointer to the used DrawSkin-function.
 } SPINBOX_PROPS;
 
-typedef struct {
-  WIDGET              Widget;
-  SPINBOX_PROPS       Props;
-  const WIDGET_SKIN * pWidgetSkin;
-  EDIT_Handle         hEdit;
-  GUI_TIMER_HANDLE    hTimer;
-  I8                  TimerButton;
-  I8                  LastButton;
-  I8                  NoAction;
-  U8                  State;       // Pressed state
+typedef struct
+{
+    WIDGET              Widget;
+    SPINBOX_PROPS       Props;
+    const WIDGET_SKIN *pWidgetSkin;
+    EDIT_Handle         hEdit;
+    GUI_TIMER_HANDLE    hTimer;
+    I8                  TimerButton;
+    I8                  LastButton;
+    I8                  NoAction;
+    U8                  State;       // Pressed state
 } SPINBOX_OBJ;
 
 /*********************************************************************
@@ -104,16 +107,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define SPINBOX_INIT_ID(p) (p->Widget.DebugId = SPINBOX_ID)
+    #define SPINBOX_INIT_ID(p) (p->Widget.DebugId = SPINBOX_ID)
 #else
-  #define SPINBOX_INIT_ID(p)
+    #define SPINBOX_INIT_ID(p)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  SPINBOX_OBJ * SPINBOX_LockH(SPINBOX_Handle h);
-  #define SPINBOX_LOCK_H(h)   SPINBOX_LockH(h)
+    SPINBOX_OBJ *SPINBOX_LockH(SPINBOX_Handle h);
+    #define SPINBOX_LOCK_H(h)   SPINBOX_LockH(h)
 #else
-  #define SPINBOX_LOCK_H(h)   (SPINBOX_OBJ *)GUI_LOCK_H(h)
+    #define SPINBOX_LOCK_H(h)   (SPINBOX_OBJ *)GUI_LOCK_H(h)
 #endif
 
 #define SPINBOX_BUTTON_NONE     -1
@@ -128,12 +131,12 @@ typedef struct {
 *
 **********************************************************************
 */
-void SPINBOX__ApplyProps     (SPINBOX_Handle hObj, SPINBOX_SKINFLEX_PROPS * const * ppProps);
-void SPINBOX__DrawBk         (SPINBOX_Handle hObj, GUI_COLOR   Color);
-void SPINBOX__GetButtonRect  (SPINBOX_Handle hObj, GUI_RECT  * pButtonRect, U8  ButtonIndex);
-void SPINBOX__GetButtonRectEx(SPINBOX_Handle hObj, WIDGET_ITEM_DRAW_INFO * ItemInfo);
-int  SPINBOX__GetDefaultMax  (void);
-int  SPINBOX__GetDefaultMin  (void);
+void SPINBOX__ApplyProps(SPINBOX_Handle hObj, SPINBOX_SKINFLEX_PROPS *const *ppProps);
+void SPINBOX__DrawBk(SPINBOX_Handle hObj, GUI_COLOR   Color);
+void SPINBOX__GetButtonRect(SPINBOX_Handle hObj, GUI_RECT   *pButtonRect, U8  ButtonIndex);
+void SPINBOX__GetButtonRectEx(SPINBOX_Handle hObj, WIDGET_ITEM_DRAW_INFO *ItemInfo);
+int  SPINBOX__GetDefaultMax(void);
+int  SPINBOX__GetDefaultMin(void);
 
 /*********************************************************************
 *
@@ -150,7 +153,7 @@ int  SPINBOX__GetDefaultMin  (void);
 extern       SPINBOX_PROPS   SPINBOX__DefaultProps;
 extern const WIDGET_SKIN     SPINBOX__SkinClassic;
 extern       WIDGET_SKIN     SPINBOX__Skin;
-extern const WIDGET_SKIN   * SPINBOX__pSkinDefault;
+extern const WIDGET_SKIN    *SPINBOX__pSkinDefault;
 
 #endif  // GUI_WINSUPPORT
 #endif  // SPINBOX_PRIVATE_H

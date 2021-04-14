@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -54,41 +54,41 @@ Revision: $Rev: 9374 $
 #define U16   unsigned short
 #define I16   signed short
 #ifdef __x86_64__
-#define U32   unsigned
-#define I32   int
+    #define U32   unsigned
+    #define I32   int
 #else
-#define U32   unsigned long
-#define I32   signed long
+    #define U32   unsigned long
+    #define I32   signed long
 #endif
 
 #if defined(_WIN32) && !defined(__clang__) && !defined(__MINGW32__)
-  //
-  // Microsoft VC6 compiler related
-  //
-  #define U64   unsigned __int64
-  #define U128  unsigned __int128
-  #define I64   __int64
-  #define I128  __int128
-  #if _MSC_VER <= 1200
-    #define U64_C(x) x##UI64
-  #else
-    #define U64_C(x) x##ULL
-  #endif
+    //
+    // Microsoft VC6 compiler related
+    //
+    #define U64   unsigned __int64
+    #define U128  unsigned __int128
+    #define I64   __int64
+    #define I128  __int128
+    #if _MSC_VER <= 1200
+        #define U64_C(x) x##UI64
+    #else
+        #define U64_C(x) x##ULL
+    #endif
 #else
-  //
-  // C99 compliant compiler
-  //
-  #define U64   unsigned long long
-  #define I64   signed long long
-  #define U64_C(x) x##ULL
+    //
+    // C99 compliant compiler
+    //
+    #define U64   unsigned long long
+    #define I64   signed long long
+    #define U64_C(x) x##ULL
 #endif
 
 #ifndef PTR_ADDR
-  #if (defined(_WIN64) || defined(__LP64__))  // 64-bit symbols used by Visual Studio and GCC, maybe others as well.
-    #define PTR_ADDR  U64
-  #else
-    #define PTR_ADDR  U32
-  #endif
+    #if (defined(_WIN64) || defined(__LP64__))  // 64-bit symbols used by Visual Studio and GCC, maybe others as well.
+        #define PTR_ADDR  U64
+    #else
+        #define PTR_ADDR  U32
+    #endif
 #endif
 
 #endif                      // Avoid multiple inclusion

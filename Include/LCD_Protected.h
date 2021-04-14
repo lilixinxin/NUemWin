@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -58,17 +58,19 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 *       Data types
 */
-typedef struct {
-  LCD_COLOR * paColor;
-  I16         NumEntries;
+typedef struct
+{
+    LCD_COLOR *paColor;
+    I16         NumEntries;
 } LCD_LUT_INFO;
 
-typedef struct {
-  tLCDDEV_DrawPixel  * pfDrawPixel;
-  tLCDDEV_DrawHLine  * pfDrawHLine;
-  tLCDDEV_DrawVLine  * pfDrawVLine;
-  tLCDDEV_FillRect   * pfFillRect;
-  tLCDDEV_DrawBitmap * pfDrawBitmap;
+typedef struct
+{
+    tLCDDEV_DrawPixel   *pfDrawPixel;
+    tLCDDEV_DrawHLine   *pfDrawHLine;
+    tLCDDEV_DrawVLine   *pfDrawVLine;
+    tLCDDEV_FillRect    *pfFillRect;
+    tLCDDEV_DrawBitmap *pfDrawBitmap;
 } LCD_API_LIST;
 
 /*********************************************************************
@@ -76,32 +78,32 @@ typedef struct {
 *       External data
 */
 extern GUI_CONST_STORAGE U8 LCD_aMirror[256];
-extern LCD_PIXELINDEX * LCD__aConvTable;
+extern LCD_PIXELINDEX *LCD__aConvTable;
 
 /*********************************************************************
 *
 *       Misc functions
 */
-void LCD_UpdateColorIndices   (void);
+void LCD_UpdateColorIndices(void);
 int  LCD_PassingBitmapsAllowed(void);
-void LCD_EnableCursor         (int OnOff);
-void LCD_SelectLCD            (void);
+void LCD_EnableCursor(int OnOff);
+void LCD_SelectLCD(void);
 
 void LCD_DrawBitmap(int x0,    int y0,
                     int xsize, int ysize,
                     int xMul,  int yMul,
                     int BitsPerPixel,
                     int BytesPerLine,
-                    const U8 * pPixel,
-                    const LCD_PIXELINDEX * pTrans);
+                    const U8 *pPixel,
+                    const LCD_PIXELINDEX *pTrans);
 
 void LCD__DrawBitmap_1bpp(int x0,    int y0,
                           int xsize, int ysize,
                           int xMul,  int yMul,
                           int BitsPerPixel,
                           int BytesPerLine,
-                          const U8 * pPixel,
-                          const LCD_PIXELINDEX * pTrans,
+                          const U8 *pPixel,
+                          const LCD_PIXELINDEX *pTrans,
                           int OffData);
 
 /*********************************************************************

@@ -15,9 +15,10 @@ emWin is protected by  international copyright laws.  Knowledge of the
 source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
-The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwanfor the purposes  of  creating  libraries  for its 
+The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -46,8 +47,8 @@ Purpose     : Display driver configuration file
 #define XSIZE_PHYS 800
 #define YSIZE_PHYS 480
 
-#define LCD_XSIZE		XSIZE_PHYS
-#define LCD_YSIZE		YSIZE_PHYS
+#define LCD_XSIZE       XSIZE_PHYS
+#define LCD_YSIZE       YSIZE_PHYS
 
 #endif /* LCDCONF_H */
 

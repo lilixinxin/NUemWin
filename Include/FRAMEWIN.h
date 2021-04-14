@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -50,7 +50,7 @@ Purpose     : Frame window include
 #include "DIALOG_Type.h"      /* Req. for Create indirect data structure */
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 /*********************************************************************
@@ -64,7 +64,7 @@ Purpose     : Frame window include
 *       Configuration
 */
 #ifndef   FRAMEWIN_ALLOW_DRAG_ON_FRAME
-  #define FRAMEWIN_ALLOW_DRAG_ON_FRAME 1
+#define FRAMEWIN_ALLOW_DRAG_ON_FRAME 1
 #endif
 
 /*********************************************************************
@@ -123,15 +123,16 @@ Purpose     : Frame window include
 */
 typedef WM_HMEM FRAMEWIN_Handle;
 
-typedef struct {
-  GUI_COLOR aColorFrame[3];
-  GUI_COLOR aColorTitle[2];
-  int Radius;
-  int SpaceX;
-  int BorderSizeL;
-  int BorderSizeR;
-  int BorderSizeT;
-  int BorderSizeB;
+typedef struct
+{
+    GUI_COLOR aColorFrame[3];
+    GUI_COLOR aColorTitle[2];
+    int Radius;
+    int SpaceX;
+    int BorderSizeL;
+    int BorderSizeR;
+    int BorderSizeT;
+    int BorderSizeB;
 } FRAMEWIN_SKINFLEX_PROPS;
 
 /*********************************************************************
@@ -140,11 +141,11 @@ typedef struct {
 *
 **********************************************************************
 */
-FRAMEWIN_Handle FRAMEWIN_Create        (const char * pTitle, WM_CALLBACK * cb, int Flags, int x0, int y0, int xSize, int ySize);
-FRAMEWIN_Handle FRAMEWIN_CreateAsChild (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, const char * pText, WM_CALLBACK * cb, int Flags);
-FRAMEWIN_Handle FRAMEWIN_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char * pTitle, WM_CALLBACK * cb);
-FRAMEWIN_Handle FRAMEWIN_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char * pTitle, WM_CALLBACK * cb, int NumExtraBytes);
-FRAMEWIN_Handle FRAMEWIN_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
+FRAMEWIN_Handle FRAMEWIN_Create(const char *pTitle, WM_CALLBACK *cb, int Flags, int x0, int y0, int xSize, int ySize);
+FRAMEWIN_Handle FRAMEWIN_CreateAsChild(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, const char *pText, WM_CALLBACK *cb, int Flags);
+FRAMEWIN_Handle FRAMEWIN_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char *pTitle, WM_CALLBACK *cb);
+FRAMEWIN_Handle FRAMEWIN_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char *pTitle, WM_CALLBACK *cb, int NumExtraBytes);
+FRAMEWIN_Handle FRAMEWIN_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
 
 /*********************************************************************
 *
@@ -153,7 +154,7 @@ FRAMEWIN_Handle FRAMEWIN_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateIn
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void FRAMEWIN_Callback(WM_MESSAGE * pMsg);
+void FRAMEWIN_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -161,29 +162,29 @@ void FRAMEWIN_Callback(WM_MESSAGE * pMsg);
 *
 **********************************************************************
 */
-WM_HWIN FRAMEWIN_AddButton     (FRAMEWIN_Handle hObj, int Flags, int Off, int Id);
+WM_HWIN FRAMEWIN_AddButton(FRAMEWIN_Handle hObj, int Flags, int Off, int Id);
 WM_HWIN FRAMEWIN_AddCloseButton(FRAMEWIN_Handle hObj, int Flags, int Off);
-WM_HWIN FRAMEWIN_AddMaxButton  (FRAMEWIN_Handle hObj, int Flags, int Off);
-void    FRAMEWIN_AddMenu       (FRAMEWIN_Handle hObj, WM_HWIN hMenu);
-WM_HWIN FRAMEWIN_AddMinButton  (FRAMEWIN_Handle hObj, int Flags, int Off);
-void    FRAMEWIN_Minimize      (FRAMEWIN_Handle hObj);
-void    FRAMEWIN_Maximize      (FRAMEWIN_Handle hObj);
-void    FRAMEWIN_Restore       (FRAMEWIN_Handle hObj);
-void    FRAMEWIN_SetActive     (FRAMEWIN_Handle hObj, int State);
-void    FRAMEWIN_SetBarColor   (FRAMEWIN_Handle hObj, unsigned Index, GUI_COLOR Color);
-void    FRAMEWIN_SetBorderSize (FRAMEWIN_Handle hObj, unsigned Size);
+WM_HWIN FRAMEWIN_AddMaxButton(FRAMEWIN_Handle hObj, int Flags, int Off);
+void    FRAMEWIN_AddMenu(FRAMEWIN_Handle hObj, WM_HWIN hMenu);
+WM_HWIN FRAMEWIN_AddMinButton(FRAMEWIN_Handle hObj, int Flags, int Off);
+void    FRAMEWIN_Minimize(FRAMEWIN_Handle hObj);
+void    FRAMEWIN_Maximize(FRAMEWIN_Handle hObj);
+void    FRAMEWIN_Restore(FRAMEWIN_Handle hObj);
+void    FRAMEWIN_SetActive(FRAMEWIN_Handle hObj, int State);
+void    FRAMEWIN_SetBarColor(FRAMEWIN_Handle hObj, unsigned Index, GUI_COLOR Color);
+void    FRAMEWIN_SetBorderSize(FRAMEWIN_Handle hObj, unsigned Size);
 void    FRAMEWIN_SetClientColor(FRAMEWIN_Handle hObj, GUI_COLOR Color);
-void    FRAMEWIN_SetFont       (FRAMEWIN_Handle hObj, const GUI_FONT * pFont);
-void    FRAMEWIN_SetMoveable   (FRAMEWIN_Handle hObj, int State);
-void    FRAMEWIN_SetOwnerDraw  (FRAMEWIN_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawItem);
-void    FRAMEWIN_SetResizeable (FRAMEWIN_Handle hObj, int State);
-void    FRAMEWIN_SetText       (FRAMEWIN_Handle hObj, const char* s);
-void    FRAMEWIN_SetTextAlign  (FRAMEWIN_Handle hObj, int Align);
-void    FRAMEWIN_SetTextColor  (FRAMEWIN_Handle hObj, GUI_COLOR Color);
+void    FRAMEWIN_SetFont(FRAMEWIN_Handle hObj, const GUI_FONT *pFont);
+void    FRAMEWIN_SetMoveable(FRAMEWIN_Handle hObj, int State);
+void    FRAMEWIN_SetOwnerDraw(FRAMEWIN_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawItem);
+void    FRAMEWIN_SetResizeable(FRAMEWIN_Handle hObj, int State);
+void    FRAMEWIN_SetText(FRAMEWIN_Handle hObj, const char *s);
+void    FRAMEWIN_SetTextAlign(FRAMEWIN_Handle hObj, int Align);
+void    FRAMEWIN_SetTextColor(FRAMEWIN_Handle hObj, GUI_COLOR Color);
 void    FRAMEWIN_SetTextColorEx(FRAMEWIN_Handle hObj, unsigned Index, GUI_COLOR Color);
-void    FRAMEWIN_SetTitleVis   (FRAMEWIN_Handle hObj, int Show);
+void    FRAMEWIN_SetTitleVis(FRAMEWIN_Handle hObj, int Show);
 int     FRAMEWIN_SetTitleHeight(FRAMEWIN_Handle hObj, int Height);
-int     FRAMEWIN_SetUserData   (FRAMEWIN_Handle hObj, const void * pSrc, int NumBytes);
+int     FRAMEWIN_SetUserData(FRAMEWIN_Handle hObj, const void *pSrc, int NumBytes);
 
 /*********************************************************************
 *
@@ -191,13 +192,13 @@ int     FRAMEWIN_SetUserData   (FRAMEWIN_Handle hObj, const void * pSrc, int Num
 *
 **********************************************************************
 */
-void FRAMEWIN_GetSkinFlexProps     (FRAMEWIN_SKINFLEX_PROPS * pProps, int Index);
-void FRAMEWIN_SetSkinClassic       (FRAMEWIN_Handle hObj);
-void FRAMEWIN_SetSkin              (FRAMEWIN_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
-int  FRAMEWIN_DrawSkinFlex         (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-void FRAMEWIN_SetSkinFlexProps     (const FRAMEWIN_SKINFLEX_PROPS * pProps, int Index);
+void FRAMEWIN_GetSkinFlexProps(FRAMEWIN_SKINFLEX_PROPS *pProps, int Index);
+void FRAMEWIN_SetSkinClassic(FRAMEWIN_Handle hObj);
+void FRAMEWIN_SetSkin(FRAMEWIN_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
+int  FRAMEWIN_DrawSkinFlex(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+void FRAMEWIN_SetSkinFlexProps(const FRAMEWIN_SKINFLEX_PROPS *pProps, int Index);
 void FRAMEWIN_SetDefaultSkinClassic(void);
-WIDGET_DRAW_ITEM_FUNC * FRAMEWIN_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
+WIDGET_DRAW_ITEM_FUNC *FRAMEWIN_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
 
 #define FRAMEWIN_SKIN_FLEX    FRAMEWIN_DrawSkinFlex
 
@@ -207,18 +208,18 @@ WIDGET_DRAW_ITEM_FUNC * FRAMEWIN_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC * pfDrawSk
 *
 **********************************************************************
 */
-const GUI_FONT * FRAMEWIN_GetFont(FRAMEWIN_Handle hObj);
+const GUI_FONT *FRAMEWIN_GetFont(FRAMEWIN_Handle hObj);
 
-int       FRAMEWIN_GetActive      (FRAMEWIN_Handle hObj);
-int       FRAMEWIN_GetTitleHeight (FRAMEWIN_Handle hObj);
-GUI_COLOR FRAMEWIN_GetBarColor    (FRAMEWIN_Handle hObj, unsigned Index);
-int       FRAMEWIN_GetBorderSize  (FRAMEWIN_Handle hObj);
+int       FRAMEWIN_GetActive(FRAMEWIN_Handle hObj);
+int       FRAMEWIN_GetTitleHeight(FRAMEWIN_Handle hObj);
+GUI_COLOR FRAMEWIN_GetBarColor(FRAMEWIN_Handle hObj, unsigned Index);
+int       FRAMEWIN_GetBorderSize(FRAMEWIN_Handle hObj);
 int       FRAMEWIN_GetBorderSizeEx(FRAMEWIN_Handle hObj, unsigned Edge);
-void      FRAMEWIN_GetText        (FRAMEWIN_Handle hObj, char * pBuffer, int MaxLen);
-int       FRAMEWIN_GetTextAlign   (FRAMEWIN_Handle hObj);
-int       FRAMEWIN_GetUserData    (FRAMEWIN_Handle hObj, void * pDest, int NumBytes);
-int       FRAMEWIN_IsMinimized    (FRAMEWIN_Handle hObj);
-int       FRAMEWIN_IsMaximized    (FRAMEWIN_Handle hObj);
+void      FRAMEWIN_GetText(FRAMEWIN_Handle hObj, char *pBuffer, int MaxLen);
+int       FRAMEWIN_GetTextAlign(FRAMEWIN_Handle hObj);
+int       FRAMEWIN_GetUserData(FRAMEWIN_Handle hObj, void *pDest, int NumBytes);
+int       FRAMEWIN_IsMinimized(FRAMEWIN_Handle hObj);
+int       FRAMEWIN_IsMaximized(FRAMEWIN_Handle hObj);
 
 /*********************************************************************
 *
@@ -226,20 +227,20 @@ int       FRAMEWIN_IsMaximized    (FRAMEWIN_Handle hObj);
 *
 **********************************************************************
 */
-GUI_COLOR        FRAMEWIN_GetDefaultBarColor   (unsigned Index);
-int              FRAMEWIN_GetDefaultBorderSize (void);
+GUI_COLOR        FRAMEWIN_GetDefaultBarColor(unsigned Index);
+int              FRAMEWIN_GetDefaultBorderSize(void);
 int              FRAMEWIN_GetDefaultTitleHeight(void);
 GUI_COLOR        FRAMEWIN_GetDefaultClientColor(void);
-const GUI_FONT * FRAMEWIN_GetDefaultFont       (void);
-GUI_COLOR        FRAMEWIN_GetDefaultTextColor  (unsigned Index);
-int              FRAMEWIN_OwnerDraw            (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-void             FRAMEWIN_SetDefaultBarColor   (unsigned Index, GUI_COLOR Color);
-void             FRAMEWIN_SetDefaultBorderSize (int DefaultBorderSize);
+const GUI_FONT *FRAMEWIN_GetDefaultFont(void);
+GUI_COLOR        FRAMEWIN_GetDefaultTextColor(unsigned Index);
+int              FRAMEWIN_OwnerDraw(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+void             FRAMEWIN_SetDefaultBarColor(unsigned Index, GUI_COLOR Color);
+void             FRAMEWIN_SetDefaultBorderSize(int DefaultBorderSize);
 void             FRAMEWIN_SetDefaultTitleHeight(int DefaultTitleHeight);
 void             FRAMEWIN_SetDefaultClientColor(GUI_COLOR Color);
-void             FRAMEWIN_SetDefaultFont       (const GUI_FONT * pFont);
-int              FRAMEWIN_SetDefaultTextAlign  (int TextAlign);
-void             FRAMEWIN_SetDefaultTextColor  (unsigned Index, GUI_COLOR Color);
+void             FRAMEWIN_SetDefaultFont(const GUI_FONT *pFont);
+int              FRAMEWIN_SetDefaultTextAlign(int TextAlign);
+void             FRAMEWIN_SetDefaultTextColor(unsigned Index, GUI_COLOR Color);
 
 /*********************************************************************
 *
@@ -249,13 +250,13 @@ void             FRAMEWIN_SetDefaultTextColor  (unsigned Index, GUI_COLOR Color)
 */
 #define         FRAMEWIN_SetDefaultCaptionSize(Height)       FRAMEWIN_SetDefaultTitleHeight(Height)
 #define         FRAMEWIN_GetDefaultCaptionSize()             FRAMEWIN_GetDefaultTitleHeight()
-#define         FRAMEWIN_CreateButton(hObj, Flags, Off, Id)  FRAMEWIN_AddButton(hObj, Flags, Off, Id) 
+#define         FRAMEWIN_CreateButton(hObj, Flags, Off, Id)  FRAMEWIN_AddButton(hObj, Flags, Off, Id)
 #define         FRAMEWIN_CreateCloseButton(hObj, Flags, Off) FRAMEWIN_AddCloseButton(hObj, Flags, Off)
-#define         FRAMEWIN_CreateMaxButton(hObj, Flags, Off)   FRAMEWIN_AddMaxButton(hObj, Flags, Off)  
-#define         FRAMEWIN_CreateMinButton(hObj, Flags, Off)   FRAMEWIN_AddMinButton(hObj, Flags, Off)  
+#define         FRAMEWIN_CreateMaxButton(hObj, Flags, Off)   FRAMEWIN_AddMaxButton(hObj, Flags, Off)
+#define         FRAMEWIN_CreateMinButton(hObj, Flags, Off)   FRAMEWIN_AddMinButton(hObj, Flags, Off)
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

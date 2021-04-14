@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,7 +51,7 @@ Purpose     : TREEVIEW include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 /*********************************************************************
@@ -113,35 +113,37 @@ Purpose     : TREEVIEW include
 typedef WM_HMEM TREEVIEW_Handle;
 typedef WM_HMEM TREEVIEW_ITEM_Handle;
 
-typedef struct {
-  int IsNode;
-  int IsExpanded;
-  int HasLines;
-  int HasRowSelect;
-  int Level;
+typedef struct
+{
+    int IsNode;
+    int IsExpanded;
+    int HasLines;
+    int HasRowSelect;
+    int Level;
 } TREEVIEW_ITEM_INFO;
 
-typedef struct {
-  GUI_COLOR ColorBk;
-  GUI_COLOR ColorText;
-  GUI_COLOR ColorTextBk;
-  GUI_COLOR ColorLines;
-  GUI_RECT rText;
-  TREEVIEW_ITEM_Handle hItem;
-  const GUI_FONT * pFont;
-  char * pText;
-  U8 NumLines;
-  I16 ax0[3];
-  I16 ay0[3];
-  I16 ax1[3];
-  I16 ay1[3];
-  U8 NumConnectors;
-  I16 axc[16];
-  const GUI_BITMAP * pBmPM;
-  const GUI_BITMAP * pBmOCL;
-  I16 xPosPM, xPosOCL;
-  U8 IndexPM;
-  U8 IndexOCL;
+typedef struct
+{
+    GUI_COLOR ColorBk;
+    GUI_COLOR ColorText;
+    GUI_COLOR ColorTextBk;
+    GUI_COLOR ColorLines;
+    GUI_RECT rText;
+    TREEVIEW_ITEM_Handle hItem;
+    const GUI_FONT *pFont;
+    char *pText;
+    U8 NumLines;
+    I16 ax0[3];
+    I16 ay0[3];
+    I16 ax1[3];
+    I16 ay1[3];
+    U8 NumConnectors;
+    I16 axc[16];
+    const GUI_BITMAP *pBmPM;
+    const GUI_BITMAP *pBmOCL;
+    I16 xPosPM, xPosOCL;
+    U8 IndexPM;
+    U8 IndexOCL;
 } TREEVIEW_ITEM_DRAW_INFO;
 
 /*********************************************************************
@@ -150,9 +152,9 @@ typedef struct {
 *
 **********************************************************************
 */
-TREEVIEW_Handle      TREEVIEW_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
-TREEVIEW_Handle      TREEVIEW_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
-TREEVIEW_Handle      TREEVIEW_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
+TREEVIEW_Handle      TREEVIEW_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
+TREEVIEW_Handle      TREEVIEW_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
+TREEVIEW_Handle      TREEVIEW_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
 
 /*********************************************************************
 *
@@ -161,7 +163,7 @@ TREEVIEW_Handle      TREEVIEW_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCre
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void TREEVIEW_Callback(WM_MESSAGE * pMsg);
+void TREEVIEW_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -169,30 +171,30 @@ void TREEVIEW_Callback(WM_MESSAGE * pMsg);
 *
 **********************************************************************
 */
-int                  TREEVIEW_AttachItem     (TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem, TREEVIEW_ITEM_Handle hItemAt, int Position);
-void                 TREEVIEW_DecSel         (TREEVIEW_Handle hObj);
-TREEVIEW_ITEM_Handle TREEVIEW_GetItem        (TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem, int Flags);
-TREEVIEW_ITEM_Handle TREEVIEW_GetSel         (TREEVIEW_Handle hObj);
-int                  TREEVIEW_GetUserData    (TREEVIEW_Handle hObj, void * pDest, int NumBytes);
-void                 TREEVIEW_IncSel         (TREEVIEW_Handle hObj);
-TREEVIEW_ITEM_Handle TREEVIEW_InsertItem     (TREEVIEW_Handle hObj, int IsNode, TREEVIEW_ITEM_Handle hItemPrev, int Position, const char * s);
-int                  TREEVIEW_OwnerDraw      (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-void                 TREEVIEW_ScrollToSel    (TREEVIEW_Handle hObj);
-void                 TREEVIEW_SetAutoScrollH (TREEVIEW_Handle hObj, int State);
-void                 TREEVIEW_SetAutoScrollV (TREEVIEW_Handle hObj, int State);
+int                  TREEVIEW_AttachItem(TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem, TREEVIEW_ITEM_Handle hItemAt, int Position);
+void                 TREEVIEW_DecSel(TREEVIEW_Handle hObj);
+TREEVIEW_ITEM_Handle TREEVIEW_GetItem(TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem, int Flags);
+TREEVIEW_ITEM_Handle TREEVIEW_GetSel(TREEVIEW_Handle hObj);
+int                  TREEVIEW_GetUserData(TREEVIEW_Handle hObj, void *pDest, int NumBytes);
+void                 TREEVIEW_IncSel(TREEVIEW_Handle hObj);
+TREEVIEW_ITEM_Handle TREEVIEW_InsertItem(TREEVIEW_Handle hObj, int IsNode, TREEVIEW_ITEM_Handle hItemPrev, int Position, const char *s);
+int                  TREEVIEW_OwnerDraw(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+void                 TREEVIEW_ScrollToSel(TREEVIEW_Handle hObj);
+void                 TREEVIEW_SetAutoScrollH(TREEVIEW_Handle hObj, int State);
+void                 TREEVIEW_SetAutoScrollV(TREEVIEW_Handle hObj, int State);
 void                 TREEVIEW_SetBitmapOffset(TREEVIEW_Handle hObj, int Index, int xOff, int yOff);
-void                 TREEVIEW_SetBkColor     (TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
-void                 TREEVIEW_SetFont        (TREEVIEW_Handle hObj, const GUI_FONT * pFont);
-void                 TREEVIEW_SetHasLines    (TREEVIEW_Handle hObj, int State);
-void                 TREEVIEW_SetImage       (TREEVIEW_Handle hObj, int Index, const GUI_BITMAP * pBitmap);
-int                  TREEVIEW_SetIndent      (TREEVIEW_Handle hObj, int Indent);
-void                 TREEVIEW_SetLineColor   (TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
-void                 TREEVIEW_SetOwnerDraw   (TREEVIEW_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawItem);
-void                 TREEVIEW_SetSel         (TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_SetSelMode     (TREEVIEW_Handle hObj, int Mode);
-void                 TREEVIEW_SetTextColor   (TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
-int                  TREEVIEW_SetTextIndent  (TREEVIEW_Handle hObj, int TextIndent);
-int                  TREEVIEW_SetUserData    (TREEVIEW_Handle hObj, const void * pSrc, int NumBytes);
+void                 TREEVIEW_SetBkColor(TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
+void                 TREEVIEW_SetFont(TREEVIEW_Handle hObj, const GUI_FONT *pFont);
+void                 TREEVIEW_SetHasLines(TREEVIEW_Handle hObj, int State);
+void                 TREEVIEW_SetImage(TREEVIEW_Handle hObj, int Index, const GUI_BITMAP *pBitmap);
+int                  TREEVIEW_SetIndent(TREEVIEW_Handle hObj, int Indent);
+void                 TREEVIEW_SetLineColor(TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
+void                 TREEVIEW_SetOwnerDraw(TREEVIEW_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawItem);
+void                 TREEVIEW_SetSel(TREEVIEW_Handle hObj, TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_SetSelMode(TREEVIEW_Handle hObj, int Mode);
+void                 TREEVIEW_SetTextColor(TREEVIEW_Handle hObj, int Index, GUI_COLOR Color);
+int                  TREEVIEW_SetTextIndent(TREEVIEW_Handle hObj, int TextIndent);
+int                  TREEVIEW_SetUserData(TREEVIEW_Handle hObj, const void *pSrc, int NumBytes);
 
 
 /*********************************************************************
@@ -201,18 +203,18 @@ int                  TREEVIEW_SetUserData    (TREEVIEW_Handle hObj, const void *
 *
 **********************************************************************
 */
-void                 TREEVIEW_ITEM_Collapse   (TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_ITEM_Collapse(TREEVIEW_ITEM_Handle hItem);
 void                 TREEVIEW_ITEM_CollapseAll(TREEVIEW_ITEM_Handle hItem);
-TREEVIEW_ITEM_Handle TREEVIEW_ITEM_Create     (int IsNode, const char * s, U32 UserData);
-void                 TREEVIEW_ITEM_Delete     (TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_ITEM_Detach     (TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_ITEM_Expand     (TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_ITEM_ExpandAll  (TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_ITEM_GetInfo    (TREEVIEW_ITEM_Handle hItem, TREEVIEW_ITEM_INFO * pInfo);
-void                 TREEVIEW_ITEM_GetText    (TREEVIEW_ITEM_Handle hItem, U8 * pBuffer, int MaxNumBytes);
+TREEVIEW_ITEM_Handle TREEVIEW_ITEM_Create(int IsNode, const char *s, U32 UserData);
+void                 TREEVIEW_ITEM_Delete(TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_ITEM_Detach(TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_ITEM_Expand(TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_ITEM_ExpandAll(TREEVIEW_ITEM_Handle hItem);
+void                 TREEVIEW_ITEM_GetInfo(TREEVIEW_ITEM_Handle hItem, TREEVIEW_ITEM_INFO *pInfo);
+void                 TREEVIEW_ITEM_GetText(TREEVIEW_ITEM_Handle hItem, U8 *pBuffer, int MaxNumBytes);
 U32                  TREEVIEW_ITEM_GetUserData(TREEVIEW_ITEM_Handle hItem);
-void                 TREEVIEW_ITEM_SetImage   (TREEVIEW_ITEM_Handle hItem, int Index, const GUI_BITMAP * pBitmap);
-TREEVIEW_ITEM_Handle TREEVIEW_ITEM_SetText    (TREEVIEW_ITEM_Handle hItem, const char * s);
+void                 TREEVIEW_ITEM_SetImage(TREEVIEW_ITEM_Handle hItem, int Index, const GUI_BITMAP *pBitmap);
+TREEVIEW_ITEM_Handle TREEVIEW_ITEM_SetText(TREEVIEW_ITEM_Handle hItem, const char *s);
 void                 TREEVIEW_ITEM_SetUserData(TREEVIEW_ITEM_Handle hItem, U32 UserData);
 
 /*********************************************************************
@@ -221,17 +223,17 @@ void                 TREEVIEW_ITEM_SetUserData(TREEVIEW_ITEM_Handle hItem, U32 U
 *
 **********************************************************************
 */
-GUI_COLOR        TREEVIEW_GetDefaultBkColor  (int Index);
-const GUI_FONT * TREEVIEW_GetDefaultFont     (void);
+GUI_COLOR        TREEVIEW_GetDefaultBkColor(int Index);
+const GUI_FONT *TREEVIEW_GetDefaultFont(void);
 GUI_COLOR        TREEVIEW_GetDefaultLineColor(int Index);
 GUI_COLOR        TREEVIEW_GetDefaultTextColor(int Index);
-void             TREEVIEW_SetDefaultBkColor  (int Index, GUI_COLOR Color);
-void             TREEVIEW_SetDefaultFont     (const GUI_FONT * pFont);
+void             TREEVIEW_SetDefaultBkColor(int Index, GUI_COLOR Color);
+void             TREEVIEW_SetDefaultFont(const GUI_FONT *pFont);
 void             TREEVIEW_SetDefaultLineColor(int Index, GUI_COLOR Color);
 void             TREEVIEW_SetDefaultTextColor(int Index, GUI_COLOR Color);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

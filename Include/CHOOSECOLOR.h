@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -73,26 +73,28 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 *       CHOOSECOLOR_PROPS
 */
-typedef struct {
-  unsigned  aBorder[2];
-  unsigned  aSpace[2];
-  unsigned  aButtonSize[2];
-  GUI_COLOR aColor[2];
+typedef struct
+{
+    unsigned  aBorder[2];
+    unsigned  aSpace[2];
+    unsigned  aButtonSize[2];
+    GUI_COLOR aColor[2];
 } CHOOSECOLOR_PROPS;
 
 /*********************************************************************
 *
 *       CHOOSECOLOR_CONTEXT
 */
-typedef struct {
-  U32               LastColor;
-  const GUI_COLOR * pColor;
-  unsigned          NumColors;
-  unsigned          NumColorsPerLine;
-  int               SelOld;
-  int               Sel;
-  WM_HWIN           hParent;
-  CHOOSECOLOR_PROPS Props;
+typedef struct
+{
+    U32               LastColor;
+    const GUI_COLOR *pColor;
+    unsigned          NumColors;
+    unsigned          NumColorsPerLine;
+    int               SelOld;
+    int               Sel;
+    WM_HWIN           hParent;
+    CHOOSECOLOR_PROPS Props;
 } CHOOSECOLOR_CONTEXT;
 
 /*********************************************************************
@@ -106,19 +108,19 @@ WM_HWIN CHOOSECOLOR_Create(WM_HWIN           hParent,
                            int               yPos,
                            int               xSize,
                            int               ySize,
-                           const GUI_COLOR * pColor,
+                           const GUI_COLOR *pColor,
                            unsigned          NumColors,
                            unsigned          NumColorsPerLine,
                            int               Sel,
-                           const char      * sCaption,
+                           const char       *sCaption,
                            int               Flags);
 
 int  CHOOSECOLOR_GetSel(WM_HWIN hObj);
 void CHOOSECOLOR_SetSel(WM_HWIN hObj, int Sel);
 
-void CHOOSECOLOR_SetDefaultColor     (unsigned Index, GUI_COLOR Color);
-void CHOOSECOLOR_SetDefaultSpace     (unsigned Index, unsigned Space);
-void CHOOSECOLOR_SetDefaultBorder    (unsigned Index, unsigned Border);
+void CHOOSECOLOR_SetDefaultColor(unsigned Index, GUI_COLOR Color);
+void CHOOSECOLOR_SetDefaultSpace(unsigned Index, unsigned Space);
+void CHOOSECOLOR_SetDefaultBorder(unsigned Index, unsigned Border);
 void CHOOSECOLOR_SetDefaultButtonSize(unsigned Index, unsigned ButtonSize);
 
 /*********************************************************************
@@ -128,10 +130,10 @@ void CHOOSECOLOR_SetDefaultButtonSize(unsigned Index, unsigned ButtonSize);
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void CHOOSECOLOR_Callback(WM_MESSAGE * pMsg);
+void CHOOSECOLOR_Callback(WM_MESSAGE *pMsg);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif /* GUI_WINSUPPORT */

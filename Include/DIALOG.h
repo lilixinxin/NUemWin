@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -79,27 +79,27 @@ Purpose     : Dialog box include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 /*********************************************************************
 *
 *       WINDOW API
 */
-WM_HWIN   WINDOW_CreateEx         (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, WM_CALLBACK * cb);
-WM_HWIN   WINDOW_CreateUser       (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, WM_CALLBACK * cb, int NumExtraBytes);
-WM_HWIN   WINDOW_CreateIndirect   (const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
-GUI_COLOR WINDOW_GetBkColor       (WM_HWIN hObj);
+WM_HWIN   WINDOW_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, WM_CALLBACK *cb);
+WM_HWIN   WINDOW_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, WM_CALLBACK *cb, int NumExtraBytes);
+WM_HWIN   WINDOW_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
+GUI_COLOR WINDOW_GetBkColor(WM_HWIN hObj);
 GUI_COLOR WINDOW_GetDefaultBkColor(void);
-int       WINDOW_GetUserData      (WM_HWIN hObj, void * pDest, int NumBytes);
-void      WINDOW_SetBkColor       (WM_HWIN hObj, GUI_COLOR Color);
+int       WINDOW_GetUserData(WM_HWIN hObj, void *pDest, int NumBytes);
+void      WINDOW_SetBkColor(WM_HWIN hObj, GUI_COLOR Color);
 void      WINDOW_SetDefaultBkColor(GUI_COLOR Color);
-int       WINDOW_SetUserData      (WM_HWIN hObj, const void * pSrc, int NumBytes);
+int       WINDOW_SetUserData(WM_HWIN hObj, const void *pSrc, int NumBytes);
 
-void WINDOW_Callback(WM_MESSAGE * pMsg);
+void WINDOW_Callback(WM_MESSAGE *pMsg);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

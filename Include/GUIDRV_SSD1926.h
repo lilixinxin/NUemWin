@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -52,13 +52,14 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 *       Configuration structure
 */
-typedef struct {
-  //
-  // Driver specific configuration items
-  //
-  int FirstSEG;
-  int FirstCOM;
-  int UseCache;
+typedef struct
+{
+    //
+    // Driver specific configuration items
+    //
+    int FirstSEG;
+    int FirstCOM;
+    int UseCache;
 } CONFIG_SSD1926;
 
 /*********************************************************************
@@ -82,25 +83,25 @@ extern const GUI_DEVICE_API GUIDRV_SSD1926_OSXY_8_API;
 //
 #if defined(WIN32) && !defined(LCD_SIMCONTROLLER)
 
-  #define GUIDRV_SSD1926_8       &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OY_8    &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OX_8    &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OXY_8   &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OS_8    &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OSY_8   &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OSX_8   &GUIDRV_Win_API
-  #define GUIDRV_SSD1926_OSXY_8  &GUIDRV_Win_API
+#define GUIDRV_SSD1926_8       &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OY_8    &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OX_8    &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OXY_8   &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OS_8    &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OSY_8   &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OSX_8   &GUIDRV_Win_API
+#define GUIDRV_SSD1926_OSXY_8  &GUIDRV_Win_API
 
 #else
 
-  #define GUIDRV_SSD1926_8       &GUIDRV_SSD1926_8_API
-  #define GUIDRV_SSD1926_OY_8    &GUIDRV_SSD1926_OY_8_API
-  #define GUIDRV_SSD1926_OX_8    &GUIDRV_SSD1926_OX_8_API
-  #define GUIDRV_SSD1926_OXY_8   &GUIDRV_SSD1926_OXY_8_API
-  #define GUIDRV_SSD1926_OS_8    &GUIDRV_SSD1926_OS_8_API
-  #define GUIDRV_SSD1926_OSY_8   &GUIDRV_SSD1926_OSY_8_API
-  #define GUIDRV_SSD1926_OSX_8   &GUIDRV_SSD1926_OSX_8_API
-  #define GUIDRV_SSD1926_OSXY_8  &GUIDRV_SSD1926_OSXY_8_API
+#define GUIDRV_SSD1926_8       &GUIDRV_SSD1926_8_API
+#define GUIDRV_SSD1926_OY_8    &GUIDRV_SSD1926_OY_8_API
+#define GUIDRV_SSD1926_OX_8    &GUIDRV_SSD1926_OX_8_API
+#define GUIDRV_SSD1926_OXY_8   &GUIDRV_SSD1926_OXY_8_API
+#define GUIDRV_SSD1926_OS_8    &GUIDRV_SSD1926_OS_8_API
+#define GUIDRV_SSD1926_OSY_8   &GUIDRV_SSD1926_OSY_8_API
+#define GUIDRV_SSD1926_OSX_8   &GUIDRV_SSD1926_OSX_8_API
+#define GUIDRV_SSD1926_OSXY_8  &GUIDRV_SSD1926_OSXY_8_API
 
 #endif
 
@@ -108,8 +109,8 @@ extern const GUI_DEVICE_API GUIDRV_SSD1926_OSXY_8_API;
 *
 *       Public routines
 */
-void GUIDRV_SSD1926_Config  (GUI_DEVICE * pDevice, CONFIG_SSD1926 * pConfig);
-void GUIDRV_SSD1926_SetBus16(GUI_DEVICE * pDevice, GUI_PORT_API * pHW_API);
+void GUIDRV_SSD1926_Config(GUI_DEVICE *pDevice, CONFIG_SSD1926 *pConfig);
+void GUIDRV_SSD1926_SetBus16(GUI_DEVICE *pDevice, GUI_PORT_API *pHW_API);
 
 #if defined(__cplusplus)
 }

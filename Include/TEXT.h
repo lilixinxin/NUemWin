@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,7 +51,7 @@ Purpose     : TEXT include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 /************************************************************
@@ -89,11 +89,11 @@ typedef WM_HMEM TEXT_Handle;
 *
 **********************************************************************
 */
-TEXT_Handle TEXT_Create        (int x0, int y0, int xSize, int ySize, int Id, int Flags, const char * s, int Align);
-TEXT_Handle TEXT_CreateAsChild (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, const char * s, int Align);
-TEXT_Handle TEXT_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char * pText);
-TEXT_Handle TEXT_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char * pText, int NumExtraBytes);
-TEXT_Handle TEXT_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
+TEXT_Handle TEXT_Create(int x0, int y0, int xSize, int ySize, int Id, int Flags, const char *s, int Align);
+TEXT_Handle TEXT_CreateAsChild(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, const char *s, int Align);
+TEXT_Handle TEXT_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char *pText);
+TEXT_Handle TEXT_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, const char *pText, int NumExtraBytes);
+TEXT_Handle TEXT_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
 
 /*********************************************************************
 *
@@ -102,7 +102,7 @@ TEXT_Handle TEXT_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_H
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void TEXT_Callback(WM_MESSAGE * pMsg);
+void TEXT_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -113,23 +113,23 @@ void TEXT_Callback(WM_MESSAGE * pMsg);
 
 /* Methods changing properties */
 
-GUI_COLOR        TEXT_GetBkColor   (TEXT_Handle hObj); 
-const GUI_FONT * TEXT_GetFont      (TEXT_Handle hObj);
-int              TEXT_GetNumLines  (TEXT_Handle hObj);
-int              TEXT_GetText      (TEXT_Handle hObj, char * pDest, U32 BufferSize);
-int              TEXT_GetTextAlign (TEXT_Handle hObj);
-GUI_COLOR        TEXT_GetTextColor (TEXT_Handle hObj);
-int              TEXT_GetUserData  (TEXT_Handle hObj, void * pDest, int NumBytes);
-GUI_WRAPMODE     TEXT_GetWrapMode  (TEXT_Handle hObj);
-void             TEXT_SetBkColor   (TEXT_Handle hObj, GUI_COLOR Color);
-void             TEXT_SetFont      (TEXT_Handle hObj, const GUI_FONT * pFont);
-int              TEXT_SetDec       (TEXT_Handle hObj, I32 v, U8 Len, U8 Shift, U8 Signed, U8 Space);
-int              TEXT_SetText      (TEXT_Handle hObj, const char * s);
-void             TEXT_SetTextAlign (TEXT_Handle hObj, int Align);
-void             TEXT_SetTextColor (TEXT_Handle hObj, GUI_COLOR Color);
+GUI_COLOR        TEXT_GetBkColor(TEXT_Handle hObj);
+const GUI_FONT *TEXT_GetFont(TEXT_Handle hObj);
+int              TEXT_GetNumLines(TEXT_Handle hObj);
+int              TEXT_GetText(TEXT_Handle hObj, char *pDest, U32 BufferSize);
+int              TEXT_GetTextAlign(TEXT_Handle hObj);
+GUI_COLOR        TEXT_GetTextColor(TEXT_Handle hObj);
+int              TEXT_GetUserData(TEXT_Handle hObj, void *pDest, int NumBytes);
+GUI_WRAPMODE     TEXT_GetWrapMode(TEXT_Handle hObj);
+void             TEXT_SetBkColor(TEXT_Handle hObj, GUI_COLOR Color);
+void             TEXT_SetFont(TEXT_Handle hObj, const GUI_FONT *pFont);
+int              TEXT_SetDec(TEXT_Handle hObj, I32 v, U8 Len, U8 Shift, U8 Signed, U8 Space);
+int              TEXT_SetText(TEXT_Handle hObj, const char *s);
+void             TEXT_SetTextAlign(TEXT_Handle hObj, int Align);
+void             TEXT_SetTextColor(TEXT_Handle hObj, GUI_COLOR Color);
 void             TEXT_SetTextOffset(TEXT_Handle hObj, int xPos, int yPos);
-int              TEXT_SetUserData  (TEXT_Handle hObj, const void * pSrc, int NumBytes);
-void             TEXT_SetWrapMode  (TEXT_Handle hObj, GUI_WRAPMODE WrapMode);
+int              TEXT_SetUserData(TEXT_Handle hObj, const void *pSrc, int NumBytes);
+void             TEXT_SetWrapMode(TEXT_Handle hObj, GUI_WRAPMODE WrapMode);
 
 /*********************************************************************
 *
@@ -138,15 +138,15 @@ void             TEXT_SetWrapMode  (TEXT_Handle hObj, GUI_WRAPMODE WrapMode);
 **********************************************************************
 */
 
-const GUI_FONT * TEXT_GetDefaultFont     (void);
+const GUI_FONT *TEXT_GetDefaultFont(void);
 GUI_COLOR        TEXT_GetDefaultTextColor(void);
-GUI_WRAPMODE     TEXT_GetDefaultWrapMode (void);
-void             TEXT_SetDefaultFont     (const GUI_FONT * pFont);
+GUI_WRAPMODE     TEXT_GetDefaultWrapMode(void);
+void             TEXT_SetDefaultFont(const GUI_FONT *pFont);
 void             TEXT_SetDefaultTextColor(GUI_COLOR Color);
-GUI_WRAPMODE     TEXT_SetDefaultWrapMode (GUI_WRAPMODE WrapMode);
+GUI_WRAPMODE     TEXT_SetDefaultWrapMode(GUI_WRAPMODE WrapMode);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

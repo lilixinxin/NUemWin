@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -65,13 +65,13 @@ Purpose     : Declares LCD interface functions
 *************************************************************
 */
 void  LCDSIM_PreInit(void);
-char* LCDSIM_Init(void);
+char *LCDSIM_Init(void);
 void  LCDSIM_Exit(void);
 int   LCDSIM_GetMouseState(LCD_tMouseState *pState);
 void  LCDSIM_SetMouseState(int x, int y, int KeyStat, int LayerIndex);
 void  LCDSIM_CheckMouseState(int LayerIndex);
-int   LCDSIM_SaveSBMP  (const char * sFileName);
-int   LCDSIM_SaveSBMPEx(const char * sFileName, int x0, int y0, int xSize, int ySize);
+int   LCDSIM_SaveSBMP(const char *sFileName);
+int   LCDSIM_SaveSBMPEx(const char *sFileName, int x0, int y0, int xSize, int ySize);
 void  LCDSIM_SetRGBOrder(unsigned RGBOrder);
 
 /************************************************************
@@ -118,12 +118,12 @@ void         SIM_GUI_SetCompositeSize(int xSize, int ySize);
 void         SIM_GUI_SetCompositeColor(U32 Color);
 U32          SIM_GUI_GetCompositeColor(void);
 void         SIM_GUI_SetLCDPos(int xPos, int yPos);
-int          SIM_GUI_SaveBMP(const char * sFileName);
-int          SIM_GUI_SaveBMPEx(const char * sFileName, int x0, int y0, int xSize, int ySize);
-int          SIM_GUI_SaveCompositeBMP(const char * sFileName);
+int          SIM_GUI_SaveBMP(const char *sFileName);
+int          SIM_GUI_SaveBMPEx(const char *sFileName, int x0, int y0, int xSize, int ySize);
+int          SIM_GUI_SaveCompositeBMP(const char *sFileName);
 int          SIM_GUI_SetTransColor(int Color);
-int          SIM_GUI_SetLCDColorBlack (unsigned int Index, int Color);
-int          SIM_GUI_SetLCDColorWhite (unsigned int Index, int Color);
+int          SIM_GUI_SetLCDColorBlack(unsigned int Index, int Color);
+int          SIM_GUI_SetLCDColorWhite(unsigned int Index, int Color);
 void         SIM_GUI_SetMag(int MagX, int MagY);
 int          SIM_GUI_GetMagX(void);
 int          SIM_GUI_GetMagY(void);
@@ -136,8 +136,8 @@ void         SIM_GUI_SetAccellerator(int Accellerator);
 void         SIM_GUI_SetMainScreenOffset(int x, int y);
 void         SIM_GUI_SetCompositeTouch(int LayerIndex);
 int          SIM_GUI_GetCompositeTouch(void);
-const char * SIM_GUI_SetCmdLine(char * pCmdLine);
-void         SIM_GUI_SetAppName(const char * pAppName);
+const char *SIM_GUI_SetCmdLine(char *pCmdLine);
+void         SIM_GUI_SetAppName(const char *pAppName);
 void         SIM_GUI_SetStartTime(int TimeStart);
 
 /********************************************************************
@@ -154,7 +154,7 @@ void SIM_X_Config(void);   /* Allow init before application starts ... Use it to
 *
 *********************************************************************
 */
-void SIM_GUI_Delay (int ms);
+void SIM_GUI_Delay(int ms);
 void SIM_GUI_ExecIdle(void);
 int  SIM_GUI_GetTime(void);
 int  SIM_GUI_GetKey(void);
@@ -171,7 +171,7 @@ void SIM_GUI_Log(const char *s);
 void SIM_GUI_Log1(const char *s, int p0);
 void SIM_GUI_Log2(const char *s, int p0, int p1);
 void SIM_GUI_Log3(const char *s, int p0, int p1, int p2);
-void SIM_GUI_Log4(const char *s, int p0, int p1, int p2,int p3);
+void SIM_GUI_Log4(const char *s, int p0, int p1, int p2, int p3);
 void SIM_GUI_Warn(const char *s);
 void SIM_GUI_Warn1(const char *s, int p0);
 void SIM_GUI_Warn2(const char *s, int p0, int p1);
@@ -198,7 +198,7 @@ const char *SIM_GUI_GetCmdLine(void);
 *
 *********************************************************************
 */
-void SIM_GUI_CreateTask(char * pName, void * pFunc);
+void SIM_GUI_CreateTask(char *pName, void *pFunc);
 void SIM_GUI_Start(void);
 unsigned long SIM_GUI_GetTaskID(void);
 void SIM_GUI_Lock(void);

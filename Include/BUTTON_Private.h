@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -56,10 +56,10 @@ Purpose     : BUTTON private header file
 **********************************************************************
 */
 #ifndef   BUTTON_3D_MOVE_X
-  #define BUTTON_3D_MOVE_X 1
+    #define BUTTON_3D_MOVE_X 1
 #endif
 #ifndef   BUTTON_3D_MOVE_Y
-  #define BUTTON_3D_MOVE_Y 1
+    #define BUTTON_3D_MOVE_Y 1
 #endif
 
 /*********************************************************************
@@ -68,27 +68,30 @@ Purpose     : BUTTON private header file
 *
 **********************************************************************
 */
-typedef struct {
-  WIDGET_DRAW_ITEM_FUNC * pfDrawSkin;
+typedef struct
+{
+    WIDGET_DRAW_ITEM_FUNC *pfDrawSkin;
 } BUTTON_SKIN_PRIVATE;
 
-typedef struct {
-  GUI_COLOR aBkColor[3];
-  GUI_COLOR aTextColor[3];
-  GUI_COLOR FocusColor;
-  GUI_COLOR FrameColor;
-  const GUI_FONT * pFont;
-  BUTTON_SKIN_PRIVATE SkinPrivate;
-  I16 Align;
-  I16 xPosText, yPosText;
+typedef struct
+{
+    GUI_COLOR aBkColor[3];
+    GUI_COLOR aTextColor[3];
+    GUI_COLOR FocusColor;
+    GUI_COLOR FrameColor;
+    const GUI_FONT *pFont;
+    BUTTON_SKIN_PRIVATE SkinPrivate;
+    I16 Align;
+    I16 xPosText, yPosText;
 } BUTTON_PROPS;
 
-typedef struct {
-  WIDGET Widget;
-  BUTTON_PROPS Props;
-  WIDGET_SKIN const * pWidgetSkin;
-  WM_HMEM hpText;
-  WM_HMEM ahDrawObj[3];
+typedef struct
+{
+    WIDGET Widget;
+    BUTTON_PROPS Props;
+    WIDGET_SKIN const *pWidgetSkin;
+    WM_HMEM hpText;
+    WM_HMEM ahDrawObj[3];
 } BUTTON_Obj;
 
 /*********************************************************************
@@ -98,16 +101,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define BUTTON_INIT_ID(p) (p->Widget.DebugId = BUTTON_ID)
+    #define BUTTON_INIT_ID(p) (p->Widget.DebugId = BUTTON_ID)
 #else
-  #define BUTTON_INIT_ID(p)
+    #define BUTTON_INIT_ID(p)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  BUTTON_Obj * BUTTON_LockH(BUTTON_Handle h);
-  #define BUTTON_LOCK_H(h)   BUTTON_LockH(h)
+    BUTTON_Obj *BUTTON_LockH(BUTTON_Handle h);
+    #define BUTTON_LOCK_H(h)   BUTTON_LockH(h)
 #else
-  #define BUTTON_LOCK_H(h)   (BUTTON_Obj *)GUI_LOCK_H(h)
+    #define BUTTON_LOCK_H(h)   (BUTTON_Obj *)GUI_LOCK_H(h)
 #endif
 
 /*********************************************************************
@@ -121,7 +124,7 @@ extern BUTTON_PROPS BUTTON__DefaultProps;
 extern const WIDGET_SKIN BUTTON__SkinClassic;
 extern       WIDGET_SKIN BUTTON__Skin;
 
-extern WIDGET_SKIN const * BUTTON__pSkinDefault;
+extern WIDGET_SKIN const *BUTTON__pSkinDefault;
 
 /*********************************************************************
 *

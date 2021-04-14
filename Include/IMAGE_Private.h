@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -57,7 +57,7 @@ Purpose     : Private IMAGE include
 **********************************************************************
 */
 #ifndef IMAGE_SUPPORT_TRANSPARENCY
-  #define IMAGE_SUPPORT_TRANSPARENCY WM_SUPPORT_TRANSPARENCY
+    #define IMAGE_SUPPORT_TRANSPARENCY WM_SUPPORT_TRANSPARENCY
 #endif
 
 /*********************************************************************
@@ -66,41 +66,43 @@ Purpose     : Private IMAGE include
 *
 **********************************************************************
 */
-typedef struct {
-  U32 Flags;
+typedef struct
+{
+    U32 Flags;
 } IMAGE_PROPS;
 
-typedef struct {
-  WIDGET              Widget;
-  IMAGE_PROPS         Props;
-  const void        * pData;                                                          // Data pointer of the object to be drawn (Bitmap, BMP, GIF, JPEG, PNG)
-  void             (* pfDrawImageAt) (IMAGE_Handle hObj, int xPos, int yPos);         // Object specific (Bitmap, BMP, GIF, JPEG, PNG) code
-  void             (* pfPaint)       (IMAGE_Handle hObj);                             // Drawing method specific (Default, Tiled, Magnified) code
-  void             (* pfGetImageSize)(IMAGE_Handle hObj, int * pxSize, int * pySize); // Returns the image size of the attached item
-  void             (* pfOnTimer)     (IMAGE_Handle hObj);                             // Timer function for animated images (currently only animated GIFs are supported)
-  U32                 FileSize;
-  //
-  // Data items used by IAMGE_GIF.c
-  //
-  int                 NumImages;    // Number of (sub)images
-  int                 CurrentImage; // Image index used for animated images
-  GUI_TIMER_HANDLE    hTimer;       // Timer used for animated images
-  //
-  // Data items used by IAMGE_DTA.c
-  //
-  GUI_BITMAP          Bitmap;       // Bitmap structure
-  GUI_LOGPALETTE      Palette;      // Palette structure
-  //
-  // Data items used by Image_...Ex() - functions
-  //
-  void              * pVoid;        // Void pointer passed to GetData() function
-  GUI_GET_DATA_FUNC * pfGetData;    // Pointer to GetData() function
-  //
-  // Data items used if memory devices are available and IMAGE_CF_MEMDEV has been set
-  //
-  #if GUI_SUPPORT_MEMDEV
+typedef struct
+{
+    WIDGET              Widget;
+    IMAGE_PROPS         Props;
+    const void         *pData;                                                          // Data pointer of the object to be drawn (Bitmap, BMP, GIF, JPEG, PNG)
+    void (* pfDrawImageAt)(IMAGE_Handle hObj, int xPos, int yPos);                      // Object specific (Bitmap, BMP, GIF, JPEG, PNG) code
+    void (* pfPaint)(IMAGE_Handle hObj);                                                // Drawing method specific (Default, Tiled, Magnified) code
+    void (* pfGetImageSize)(IMAGE_Handle hObj, int *pxSize, int *pySize);               // Returns the image size of the attached item
+    void (* pfOnTimer)(IMAGE_Handle hObj);                                              // Timer function for animated images (currently only animated GIFs are supported)
+    U32                 FileSize;
+    //
+    // Data items used by IAMGE_GIF.c
+    //
+    int                 NumImages;    // Number of (sub)images
+    int                 CurrentImage; // Image index used for animated images
+    GUI_TIMER_HANDLE    hTimer;       // Timer used for animated images
+    //
+    // Data items used by IAMGE_DTA.c
+    //
+    GUI_BITMAP          Bitmap;       // Bitmap structure
+    GUI_LOGPALETTE      Palette;      // Palette structure
+    //
+    // Data items used by Image_...Ex() - functions
+    //
+    void               *pVoid;        // Void pointer passed to GetData() function
+    GUI_GET_DATA_FUNC *pfGetData;     // Pointer to GetData() function
+    //
+    // Data items used if memory devices are available and IMAGE_CF_MEMDEV has been set
+    //
+#if GUI_SUPPORT_MEMDEV
     GUI_MEMDEV_Handle hMem;
-  #endif
+#endif
 } IMAGE_OBJ;
 
 /*********************************************************************
@@ -110,16 +112,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define IMAGE_INIT_ID(p) (p->Widget.DebugId = IMAGE_ID)
+    #define IMAGE_INIT_ID(p) (p->Widget.DebugId = IMAGE_ID)
 #else
-  #define IMAGE_INIT_ID(p)
+    #define IMAGE_INIT_ID(p)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  IMAGE_OBJ * IMAGE__LockH(IMAGE_Handle h);
-  #define IMAGE_LOCK_H(h)   IMAGE__LockH(h)
+    IMAGE_OBJ *IMAGE__LockH(IMAGE_Handle h);
+    #define IMAGE_LOCK_H(h)   IMAGE__LockH(h)
 #else
-  #define IMAGE_LOCK_H(h)   (IMAGE_OBJ *)GUI_LOCK_H(h)
+    #define IMAGE_LOCK_H(h)   (IMAGE_OBJ *)GUI_LOCK_H(h)
 #endif
 
 /*********************************************************************
@@ -137,8 +139,8 @@ extern IMAGE_PROPS IMAGE__DefaultProps;
 **********************************************************************
 */
 void IMAGE__SetWindowSize(IMAGE_Handle hObj);
-void IMAGE__FreeAttached (IMAGE_Handle hObj, int LeaveTimer);
-void IMAGE__SetVoid      (IMAGE_Handle hObj, const void * pData);
+void IMAGE__FreeAttached(IMAGE_Handle hObj, int LeaveTimer);
+void IMAGE__SetVoid(IMAGE_Handle hObj, const void *pData);
 
 #endif // GUI_WINSUPPORT
 #endif // IMAGE_PRIVATE_H

@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,31 +51,31 @@ Purpose     : Valid LCD configuration and defaults
 *       Configuration defaults
 */
 #ifndef   LCD_MIRROR_X
-  #define LCD_MIRROR_X 0
+    #define LCD_MIRROR_X 0
 #endif
 #ifndef   LCD_MIRROR_Y
-  #define LCD_MIRROR_Y 0
+    #define LCD_MIRROR_Y 0
 #endif
 #ifndef   LCD_SWAP_XY
-  #define LCD_SWAP_XY 0
+    #define LCD_SWAP_XY 0
 #endif
 #ifndef   LCD_FIRSTCOM0
-  #define LCD_FIRSTCOM0 0
+    #define LCD_FIRSTCOM0 0
 #endif
 #ifndef   LCD_FIRSTSEG0
-  #define LCD_FIRSTSEG0 0
+    #define LCD_FIRSTSEG0 0
 #endif
 #ifndef   LCD_SWAP_RB
-  #define LCD_SWAP_RB 0
+    #define LCD_SWAP_RB 0
 #endif
 #ifndef   LCD_DISPLAY_INDEX
-  #define LCD_DISPLAY_INDEX 0
+    #define LCD_DISPLAY_INDEX 0
 #endif
 #ifndef   LCD_ENDIAN_BIG
-  #define LCD_ENDIAN_BIG 0
+    #define LCD_ENDIAN_BIG 0
 #endif
 #ifndef   LCD_ALLOW_NON_OPTIMIZED_MODE
-  #define LCD_ALLOW_NON_OPTIMIZED_MODE 1
+    #define LCD_ALLOW_NON_OPTIMIZED_MODE 1
 #endif
 
 #endif /* LCD_CONFIG_DEFAULTS_H */

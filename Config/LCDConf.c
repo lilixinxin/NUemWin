@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -41,10 +41,11 @@ Purpose     : Display controller configuration (single layer)
 ---------------------------END-OF-HEADER------------------------------
 */
 
-#include <stddef.h>
-#include <stdio.h>
-#include "N9H30.h"
-#include "TouchPanel.h"
+#include <rtthread.h>
+//#include <stddef.h>
+//#include <stdio.h>
+//#include "N9H30.h"
+//#include "TouchPanel.h"
 #include "GUI.h"
 #include "GUIDRV_Lin.h"
 //#include "GUIDRV_FlexColor.h"
@@ -58,29 +59,6 @@ Purpose     : Display controller configuration (single layer)
 *
 **********************************************************************
 */
-//
-// Physical display size
-//
-//
-// Color conversion
-//
-#ifdef _PANEL_E50A2V1_16BPP_
-#define COLOR_CONVERSION GUICC_M565
-#endif
-#ifdef _PANEL_FW070TFT_24BPP_
-#define COLOR_CONVERSION GUICC_M888
-#endif
-
-//
-// Display driver
-//
-//#define DISPLAY_DRIVER GUIDRV_FLEXCOLOR
-#ifdef _PANEL_E50A2V1_16BPP_
-#define DISPLAY_DRIVER GUIDRV_LIN_16
-#endif
-#ifdef _PANEL_FW070TFT_24BPP_
-#define DISPLAY_DRIVER GUIDRV_LIN_32
-#endif
 //
 // Buffers / VScreens
 //
@@ -104,74 +82,45 @@ Purpose     : Display controller configuration (single layer)
 *
 *       Configuration checking
 *
-**********************************************************************
-*/
-#ifndef   VXSIZE_PHYS
-  #define VXSIZE_PHYS XSIZE_PHYS
-#endif
-#ifndef   VYSIZE_PHYS
-  #define VYSIZE_PHYS YSIZE_PHYS
-#endif
-#ifndef   XSIZE_PHYS
-  #error Physical X size of display is not defined!
-#endif
-#ifndef   YSIZE_PHYS
-  #error Physical Y size of display is not defined!
-#endif
-#ifndef   COLOR_CONVERSION
-  #error Color conversion not defined!
-#endif
-#ifndef   DISPLAY_DRIVER
-  #error No display driver defined!
-#endif
+**********************************************************************/
+
 #ifndef   DISPLAY_ORIENTATION
-  #define DISPLAY_ORIENTATION 0
+    #define DISPLAY_ORIENTATION 0
 #endif
 
-// Touch panel 
-//#define GUI_TOUCH_AD_LEFT   72   
-//#define GUI_TOUCH_AD_TOP    926  //82 
-//#define GUI_TOUCH_AD_RIGHT  938  
+// Touch panel
+//#define GUI_TOUCH_AD_LEFT   72
+//#define GUI_TOUCH_AD_TOP    926  //82
+//#define GUI_TOUCH_AD_RIGHT  938
 //#define GUI_TOUCH_AD_BOTTOM 82  //926
+
 /*********************************************************************
 *
 *       Public code
 *
 **********************************************************************
 */
-extern uint8_t *g_VAFrameBuf; 
+extern uint8_t *g_VAFrameBuf;
 extern int ts_phy2log(int *sumx, int *sumy);
 
-void GUI_TOUCH_X_ActivateX(void) {
+void GUI_TOUCH_X_ActivateX(void)
+{
+
 }
 
-void GUI_TOUCH_X_ActivateY(void) {
+void GUI_TOUCH_X_ActivateY(void)
+{
+
 }
 
-
- 
-int  GUI_TOUCH_X_MeasureX(void) {
-  int sumx;
-  int sumy;
-	if (Read_TouchPanel(&sumx, &sumy))
-	{
-//		sysprintf("X = %d\n", sumx);
-		ts_phy2log(&sumx, &sumy);		
-    return sumx;
-	}
-	return -1;
+int  GUI_TOUCH_X_MeasureX(void)
+{
+    return -1;
 }
 
-int  GUI_TOUCH_X_MeasureY(void) {
-  int sumx;
-  int sumy;
-	if ( Read_TouchPanel(&sumx, &sumy) )
-	{
-//		sysprintf("Y = %d\n", sumy);
-		ts_phy2log(&sumx, &sumy);				
-    return sumy;
-	}
-	return -1;
+int  GUI_TOUCH_X_MeasureY(void)
+{
+    return -1;
 }
 /*********************************************************************
 *
@@ -183,40 +132,86 @@ int  GUI_TOUCH_X_MeasureY(void) {
 *
 */
 
+static rt_device_t g_LCDDev = RT_NULL;
+static struct rt_device_graphic_info g_sRTGraphicInfo = {0};
 
-void LCD_X_Config(void) {
+void LCD_X_Config(void)
+{
+    const LCD_API_COLOR_CONV *pColorConvAPI;
+    const GUI_DEVICE_API *pDeviceAPI;
 
-	// LCD calibration
-  #if (NUM_BUFFERS > 1)
+    if (!g_LCDDev)
+    {
+        g_LCDDev = rt_device_find("lcd");
+        if (!g_LCDDev)
+        {
+            LOG_E("find %s failed!", "lcd");
+            goto exit_LCD_X_Config;
+        }
+        if (rt_device_open(g_LCDDev, RT_DEVICE_FLAG_RDWR) != RT_EOK)
+        {
+            LOG_E("Fail to open %s!", "lcd");
+            goto exit_LCD_X_Config;
+        }
+    }
+
+    if (rt_device_control(g_LCDDev, RTGRAPHIC_CTRL_GET_INFO, &g_sRTGraphicInfo) != RT_EOK)
+    {
+        LOG_E("fail to get RT-Graphics information!");
+        goto exit_LCD_X_Config;
+    }
+
+    switch (g_sRTGraphicInfo.pixel_format)
+    {
+    case RTGRAPHIC_PIXEL_FORMAT_ARGB888:
+    case RTGRAPHIC_PIXEL_FORMAT_RGB888:
+        pColorConvAPI = GUICC_M888;
+        pDeviceAPI = GUIDRV_LIN_32;
+        break;
+    case RTGRAPHIC_PIXEL_FORMAT_RGB565:
+    default:
+        pDeviceAPI = GUIDRV_LIN_16;
+        pColorConvAPI = GUICC_M565;
+        break;
+    }
+
+
+    /* LCD calibration */
+#if (NUM_BUFFERS > 1)
     GUI_MULTIBUF_Config(NUM_BUFFERS);
-  #endif
-  //
-  // Set display driver and color conversion for 1st layer
-  //
-  GUI_DEVICE_CreateAndLink(DISPLAY_DRIVER, COLOR_CONVERSION, 0, 0);
-  if (LCD_GetSwapXY()) {
-    LCD_SetSizeEx (0, YSIZE_PHYS, XSIZE_PHYS);
-    LCD_SetVSizeEx(0, YSIZE_PHYS * NUM_VSCREENS, XSIZE_PHYS);
-  } else {
-    LCD_SetSizeEx (0, XSIZE_PHYS, YSIZE_PHYS);
-    LCD_SetVSizeEx(0, XSIZE_PHYS, YSIZE_PHYS * NUM_VSCREENS);
-  }
-  LCD_SetVRAMAddrEx(0, (void *)g_VAFrameBuf);
+#endif
 
-  //
-  // Set user palette data (only required if no fixed palette is used)
-  //
-  #if defined(PALETTE)
+    /* Set display driver and color conversion for 1st layer */
+    GUI_DEVICE_CreateAndLink(pDeviceAPI, pColorConvAPI, 0, 0);
+    if (LCD_GetSwapXY())
+    {
+        LCD_SetSizeEx(0, g_sRTGraphicInfo.height, g_sRTGraphicInfo.width);
+        LCD_SetVSizeEx(0, g_sRTGraphicInfo.height * NUM_VSCREENS, g_sRTGraphicInfo.width);
+    }
+    else
+    {
+        LCD_SetSizeEx(0, g_sRTGraphicInfo.width, g_sRTGraphicInfo.height);
+        LCD_SetVSizeEx(0, g_sRTGraphicInfo.width, g_sRTGraphicInfo.height * NUM_VSCREENS);
+    }
+    LCD_SetVRAMAddrEx(0, (void *)g_sRTGraphicInfo.framebuffer);
+
+    //
+    // Set user palette data (only required if no fixed palette is used)
+    //
+#if defined(PALETTE)
     LCD_SetLUTEx(0, PALETTE);
-  #endif
+#endif
 
 // LCD calibration
 //
 // Calibrate touch screen
 //
-	GUI_TOUCH_Calibrate(GUI_COORD_X, 0, XSIZE_PHYS, 0, XSIZE_PHYS);
-	GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, YSIZE_PHYS, 0, YSIZE_PHYS);
-	
+//  GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
+//  GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
+
+exit_LCD_X_Config:
+
+    return;
 }
 
 /*********************************************************************
@@ -235,85 +230,92 @@ void LCD_X_Config(void) {
 *   Cmd        - Please refer to the details in the switch statement below
 *   pData      - Pointer to a LCD_X_DATA structure
 */
-int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
-  int r;
+int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void *pData)
+{
+    int r;
 
-  switch (Cmd) {
-  //
-  // Required
-  //
-  case LCD_X_INITCONTROLLER: {
+    switch (Cmd)
+    {
     //
-    // Called during the initialization process in order to set up the
-    // display controller and put it into operation. If the display
-    // controller is not initialized by any external routine this needs
-    // to be adapted by the customer...
+    // Required
     //
-		//LCD_ON();
-      vpostVAStartTrigger();
-    return 0;  
-  }
- case LCD_X_SETVRAMADDR: {
-    //
-    // Required for setting the address of the video RAM for drivers
-    // with memory mapped video RAM which is passed in the 'pVRAM' element of p
-    //
-    LCD_X_SETVRAMADDR_INFO * p;
-    p = (LCD_X_SETVRAMADDR_INFO *)pData;
-		pData=(void*)g_VAFrameBuf;
-    GUI_USE_PARA(p);
-    //...
-    return 0;
-  }
-  case LCD_X_SETORG: {
-    //
-    // Required for setting the display origin which is passed in the 'xPos' and 'yPos' element of p
-    //
-    LCD_X_SETORG_INFO * p;
-    p = (LCD_X_SETORG_INFO *)pData;
-		pData=(void*)g_VAFrameBuf;
-    GUI_USE_PARA(p);
-    //...
-    return 0;
-  }
-  case LCD_X_SHOWBUFFER: {
-    //
-    // Required if multiple buffers are used. The 'Index' element of p contains the buffer index.
-    //
-    LCD_X_SHOWBUFFER_INFO * p;
-    p = (LCD_X_SHOWBUFFER_INFO *)pData;
-    GUI_USE_PARA(p);
-    //...
-    return 0;
-  }
-  case LCD_X_SETLUTENTRY: {
-    //
-    // Required for setting a lookup table entry which is passed in the 'Pos' and 'Color' element of p
-    //
-    LCD_X_SETLUTENTRY_INFO * p;
-    p = (LCD_X_SETLUTENTRY_INFO *)pData;
-    GUI_USE_PARA(p);
-    //...
-    return 0;
-  }
-  case LCD_X_ON: {
-    //
-    // Required if the display controller should support switching on and off
-    //
-		
-    return 0;
-  }
-  case LCD_X_OFF: {
-    //
-    // Required if the display controller should support switching on and off
-    //
-    // ...
-    return 0;
-  }  
-  default:
-    r = -1;
-  }
-  return r;
+    case LCD_X_INITCONTROLLER:
+    {
+        //
+        // Called during the initialization process in order to set up the
+        // display controller and put it into operation. If the display
+        // controller is not initialized by any external routine this needs
+        // to be adapted by the customer...
+        //
+        //LCD_ON();
+        //TODO - rt_ioctl LCD_ON;
+        return 0;
+    }
+    case LCD_X_SETVRAMADDR:
+    {
+        //
+        // Required for setting the address of the video RAM for drivers
+        // with memory mapped video RAM which is passed in the 'pVRAM' element of p
+        //
+        LCD_X_SETVRAMADDR_INFO *p;
+        p = (LCD_X_SETVRAMADDR_INFO *)pData;
+        pData = (void *)g_sRTGraphicInfo.framebuffer;
+        GUI_USE_PARA(p);
+        //...
+        return 0;
+    }
+    case LCD_X_SETORG:
+    {
+        //
+        // Required for setting the display origin which is passed in the 'xPos' and 'yPos' element of p
+        //
+        LCD_X_SETORG_INFO *p;
+        p = (LCD_X_SETORG_INFO *)pData;
+        pData = (void *)g_sRTGraphicInfo.framebuffer;
+        GUI_USE_PARA(p);
+        //...
+        return 0;
+    }
+    case LCD_X_SHOWBUFFER:
+    {
+        //
+        // Required if multiple buffers are used. The 'Index' element of p contains the buffer index.
+        //
+        LCD_X_SHOWBUFFER_INFO *p;
+        p = (LCD_X_SHOWBUFFER_INFO *)pData;
+        GUI_USE_PARA(p);
+        //...
+        return 0;
+    }
+    case LCD_X_SETLUTENTRY:
+    {
+        //
+        // Required for setting a lookup table entry which is passed in the 'Pos' and 'Color' element of p
+        //
+        LCD_X_SETLUTENTRY_INFO *p;
+        p = (LCD_X_SETLUTENTRY_INFO *)pData;
+        GUI_USE_PARA(p);
+        //...
+        return 0;
+    }
+    case LCD_X_ON:
+    {
+        //
+        // Required if the display controller should support switching on and off
+        //
+        return 0;
+    }
+    case LCD_X_OFF:
+    {
+        //
+        // Required if the display controller should support switching on and off
+        //
+        return 0;
+    }
+    default:
+        r = -1;
+    }
+    return r;
 }
 
 /*************************** End of file ****************************/

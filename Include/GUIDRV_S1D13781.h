@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -52,14 +52,15 @@ Purpose     : Interface definition for GUIDRV_S1D13781 driver
 *
 *       Configuration structure
 */
-typedef struct {
-  //
-  // Driver specific configuration items
-  //
-  U32 BufferOffset;
-  int UseLayer;
-  int WriteBufferSize;
-  int WaitUntilVNDP;
+typedef struct
+{
+    //
+    // Driver specific configuration items
+    //
+    U32 BufferOffset;
+    int UseLayer;
+    int WriteBufferSize;
+    int WaitUntilVNDP;
 } CONFIG_S1D13781;
 
 /*********************************************************************
@@ -84,27 +85,27 @@ extern const GUI_DEVICE_API GUIDRV_S1D13781_OSX_16C0_API;
 //
 #if defined(WIN32) && !defined(LCD_SIMCONTROLLER)
 
-  #define GUIDRV_S1D13781_8C0       &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OXY_8C0   &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OSY_8C0   &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OSX_8C0   &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_8C0       &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OXY_8C0   &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OSY_8C0   &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OSX_8C0   &GUIDRV_Win_API
 
-  #define GUIDRV_S1D13781_16C0      &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OXY_16C0  &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OSY_16C0  &GUIDRV_Win_API
-  #define GUIDRV_S1D13781_OSX_16C0  &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_16C0      &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OXY_16C0  &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OSY_16C0  &GUIDRV_Win_API
+    #define GUIDRV_S1D13781_OSX_16C0  &GUIDRV_Win_API
 
 #else
 
-  #define GUIDRV_S1D13781_8C0       &GUIDRV_S1D13781_8C0_API
-  #define GUIDRV_S1D13781_OXY_8C0   &GUIDRV_S1D13781_OXY_8C0_API
-  #define GUIDRV_S1D13781_OSY_8C0   &GUIDRV_S1D13781_OSY_8C0_API
-  #define GUIDRV_S1D13781_OSX_8C0   &GUIDRV_S1D13781_OSX_8C0_API
+    #define GUIDRV_S1D13781_8C0       &GUIDRV_S1D13781_8C0_API
+    #define GUIDRV_S1D13781_OXY_8C0   &GUIDRV_S1D13781_OXY_8C0_API
+    #define GUIDRV_S1D13781_OSY_8C0   &GUIDRV_S1D13781_OSY_8C0_API
+    #define GUIDRV_S1D13781_OSX_8C0   &GUIDRV_S1D13781_OSX_8C0_API
 
-  #define GUIDRV_S1D13781_16C0      &GUIDRV_S1D13781_16C0_API
-  #define GUIDRV_S1D13781_OXY_16C0  &GUIDRV_S1D13781_OXY_16C0_API
-  #define GUIDRV_S1D13781_OSY_16C0  &GUIDRV_S1D13781_OSY_16C0_API
-  #define GUIDRV_S1D13781_OSX_16C0  &GUIDRV_S1D13781_OSX_16C0_API
+    #define GUIDRV_S1D13781_16C0      &GUIDRV_S1D13781_16C0_API
+    #define GUIDRV_S1D13781_OXY_16C0  &GUIDRV_S1D13781_OXY_16C0_API
+    #define GUIDRV_S1D13781_OSY_16C0  &GUIDRV_S1D13781_OSY_16C0_API
+    #define GUIDRV_S1D13781_OSX_16C0  &GUIDRV_S1D13781_OSX_16C0_API
 
 #endif
 
@@ -113,13 +114,13 @@ extern const GUI_DEVICE_API GUIDRV_S1D13781_OSX_16C0_API;
 *       Public routines
 */
 #if defined(WIN32) && !defined(LCD_SIMCONTROLLER)
-  #define GUIDRV_S1D13781_Config(pDevice, pConfig)
-  #define GUIDRV_S1D13781_SetBusSPI(pDevice, pHW_API)
-  #define GUIDRV_S1D13781_SetOrientation(Orientation, LayerIndex)
+    #define GUIDRV_S1D13781_Config(pDevice, pConfig)
+    #define GUIDRV_S1D13781_SetBusSPI(pDevice, pHW_API)
+    #define GUIDRV_S1D13781_SetOrientation(Orientation, LayerIndex)
 #else
-  void GUIDRV_S1D13781_Config        (GUI_DEVICE * pDevice, CONFIG_S1D13781 * pConfig);
-  void GUIDRV_S1D13781_SetBusSPI     (GUI_DEVICE * pDevice, GUI_PORT_API * pHW_API);
-  int  GUIDRV_S1D13781_SetOrientation(int Orientation, int LayerIndex);
+    void GUIDRV_S1D13781_Config(GUI_DEVICE *pDevice, CONFIG_S1D13781 *pConfig);
+    void GUIDRV_S1D13781_SetBusSPI(GUI_DEVICE *pDevice, GUI_PORT_API *pHW_API);
+    int  GUIDRV_S1D13781_SetOrientation(int Orientation, int LayerIndex);
 #endif
 
 #endif

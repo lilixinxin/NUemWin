@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -102,60 +102,63 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #define RFBX_RENAME_REQUEST         (0x000115ul | (RFB_EXTENSION << 24))
 #define RFBX_RENAME_REPLY           (0x000116ul | (RFB_EXTENSION << 24))
 
-  /*********************************************************************
+/*********************************************************************
 *
 *       Types
 *
 **********************************************************************
 */
-typedef struct {
-  U8 * pBuffer;
-  int  BufferSize;
-  int  NumBytesInBuffer;
+typedef struct
+{
+    U8 *pBuffer;
+    int  BufferSize;
+    int  NumBytesInBuffer;
 } BUFFER_CB;
 
-typedef struct GUI_VNC_CONTEXT {
-  GUI_DEVICE * pDevice;
-  struct GUI_VNC_CONTEXT * pNext;
-  int LayerIndex;
-  int BytesPerPixel;
-  int BitsPerPixel;  // Note, that from within the VNC server the function LCD_GetBitsBerPixel() can not be used because the VNC server runs in a separate thread and the device chain can change during the function call
-  //
-  // Connection related data
-  //
-  GUI_tSend    pfSend;
-  GUI_tRecv    pfReceive;
-  void       * pConnectInfo;
-  U16          ServerIndex;
-  //
-  // Display related info
-  //
-  int x0Dirty, y0Dirty, x1Dirty, y1Dirty;
-  int xSize, ySize;
-  int xOrg, yOrg, xOrgNew, yOrgNew;
-  //
-  // Status
-  //
-  char ClientSupportsHextile;
-  char IsBigEndian;
-  char OrgLock;
-  char BkFlag;
-  //
-  // Pointer to buffer
-  //
-  U8 * pBuffer;
-  unsigned SizeOfBuffer;
-  int (* pfStoreU8)  (struct GUI_VNC_CONTEXT * pContext, BUFFER_CB * pBCB, U8 Data);
-  int (* pfStoreU16) (struct GUI_VNC_CONTEXT * pContext, BUFFER_CB * pBCB, U16 Data);
-  int (* pfStoreU32) (struct GUI_VNC_CONTEXT * pContext, BUFFER_CB * pBCB, U32 Data);
-  int (* pfStoreData)(struct GUI_VNC_CONTEXT * pContext, BUFFER_CB * pBCB, const U8 * pData, int NumBytes);
-  int (* pfFlush)    (struct GUI_VNC_CONTEXT * pContext, BUFFER_CB * pBCB);
-  int (* pfRead)     (struct GUI_VNC_CONTEXT * pContext, U8 *, int Len);
+typedef struct GUI_VNC_CONTEXT
+{
+    GUI_DEVICE *pDevice;
+    struct GUI_VNC_CONTEXT *pNext;
+    int LayerIndex;
+    int BytesPerPixel;
+    int BitsPerPixel;  // Note, that from within the VNC server the function LCD_GetBitsBerPixel() can not be used because the VNC server runs in a separate thread and the device chain can change during the function call
+    //
+    // Connection related data
+    //
+    GUI_tSend    pfSend;
+    GUI_tRecv    pfReceive;
+    void        *pConnectInfo;
+    U16          ServerIndex;
+    //
+    // Display related info
+    //
+    int x0Dirty, y0Dirty, x1Dirty, y1Dirty;
+    int xSize, ySize;
+    int xOrg, yOrg, xOrgNew, yOrgNew;
+    //
+    // Status
+    //
+    char ClientSupportsHextile;
+    char IsBigEndian;
+    char OrgLock;
+    char BkFlag;
+    //
+    // Pointer to buffer
+    //
+    U8 *pBuffer;
+    unsigned SizeOfBuffer;
+    int (* pfStoreU8)(struct GUI_VNC_CONTEXT *pContext, BUFFER_CB *pBCB, U8 Data);
+    int (* pfStoreU16)(struct GUI_VNC_CONTEXT *pContext, BUFFER_CB *pBCB, U16 Data);
+    int (* pfStoreU32)(struct GUI_VNC_CONTEXT *pContext, BUFFER_CB *pBCB, U32 Data);
+    int (* pfStoreData)(struct GUI_VNC_CONTEXT *pContext, BUFFER_CB *pBCB, const U8 *pData, int NumBytes);
+    int (* pfFlush)(struct GUI_VNC_CONTEXT *pContext, BUFFER_CB *pBCB);
+    int (* pfRead)(struct GUI_VNC_CONTEXT *pContext, U8 *, int Len);
 } GUI_VNC_CONTEXT;
 
-typedef struct {
-  void (* pfGetChallenge)(U8 * pChallenge);
-  void (* pfGetResponse )(U8 * pResponse );
+typedef struct
+{
+    void (* pfGetChallenge)(U8 *pChallenge);
+    void (* pfGetResponse)(U8 *pResponse);
 } GUI_VNC_AUTHENTICATION;
 
 /*********************************************************************
@@ -164,8 +167,8 @@ typedef struct {
 *
 **********************************************************************
 */
-void GUI_VNC_SetDESKey(U8 * pKey, int Mode);
-void GUI_VNC_DoDES    (U8 * pInblock, U8 * pOutblock);
+void GUI_VNC_SetDESKey(U8 *pKey, int Mode);
+void GUI_VNC_DoDES(U8 *pInblock, U8 *pOutblock);
 
 /*********************************************************************
 *
@@ -173,20 +176,20 @@ void GUI_VNC_DoDES    (U8 * pInblock, U8 * pOutblock);
 *
 **********************************************************************
 */
-void GUI_VNC_AttachToLayer      (GUI_VNC_CONTEXT * pContext, int LayerIndex);
+void GUI_VNC_AttachToLayer(GUI_VNC_CONTEXT *pContext, int LayerIndex);
 void GUI_VNC_EnableKeyboardInput(int OnOff);
-void GUI_VNC_EnableMouseInput   (int OnOff);
-void GUI_VNC_EnableFileTransfer (unsigned OnOff);
-int  GUI_VNC_GetNumConnections  (void);
-int  GUI_VNC_Process            (GUI_VNC_CONTEXT * pContext, GUI_tSend pfSend, GUI_tRecv pfReceive, void * pConnectInfo);
-void GUI_VNC_RingBell           (void);
-void GUI_VNC_SetAuthentication  (GUI_VNC_AUTHENTICATION * pAuthentication);
-void GUI_VNC_SetPassword        (U8 * sPassword);
-void GUI_VNC_SetProgName        (const char * sProgName);
-void GUI_VNC_SetSize            (unsigned xSize, unsigned ySize);
-void GUI_VNC_SetLockFrame       (unsigned OnOff);
-void GUI_VNC_SetRetryCount      (unsigned Cnt);
-void GUI_VNC_SetFS_API          (const IP_FS_API * pFS_API);
+void GUI_VNC_EnableMouseInput(int OnOff);
+void GUI_VNC_EnableFileTransfer(unsigned OnOff);
+int  GUI_VNC_GetNumConnections(void);
+int  GUI_VNC_Process(GUI_VNC_CONTEXT *pContext, GUI_tSend pfSend, GUI_tRecv pfReceive, void *pConnectInfo);
+void GUI_VNC_RingBell(void);
+void GUI_VNC_SetAuthentication(GUI_VNC_AUTHENTICATION *pAuthentication);
+void GUI_VNC_SetPassword(U8 *sPassword);
+void GUI_VNC_SetProgName(const char *sProgName);
+void GUI_VNC_SetSize(unsigned xSize, unsigned ySize);
+void GUI_VNC_SetLockFrame(unsigned OnOff);
+void GUI_VNC_SetRetryCount(unsigned Cnt);
+void GUI_VNC_SetFS_API(const IP_FS_API *pFS_API);
 
 //
 // Private function for setting file transfer handler
@@ -196,12 +199,12 @@ void GUI_VNC__SetRFBExtensionHandler(int (* pFunc)(U32, GUI_VNC_CONTEXT *, BUFFE
 //
 // External routine to link the server to the system ... USER defined !
 //
-int  GUI_VNC_X_StartServer  (int LayerIndex, int ServerIndex);
+int  GUI_VNC_X_StartServer(int LayerIndex, int ServerIndex);
 int  GUI_VNC_X_StartServerFT(int LayerIndex, int ServerIndex);
-void GUI_VNC_X_getpeername  (U32 * Addr);
+void GUI_VNC_X_getpeername(U32 *Addr);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif   /* Avoid multiple inclusion */

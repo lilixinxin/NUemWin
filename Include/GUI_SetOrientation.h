@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -69,16 +69,17 @@ Purpose     : Private include file for GUI_SetOrientation_xxx
 */
 typedef struct DRIVER_CONTEXT DRIVER_CONTEXT;
 
-struct DRIVER_CONTEXT {
-  void (* pfLog2Phys)(DRIVER_CONTEXT * pContext, int x, int y, int * px_phys, int * py_phys);
-  U8 * pData;
-  int BytesPerPixel;
-  int BytesPerLine;
-  int Orientation;
-  int xSize, ySize;
-  int vxSize, vySize;
-  int PixelOffset;
-  const GUI_ORIENTATION_API * pDrawingAPI;
+struct DRIVER_CONTEXT
+{
+    void (* pfLog2Phys)(DRIVER_CONTEXT *pContext, int x, int y, int *px_phys, int *py_phys);
+    U8 *pData;
+    int BytesPerPixel;
+    int BytesPerLine;
+    int Orientation;
+    int xSize, ySize;
+    int vxSize, vySize;
+    int PixelOffset;
+    const GUI_ORIENTATION_API *pDrawingAPI;
 };
 
 /*********************************************************************
@@ -87,7 +88,7 @@ struct DRIVER_CONTEXT {
 *
 **********************************************************************
 */
-void GUI__Sort(int * p0, int * p1);
+void GUI__Sort(int *p0, int *p1);
 
 #endif /* GUI_SETORIENTATION_H */
 

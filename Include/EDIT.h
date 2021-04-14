@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -50,7 +50,7 @@ Purpose     : EDIT include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {             // Make sure we have C-declarations in C++ programs
+extern "C" {             // Make sure we have C-declarations in C++ programs
 #endif
 
 /*********************************************************************
@@ -118,18 +118,18 @@ Purpose     : EDIT include
 **********************************************************************
 */
 typedef WM_HMEM EDIT_Handle;
-typedef void tEDIT_AddKeyEx    (EDIT_Handle hObj, int Key);
+typedef void tEDIT_AddKeyEx(EDIT_Handle hObj, int Key);
 typedef void tEDIT_UpdateBuffer(EDIT_Handle hObj);
 
 /*********************************************************************
 *
 *             Create functions
 */
-EDIT_Handle EDIT_Create        (int x0, int y0, int xSize, int ySize, int Id, int MaxLen, int Flags);
-EDIT_Handle EDIT_CreateAsChild (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, int MaxLen);
-EDIT_Handle EDIT_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int MaxLen);
-EDIT_Handle EDIT_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int MaxLen, int NumExtraBytes);
-EDIT_Handle EDIT_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
+EDIT_Handle EDIT_Create(int x0, int y0, int xSize, int ySize, int Id, int MaxLen, int Flags);
+EDIT_Handle EDIT_CreateAsChild(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, int MaxLen);
+EDIT_Handle EDIT_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int MaxLen);
+EDIT_Handle EDIT_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int MaxLen, int NumExtraBytes);
+EDIT_Handle EDIT_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
 
 /*********************************************************************
 *
@@ -138,7 +138,7 @@ EDIT_Handle EDIT_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_H
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void EDIT_Callback(WM_MESSAGE * pMsg);
+void EDIT_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -146,8 +146,8 @@ void EDIT_Callback(WM_MESSAGE * pMsg);
 *
 **********************************************************************
 */
-void EDIT_SetDefaultBkColor  (unsigned int Index, GUI_COLOR Color);
-void EDIT_SetDefaultFont     (const GUI_FONT * pFont);
+void EDIT_SetDefaultBkColor(unsigned int Index, GUI_COLOR Color);
+void EDIT_SetDefaultFont(const GUI_FONT *pFont);
 void EDIT_SetDefaultTextAlign(int Align);
 void EDIT_SetDefaultTextColor(unsigned int Index, GUI_COLOR Color);
 
@@ -159,50 +159,50 @@ void EDIT_SetDefaultTextColor(unsigned int Index, GUI_COLOR Color);
 // Query preferences
 //
 GUI_COLOR        EDIT_GetDefaultBkColor(unsigned int Index);
-const GUI_FONT * EDIT_GetDefaultFont(void);
+const GUI_FONT *EDIT_GetDefaultFont(void);
 int              EDIT_GetDefaultTextAlign(void);
 GUI_COLOR        EDIT_GetDefaultTextColor(unsigned int Index);
 //
 // Methods changing properties
 //
-void EDIT_AddKey           (EDIT_Handle hObj, int Key);
-void EDIT_EnableBlink      (EDIT_Handle hObj, int Period, int OnOff);
-GUI_COLOR EDIT_GetBkColor  (EDIT_Handle hObj, unsigned int Index);
-void EDIT_SetBkColor       (EDIT_Handle hObj, unsigned int Index, GUI_COLOR color);
-void EDIT_SetBorderSize    (EDIT_Handle hObj, int Border);
-int  EDIT_GetBorderSize    (EDIT_Handle hObj);
-void EDIT_SetCursorAtChar  (EDIT_Handle hObj, int Pos);
-void EDIT_SetCursorAtPixel (EDIT_Handle hObj, int xPos);
-void EDIT_SetFont          (EDIT_Handle hObj, const GUI_FONT * pFont);
-int  EDIT_SetInsertMode    (EDIT_Handle hObj, int OnOff);
-void EDIT_SetMaxLen        (EDIT_Handle hObj, int MaxLen);
-void EDIT_SetpfAddKeyEx    (EDIT_Handle hObj, tEDIT_AddKeyEx * pfAddKeyEx);
-void EDIT_SetpfUpdateBuffer(EDIT_Handle hObj, tEDIT_UpdateBuffer * pfUpdateBuffer);
-void EDIT_SetText          (EDIT_Handle hObj, const char * s);
-void EDIT_SetTextAlign     (EDIT_Handle hObj, int Align);
+void EDIT_AddKey(EDIT_Handle hObj, int Key);
+void EDIT_EnableBlink(EDIT_Handle hObj, int Period, int OnOff);
+GUI_COLOR EDIT_GetBkColor(EDIT_Handle hObj, unsigned int Index);
+void EDIT_SetBkColor(EDIT_Handle hObj, unsigned int Index, GUI_COLOR color);
+void EDIT_SetBorderSize(EDIT_Handle hObj, int Border);
+int  EDIT_GetBorderSize(EDIT_Handle hObj);
+void EDIT_SetCursorAtChar(EDIT_Handle hObj, int Pos);
+void EDIT_SetCursorAtPixel(EDIT_Handle hObj, int xPos);
+void EDIT_SetFont(EDIT_Handle hObj, const GUI_FONT *pFont);
+int  EDIT_SetInsertMode(EDIT_Handle hObj, int OnOff);
+void EDIT_SetMaxLen(EDIT_Handle hObj, int MaxLen);
+void EDIT_SetpfAddKeyEx(EDIT_Handle hObj, tEDIT_AddKeyEx *pfAddKeyEx);
+void EDIT_SetpfUpdateBuffer(EDIT_Handle hObj, tEDIT_UpdateBuffer *pfUpdateBuffer);
+void EDIT_SetText(EDIT_Handle hObj, const char *s);
+void EDIT_SetTextAlign(EDIT_Handle hObj, int Align);
 GUI_COLOR EDIT_GetTextColor(EDIT_Handle hObj, unsigned int Index);
-void EDIT_SetTextColor     (EDIT_Handle hObj, unsigned int Index, GUI_COLOR Color);
-void EDIT_SetSel           (EDIT_Handle hObj, int FirstChar, int LastChar);
-int  EDIT_SetUserData      (EDIT_Handle hObj, const void * pSrc, int NumBytes);
-int  EDIT_EnableInversion  (EDIT_Handle hObj, int OnOff);
+void EDIT_SetTextColor(EDIT_Handle hObj, unsigned int Index, GUI_COLOR Color);
+void EDIT_SetSel(EDIT_Handle hObj, int FirstChar, int LastChar);
+int  EDIT_SetUserData(EDIT_Handle hObj, const void *pSrc, int NumBytes);
+int  EDIT_EnableInversion(EDIT_Handle hObj, int OnOff);
 //
 // Get/Set user input
 //
-U16   EDIT_GetCharAtPixel    (EDIT_Handle hObj, int x, int y);
-int   EDIT_GetCursorCharPos  (EDIT_Handle hObj);
-void  EDIT_GetCursorPixelPos (EDIT_Handle hObj, int * pxPos, int * pyPos);
-float EDIT_GetFloatValue     (EDIT_Handle hObj);
-const GUI_FONT * EDIT_GetFont(EDIT_Handle hObj);
-int   EDIT_GetMaxLen         (EDIT_Handle hObj);
-int   EDIT_GetNumChars       (EDIT_Handle hObj);
-void  EDIT_GetText           (EDIT_Handle hObj, char * sDest, int MaxLen);
-int   EDIT_GetTextAlign      (EDIT_Handle hObj);
-I32   EDIT_GetValue          (EDIT_Handle hObj);
-void  EDIT_SetFloatValue     (EDIT_Handle hObj, float Value);
-void  EDIT_GetSel            (EDIT_Handle hObj, int * pFirstChar, int * pLastChar);
-void  EDIT_GetSelText        (EDIT_Handle hObj, char * sDest, int MaxLen);
-int   EDIT_GetUserData       (EDIT_Handle hObj, void * pDest, int NumBytes);
-void  EDIT_SetValue          (EDIT_Handle hObj, I32 Value);
+U16   EDIT_GetCharAtPixel(EDIT_Handle hObj, int x, int y);
+int   EDIT_GetCursorCharPos(EDIT_Handle hObj);
+void  EDIT_GetCursorPixelPos(EDIT_Handle hObj, int *pxPos, int *pyPos);
+float EDIT_GetFloatValue(EDIT_Handle hObj);
+const GUI_FONT *EDIT_GetFont(EDIT_Handle hObj);
+int   EDIT_GetMaxLen(EDIT_Handle hObj);
+int   EDIT_GetNumChars(EDIT_Handle hObj);
+void  EDIT_GetText(EDIT_Handle hObj, char *sDest, int MaxLen);
+int   EDIT_GetTextAlign(EDIT_Handle hObj);
+I32   EDIT_GetValue(EDIT_Handle hObj);
+void  EDIT_SetFloatValue(EDIT_Handle hObj, float Value);
+void  EDIT_GetSel(EDIT_Handle hObj, int *pFirstChar, int *pLastChar);
+void  EDIT_GetSelText(EDIT_Handle hObj, char *sDest, int MaxLen);
+int   EDIT_GetUserData(EDIT_Handle hObj, void *pDest, int NumBytes);
+void  EDIT_SetValue(EDIT_Handle hObj, I32 Value);
 
 #define EDIT_SetFocussable EDIT_SetFocusable
 #define EDIT_SetFocusable  WIDGET_SetFocusable
@@ -213,21 +213,21 @@ void  EDIT_SetValue          (EDIT_Handle hObj, I32 Value);
 *
 **********************************************************************
 */
-void  EDIT_SetHexMode  (EDIT_Handle hEdit, U32 Value, U32 Min, U32 Max);
-void  EDIT_SetBinMode  (EDIT_Handle hEdit, U32 Value, U32 Min, U32 Max);
-void  EDIT_SetDecMode  (EDIT_Handle hEdit, I32 Value, I32 Min, I32 Max, int Shift, U8 Flags);
+void  EDIT_SetHexMode(EDIT_Handle hEdit, U32 Value, U32 Min, U32 Max);
+void  EDIT_SetBinMode(EDIT_Handle hEdit, U32 Value, U32 Min, U32 Max);
+void  EDIT_SetDecMode(EDIT_Handle hEdit, I32 Value, I32 Min, I32 Max, int Shift, U8 Flags);
 void  EDIT_SetFloatMode(EDIT_Handle hEdit, float Value, float Min, float Max, int Shift, U8 Flags);
-void  EDIT_SetTextMode (EDIT_Handle hEdit);
+void  EDIT_SetTextMode(EDIT_Handle hEdit);
 void  EDIT_SetUlongMode(EDIT_Handle hEdit, U32 Value, U32 Min, U32 Max);
 
-U32   GUI_EditHex      (U32 Value, U32 Min, U32 Max, int Len, int xSize);
-U32   GUI_EditBin      (U32 Value, U32 Min, U32 Max, int Len, int xSize);
-I32   GUI_EditDec      (I32 Value, I32 Min, I32 Max, int Len, int xSize, int Shift, U8 Flags);
-float GUI_EditFloat    (float Value, float Min, float Max, int Len, int xSize, int Shift, U8 Flags);
-void  GUI_EditString   (char * pString, int Len, int xSize);
+U32   GUI_EditHex(U32 Value, U32 Min, U32 Max, int Len, int xSize);
+U32   GUI_EditBin(U32 Value, U32 Min, U32 Max, int Len, int xSize);
+I32   GUI_EditDec(I32 Value, I32 Min, I32 Max, int Len, int xSize, int Shift, U8 Flags);
+float GUI_EditFloat(float Value, float Min, float Max, int Len, int xSize, int Shift, U8 Flags);
+void  GUI_EditString(char *pString, int Len, int xSize);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

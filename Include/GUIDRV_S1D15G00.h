@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -52,14 +52,15 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 *
 *       Configuration structure
 */
-typedef struct {
-  //
-  // Driver specific configuration items
-  //
-  int FirstSEG;
-  int FirstCOM;
-  int Orientation;
-  int UseCache;
+typedef struct
+{
+    //
+    // Driver specific configuration items
+    //
+    int FirstSEG;
+    int FirstCOM;
+    int Orientation;
+    int UseCache;
 } CONFIG_S1D15G00;
 
 /*********************************************************************
@@ -78,11 +79,11 @@ extern const GUI_DEVICE_API GUIDRV_S1D15G00_API;
 //
 #if defined(WIN32) && !defined(LCD_SIMCONTROLLER)
 
-  #define GUIDRV_S1D15G00    &GUIDRV_Win_API
+#define GUIDRV_S1D15G00    &GUIDRV_Win_API
 
 #else
 
-  #define GUIDRV_S1D15G00    &GUIDRV_S1D15G00_API
+#define GUIDRV_S1D15G00    &GUIDRV_S1D15G00_API
 
 #endif
 
@@ -90,8 +91,8 @@ extern const GUI_DEVICE_API GUIDRV_S1D15G00_API;
 *
 *       Public routines
 */
-void GUIDRV_S1D15G00_Config (GUI_DEVICE * pDevice, CONFIG_S1D15G00 * pConfig);
-void GUIDRV_S1D15G00_SetBus8(GUI_DEVICE * pDevice, GUI_PORT_API * pHW_API);
+void GUIDRV_S1D15G00_Config(GUI_DEVICE *pDevice, CONFIG_S1D15G00 *pConfig);
+void GUIDRV_S1D15G00_SetBus8(GUI_DEVICE *pDevice, GUI_PORT_API *pHW_API);
 
 #if defined(__cplusplus)
 }

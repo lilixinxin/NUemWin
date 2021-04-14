@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -80,47 +80,51 @@ Purpose     : Internal header file
 //
 // MENU_SKIN_PRIVATE
 //
-typedef struct {
-  WIDGET_DRAW_ITEM_FUNC * pfDrawSkin;
+typedef struct
+{
+    WIDGET_DRAW_ITEM_FUNC *pfDrawSkin;
 } MENU_SKIN_PRIVATE;
 
 //
 // MENU_ITEM
 //
-typedef struct {
-  MENU_Handle hSubmenu;
-  U16         Id;
-  U16         Flags;
-  int         TextWidth;
-  char        acText[1];
+typedef struct
+{
+    MENU_Handle hSubmenu;
+    U16         Id;
+    U16         Flags;
+    int         TextWidth;
+    char        acText[1];
 } MENU_ITEM;
 
 //
 // MENU_PROPS
 //
-typedef struct {
-  GUI_COLOR           aTextColor[5];
-  GUI_COLOR           aBkColor[5];
-  U8                  aBorder[4];
-  const GUI_FONT    * pFont;
-  MENU_SKIN_PRIVATE   SkinPrivate;
+typedef struct
+{
+    GUI_COLOR           aTextColor[5];
+    GUI_COLOR           aBkColor[5];
+    U8                  aBorder[4];
+    const GUI_FONT     *pFont;
+    MENU_SKIN_PRIVATE   SkinPrivate;
 } MENU_PROPS;
 
 //
 // MENU_Obj
 //
-typedef struct {
-  WIDGET              Widget;
-  MENU_PROPS          Props;
-  GUI_ARRAY           ItemArray;
-  WM_HWIN             hOwner;
-  U16                 Flags;
-  char                IsSubmenuActive;
-  int                 Width;
-  int                 Height;
-  int                 Sel;
-  unsigned            ArrowAreaWidth;
-  WIDGET_SKIN const * pWidgetSkin;
+typedef struct
+{
+    WIDGET              Widget;
+    MENU_PROPS          Props;
+    GUI_ARRAY           ItemArray;
+    WM_HWIN             hOwner;
+    U16                 Flags;
+    char                IsSubmenuActive;
+    int                 Width;
+    int                 Height;
+    int                 Sel;
+    unsigned            ArrowAreaWidth;
+    WIDGET_SKIN const *pWidgetSkin;
 } MENU_Obj;
 
 /*********************************************************************
@@ -130,16 +134,16 @@ typedef struct {
 **********************************************************************
 */
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  #define MENU_INIT_ID(pObj)  (pObj->Widget.DebugId = MENU_ID)
+    #define MENU_INIT_ID(pObj)  (pObj->Widget.DebugId = MENU_ID)
 #else
-  #define MENU_INIT_ID(pObj)
+    #define MENU_INIT_ID(pObj)
 #endif
 
 #if GUI_DEBUG_LEVEL >= GUI_DEBUG_LEVEL_CHECK_ALL
-  MENU_Obj * MENU_LockH(MENU_Handle hObj);
-  #define MENU_LOCK_H(hObj)   MENU_LockH(hObj)
+    MENU_Obj *MENU_LockH(MENU_Handle hObj);
+    #define MENU_LOCK_H(hObj)   MENU_LockH(hObj)
 #else
-  #define MENU_LOCK_H(hObj)   (MENU_Obj *)GUI_LOCK_H(hObj)
+    #define MENU_LOCK_H(hObj)   (MENU_Obj *)GUI_LOCK_H(hObj)
 #endif
 
 /*********************************************************************
@@ -150,12 +154,12 @@ typedef struct {
 */
 
 extern MENU_PROPS            MENU__DefaultProps;
-extern const WIDGET_EFFECT * MENU__pDefaultEffect;
+extern const WIDGET_EFFECT *MENU__pDefaultEffect;
 
 extern const WIDGET_SKIN     MENU__SkinClassic;
 extern       WIDGET_SKIN     MENU__Skin;
 
-extern WIDGET_SKIN const   * MENU__pSkinDefault;
+extern WIDGET_SKIN const    *MENU__pSkinDefault;
 
 /*********************************************************************
 *
@@ -163,20 +167,20 @@ extern WIDGET_SKIN const   * MENU__pSkinDefault;
 *
 **********************************************************************
 */
-int       MENU__CalcMenuSizeX         (MENU_Handle hObj);
-int       MENU__CalcMenuSizeY         (MENU_Handle hObj);
-int       MENU__FindItem              (MENU_Handle hObj, U16 ItemId, MENU_Handle* phMenu);
-int       MENU__GetEffectSize         (MENU_Handle hObj);
-int       MENU__GetItemHeight         (MENU_Handle hObj, unsigned Index);
-int       MENU__GetItemWidth          (MENU_Handle hObj, unsigned Index);
-unsigned  MENU__GetNumItems           (MENU_Obj * pObj);
-int       MENU__HasEffect             (MENU_Handle hObj, MENU_Obj * pObj);
-void      MENU__InvalidateItem        (MENU_Handle hObj, unsigned Index);
-void      MENU__RecalcTextWidthOfItems(MENU_Obj * pObj);
-void      MENU__ResizeMenu            (MENU_Handle hObj);
-int       MENU__SendMenuMessage       (MENU_Handle hObj, WM_HWIN hDestWin, U16 MsgType, U16 ItemId);
-char      MENU__SetItem               (MENU_Handle hObj, unsigned Index, const MENU_ITEM_DATA* pItemData);
-void      MENU__SetItemFlags          (MENU_Obj * pObj, unsigned Index, U16 Mask, U16 Flags);
+int       MENU__CalcMenuSizeX(MENU_Handle hObj);
+int       MENU__CalcMenuSizeY(MENU_Handle hObj);
+int       MENU__FindItem(MENU_Handle hObj, U16 ItemId, MENU_Handle *phMenu);
+int       MENU__GetEffectSize(MENU_Handle hObj);
+int       MENU__GetItemHeight(MENU_Handle hObj, unsigned Index);
+int       MENU__GetItemWidth(MENU_Handle hObj, unsigned Index);
+unsigned  MENU__GetNumItems(MENU_Obj *pObj);
+int       MENU__HasEffect(MENU_Handle hObj, MENU_Obj *pObj);
+void      MENU__InvalidateItem(MENU_Handle hObj, unsigned Index);
+void      MENU__RecalcTextWidthOfItems(MENU_Obj *pObj);
+void      MENU__ResizeMenu(MENU_Handle hObj);
+int       MENU__SendMenuMessage(MENU_Handle hObj, WM_HWIN hDestWin, U16 MsgType, U16 ItemId);
+char      MENU__SetItem(MENU_Handle hObj, unsigned Index, const MENU_ITEM_DATA *pItemData);
+void      MENU__SetItemFlags(MENU_Obj *pObj, unsigned Index, U16 Mask, U16 Flags);
 
 #endif  // GUI_WINSUPPORT
 #endif  // MENU_PRIVATE_H

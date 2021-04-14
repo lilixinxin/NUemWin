@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,7 +51,7 @@ Purpose     : SWIPELIST include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {                  // Make sure we have C-declarations in C++ programs
+extern "C" {                  // Make sure we have C-declarations in C++ programs
 #endif
 
 /*********************************************************************
@@ -99,12 +99,12 @@ Purpose     : SWIPELIST include
 *       Bitmap align
 */
 #define SWIPELIST_BA_LEFT      (0<<0)
-#define SWIPELIST_BA_RIGHT	   (1<<0)
-#define SWIPELIST_BA_HCENTER	 (2<<0)
+#define SWIPELIST_BA_RIGHT     (1<<0)
+#define SWIPELIST_BA_HCENTER     (2<<0)
 
 #define SWIPELIST_BA_VCENTER   (3<<2)
-#define SWIPELIST_BA_TOP	     (0<<2)
-#define SWIPELIST_BA_BOTTOM	   (1<<2)
+#define SWIPELIST_BA_TOP         (0<<2)
+#define SWIPELIST_BA_BOTTOM    (1<<2)
 
 
 /*********************************************************************
@@ -121,10 +121,10 @@ typedef WM_HMEM SWIPELIST_Handle;
 *
 **********************************************************************
 */
-SWIPELIST_Handle SWIPELIST_CreateAsChild  (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags);
-SWIPELIST_Handle SWIPELIST_CreateEx       (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
-SWIPELIST_Handle SWIPELIST_CreateIndirect (const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
-SWIPELIST_Handle SWIPELIST_CreateUser     (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
+SWIPELIST_Handle SWIPELIST_CreateAsChild(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags);
+SWIPELIST_Handle SWIPELIST_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id);
+SWIPELIST_Handle SWIPELIST_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
+SWIPELIST_Handle SWIPELIST_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumExtraBytes);
 
 /*********************************************************************
 *
@@ -133,7 +133,7 @@ SWIPELIST_Handle SWIPELIST_CreateUser     (int x0, int y0, int xSize, int ySize,
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void SWIPELIST_Callback(WM_MESSAGE * pMsg);
+void SWIPELIST_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -143,55 +143,55 @@ void SWIPELIST_Callback(WM_MESSAGE * pMsg);
 */
 
 
-int                SWIPELIST_AddItem                 (SWIPELIST_Handle hObj, const char * sText, int ItemSize);
-int                SWIPELIST_AddItemText             (SWIPELIST_Handle hObj, unsigned ItemIndex, const char * sText);
-int                SWIPELIST_AddSepItem              (SWIPELIST_Handle hObj, const char * sText, int ItemSize);
-void               SWIPELIST_DeleteItem              (SWIPELIST_Handle hObj, unsigned ItemIndex);
+int                SWIPELIST_AddItem(SWIPELIST_Handle hObj, const char *sText, int ItemSize);
+int                SWIPELIST_AddItemText(SWIPELIST_Handle hObj, unsigned ItemIndex, const char *sText);
+int                SWIPELIST_AddSepItem(SWIPELIST_Handle hObj, const char *sText, int ItemSize);
+void               SWIPELIST_DeleteItem(SWIPELIST_Handle hObj, unsigned ItemIndex);
 
-const GUI_BITMAP * SWIPELIST_GetBitmap               (SWIPELIST_Handle hObj, unsigned ItemIndex);
-int                SWIPELIST_GetBitmapSpace          (SWIPELIST_Handle hObj);
-GUI_COLOR          SWIPELIST_GetBkColor              (SWIPELIST_Handle hObj, unsigned Index);
-int                SWIPELIST_GetBorderSize           (SWIPELIST_Handle hObj, unsigned Index);
-const GUI_FONT *   SWIPELIST_GetFont                 (SWIPELIST_Handle hObj, unsigned Index);
-int                SWIPELIST_GetItemSize             (SWIPELIST_Handle hObj, unsigned ItemIndex);
-U32                SWIPELIST_GetItemUserData         (SWIPELIST_Handle hObj, unsigned ItemIndex);
-int                SWIPELIST_GetNumItems             (SWIPELIST_Handle hObj);
-int                SWIPELIST_GetNumText              (SWIPELIST_Handle hObj, unsigned ItemIndex);
-int                SWIPELIST_GetReleasedItem         (SWIPELIST_Handle hObj);
-int                SWIPELIST_GetScrollPos            (SWIPELIST_Handle hObj);
-int                SWIPELIST_GetSelItem              (SWIPELIST_Handle hObj);
-GUI_COLOR          SWIPELIST_GetSepColor             (SWIPELIST_Handle hObj, unsigned ItemIndex);
-int                SWIPELIST_GetSepSize              (SWIPELIST_Handle hObj, unsigned ItemIndex);
-void               SWIPELIST_GetText                 (SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned TextIndex, char * pBuffer, int MaxSize);
-int                SWIPELIST_GetTextAlign            (SWIPELIST_Handle hObj, unsigned ItemIndex);
-GUI_COLOR          SWIPELIST_GetTextColor            (SWIPELIST_Handle hObj, unsigned Index);
-int                SWIPELIST_GetThreshold            (SWIPELIST_Handle hObj);
-int                SWIPELIST_GetUserData             (SWIPELIST_Handle hObj, void * pDest, int NumBytes);
+const GUI_BITMAP *SWIPELIST_GetBitmap(SWIPELIST_Handle hObj, unsigned ItemIndex);
+int                SWIPELIST_GetBitmapSpace(SWIPELIST_Handle hObj);
+GUI_COLOR          SWIPELIST_GetBkColor(SWIPELIST_Handle hObj, unsigned Index);
+int                SWIPELIST_GetBorderSize(SWIPELIST_Handle hObj, unsigned Index);
+const GUI_FONT    *SWIPELIST_GetFont(SWIPELIST_Handle hObj, unsigned Index);
+int                SWIPELIST_GetItemSize(SWIPELIST_Handle hObj, unsigned ItemIndex);
+U32                SWIPELIST_GetItemUserData(SWIPELIST_Handle hObj, unsigned ItemIndex);
+int                SWIPELIST_GetNumItems(SWIPELIST_Handle hObj);
+int                SWIPELIST_GetNumText(SWIPELIST_Handle hObj, unsigned ItemIndex);
+int                SWIPELIST_GetReleasedItem(SWIPELIST_Handle hObj);
+int                SWIPELIST_GetScrollPos(SWIPELIST_Handle hObj);
+int                SWIPELIST_GetSelItem(SWIPELIST_Handle hObj);
+GUI_COLOR          SWIPELIST_GetSepColor(SWIPELIST_Handle hObj, unsigned ItemIndex);
+int                SWIPELIST_GetSepSize(SWIPELIST_Handle hObj, unsigned ItemIndex);
+void               SWIPELIST_GetText(SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned TextIndex, char *pBuffer, int MaxSize);
+int                SWIPELIST_GetTextAlign(SWIPELIST_Handle hObj, unsigned ItemIndex);
+GUI_COLOR          SWIPELIST_GetTextColor(SWIPELIST_Handle hObj, unsigned Index);
+int                SWIPELIST_GetThreshold(SWIPELIST_Handle hObj);
+int                SWIPELIST_GetUserData(SWIPELIST_Handle hObj, void *pDest, int NumBytes);
 
-int                SWIPELIST_IsSepItem               (SWIPELIST_Handle hObj, U32 ItemIndex);
-int                SWIPELIST_ItemAttachWindow        (SWIPELIST_Handle hObj, unsigned ItemIndex, WM_HWIN hWin, int x0, int y0);
-void               SWIPELIST_ItemDetachWindow        (SWIPELIST_Handle hObj, WM_HWIN hWin);
-int                SWIPELIST_OwnerDraw               (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
+int                SWIPELIST_IsSepItem(SWIPELIST_Handle hObj, U32 ItemIndex);
+int                SWIPELIST_ItemAttachWindow(SWIPELIST_Handle hObj, unsigned ItemIndex, WM_HWIN hWin, int x0, int y0);
+void               SWIPELIST_ItemDetachWindow(SWIPELIST_Handle hObj, WM_HWIN hWin);
+int                SWIPELIST_OwnerDraw(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
 
-void               SWIPELIST_SetAttachedWindowPos    (SWIPELIST_Handle hObj, WM_HWIN hWin, int x0, int y0);
-void               SWIPELIST_SetBitmap               (SWIPELIST_Handle hObj, unsigned ItemIndex, int Align, const GUI_BITMAP * pBitmap);
-void               SWIPELIST_SetBitmapEx             (SWIPELIST_Handle hObj, unsigned ItemIndex, int Align, const GUI_BITMAP * pBitmap, int x, int y);
-void               SWIPELIST_SetBitmapSpace          (SWIPELIST_Handle hObj, unsigned Size);
-void               SWIPELIST_SetBkColor              (SWIPELIST_Handle hObj, unsigned Index, GUI_COLOR Color);
-void               SWIPELIST_SetBorderSize           (SWIPELIST_Handle hObj, unsigned Index, unsigned Size);
-void               SWIPELIST_SetFont                 (SWIPELIST_Handle hObj, unsigned Index, const GUI_FONT * pFont);
-void               SWIPELIST_SetItemSize             (SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned Size);
-void               SWIPELIST_SetItemUserData         (SWIPELIST_Handle hObj, unsigned ItemIndex, U32 UserData);
-void               SWIPELIST_SetOwnerDraw            (SWIPELIST_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawItem);
-void               SWIPELIST_SetScrollPos            (SWIPELIST_Handle hObj, int Pos);
-void               SWIPELIST_SetScrollPosItem        (SWIPELIST_Handle hObj, unsigned ItemIndex);
-void               SWIPELIST_SetSepColor             (SWIPELIST_Handle hObj, unsigned ItemIndex, GUI_COLOR Color);
-void               SWIPELIST_SetSepSize              (SWIPELIST_Handle hObj, unsigned ItemIndex, int Size);
-void               SWIPELIST_SetText                 (SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned TextIndex, char * sText);
-void               SWIPELIST_SetTextAlign            (SWIPELIST_Handle hObj, unsigned ItemIndex, int Align);
-void               SWIPELIST_SetTextColor            (SWIPELIST_Handle hObj, unsigned Index, GUI_COLOR Color);
-int                SWIPELIST_SetThreshold            (SWIPELIST_Handle hObj, int Threshold);
-int                SWIPELIST_SetUserData             (SWIPELIST_Handle hObj, const void * pSrc, int NumBytes);
+void               SWIPELIST_SetAttachedWindowPos(SWIPELIST_Handle hObj, WM_HWIN hWin, int x0, int y0);
+void               SWIPELIST_SetBitmap(SWIPELIST_Handle hObj, unsigned ItemIndex, int Align, const GUI_BITMAP *pBitmap);
+void               SWIPELIST_SetBitmapEx(SWIPELIST_Handle hObj, unsigned ItemIndex, int Align, const GUI_BITMAP *pBitmap, int x, int y);
+void               SWIPELIST_SetBitmapSpace(SWIPELIST_Handle hObj, unsigned Size);
+void               SWIPELIST_SetBkColor(SWIPELIST_Handle hObj, unsigned Index, GUI_COLOR Color);
+void               SWIPELIST_SetBorderSize(SWIPELIST_Handle hObj, unsigned Index, unsigned Size);
+void               SWIPELIST_SetFont(SWIPELIST_Handle hObj, unsigned Index, const GUI_FONT *pFont);
+void               SWIPELIST_SetItemSize(SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned Size);
+void               SWIPELIST_SetItemUserData(SWIPELIST_Handle hObj, unsigned ItemIndex, U32 UserData);
+void               SWIPELIST_SetOwnerDraw(SWIPELIST_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawItem);
+void               SWIPELIST_SetScrollPos(SWIPELIST_Handle hObj, int Pos);
+void               SWIPELIST_SetScrollPosItem(SWIPELIST_Handle hObj, unsigned ItemIndex);
+void               SWIPELIST_SetSepColor(SWIPELIST_Handle hObj, unsigned ItemIndex, GUI_COLOR Color);
+void               SWIPELIST_SetSepSize(SWIPELIST_Handle hObj, unsigned ItemIndex, int Size);
+void               SWIPELIST_SetText(SWIPELIST_Handle hObj, unsigned ItemIndex, unsigned TextIndex, char *sText);
+void               SWIPELIST_SetTextAlign(SWIPELIST_Handle hObj, unsigned ItemIndex, int Align);
+void               SWIPELIST_SetTextColor(SWIPELIST_Handle hObj, unsigned Index, GUI_COLOR Color);
+int                SWIPELIST_SetThreshold(SWIPELIST_Handle hObj, int Threshold);
+int                SWIPELIST_SetUserData(SWIPELIST_Handle hObj, const void *pSrc, int NumBytes);
 
 /*********************************************************************
 *
@@ -199,28 +199,28 @@ int                SWIPELIST_SetUserData             (SWIPELIST_Handle hObj, con
 *
 **********************************************************************
 */
-int              SWIPELIST_GetDefaultBitmapSpace     (void);
-GUI_COLOR        SWIPELIST_GetDefaultBkColor         (unsigned Index);
-int              SWIPELIST_GetDefaultBorderSize      (unsigned Index);
-const GUI_FONT * SWIPELIST_GetDefaultFont            (unsigned Index);
-GUI_COLOR        SWIPELIST_GetDefaultSepColor        (void);
-unsigned         SWIPELIST_GetDefaultSepSize         (void);
-GUI_COLOR        SWIPELIST_GetDefaultTextColor       (unsigned Index);
-int              SWIPELIST_GetDefaultTextAlign       (void);
-int              SWIPELIST_GetDefaultThreshold       (void);
+int              SWIPELIST_GetDefaultBitmapSpace(void);
+GUI_COLOR        SWIPELIST_GetDefaultBkColor(unsigned Index);
+int              SWIPELIST_GetDefaultBorderSize(unsigned Index);
+const GUI_FONT *SWIPELIST_GetDefaultFont(unsigned Index);
+GUI_COLOR        SWIPELIST_GetDefaultSepColor(void);
+unsigned         SWIPELIST_GetDefaultSepSize(void);
+GUI_COLOR        SWIPELIST_GetDefaultTextColor(unsigned Index);
+int              SWIPELIST_GetDefaultTextAlign(void);
+int              SWIPELIST_GetDefaultThreshold(void);
 
-void             SWIPELIST_SetDefaultBitmapSpace     (unsigned Size);
-void             SWIPELIST_SetDefaultBkColor         (unsigned Index, GUI_COLOR Color);
-void             SWIPELIST_SetDefaultBorderSize      (unsigned Index, unsigned Size);
-void             SWIPELIST_SetDefaultFont            (unsigned Index, const GUI_FONT * pFont);
-void             SWIPELIST_SetDefaultSepColor        (GUI_COLOR Color);
-void             SWIPELIST_SetDefaultSepSize         (unsigned Size);
-void             SWIPELIST_SetDefaultTextColor       (unsigned Index, GUI_COLOR Color);
-void             SWIPELIST_SetDefaultTextAlign       (int Align);
-void             SWIPELIST_SetDefaultThreshold       (int Threshold);
+void             SWIPELIST_SetDefaultBitmapSpace(unsigned Size);
+void             SWIPELIST_SetDefaultBkColor(unsigned Index, GUI_COLOR Color);
+void             SWIPELIST_SetDefaultBorderSize(unsigned Index, unsigned Size);
+void             SWIPELIST_SetDefaultFont(unsigned Index, const GUI_FONT *pFont);
+void             SWIPELIST_SetDefaultSepColor(GUI_COLOR Color);
+void             SWIPELIST_SetDefaultSepSize(unsigned Size);
+void             SWIPELIST_SetDefaultTextColor(unsigned Index, GUI_COLOR Color);
+void             SWIPELIST_SetDefaultTextAlign(int Align);
+void             SWIPELIST_SetDefaultThreshold(int Threshold);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT

@@ -16,9 +16,9 @@ source code may not be used to write a similar product. This file may
 only be used in accordance with the following terms:
 
 The  software has  been licensed by SEGGER Software GmbH to Nuvoton Technology Corporationat the address: No. 4, Creation Rd. III, Hsinchu Science Park, Taiwan
-for the purposes  of  creating  libraries  for its 
+for the purposes  of  creating  libraries  for its
 Arm Cortex-M and  Arm9 32-bit microcontrollers, commercialized and distributed by Nuvoton Technology Corporation
-under  the terms and conditions  of  an  End  User  
+under  the terms and conditions  of  an  End  User
 License  Agreement  supplied  with  the libraries.
 Full source code is available at: www.segger.com
 
@@ -51,7 +51,7 @@ Purpose     : RADIO include
 #if GUI_WINSUPPORT
 
 #if defined(__cplusplus)
-  extern "C" {     /* Make sure we have C-declarations in C++ programs */
+extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 
 /*********************************************************************
@@ -98,9 +98,10 @@ interface specified in this module
 */
 typedef WM_HMEM RADIO_Handle;
 
-typedef struct {
-  GUI_COLOR aColorButton[4];
-  int       ButtonSize;
+typedef struct
+{
+    GUI_COLOR aColorButton[4];
+    int       ButtonSize;
 } RADIO_SKINFLEX_PROPS;
 
 /*********************************************************************
@@ -110,10 +111,10 @@ typedef struct {
 **********************************************************************
 */
 
-RADIO_Handle RADIO_Create        (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, unsigned Para);
-RADIO_Handle RADIO_CreateEx      (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumItems, int Spacing);
-RADIO_Handle RADIO_CreateUser    (int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumItems, int Spacing, int NumExtraBytes);
-RADIO_Handle RADIO_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK * cb);
+RADIO_Handle RADIO_Create(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int Id, int Flags, unsigned Para);
+RADIO_Handle RADIO_CreateEx(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumItems, int Spacing);
+RADIO_Handle RADIO_CreateUser(int x0, int y0, int xSize, int ySize, WM_HWIN hParent, int WinFlags, int ExFlags, int Id, int NumItems, int Spacing, int NumExtraBytes);
+RADIO_Handle RADIO_CreateIndirect(const GUI_WIDGET_CREATE_INFO *pCreateInfo, WM_HWIN hWinParent, int x0, int y0, WM_CALLBACK *cb);
 
 /*********************************************************************
 *
@@ -122,7 +123,7 @@ RADIO_Handle RADIO_CreateIndirect(const GUI_WIDGET_CREATE_INFO * pCreateInfo, WM
 * Do not call it directly ! It is only to be used from within an
 * overwritten callback.
 */
-void RADIO_Callback(WM_MESSAGE * pMsg);
+void RADIO_Callback(WM_MESSAGE *pMsg);
 
 /*********************************************************************
 *
@@ -131,12 +132,12 @@ void RADIO_Callback(WM_MESSAGE * pMsg);
 **********************************************************************
 */
 
-void             RADIO_SetDefaultFont      (const GUI_FONT * pFont);
+void             RADIO_SetDefaultFont(const GUI_FONT *pFont);
 GUI_COLOR        RADIO_SetDefaultFocusColor(GUI_COLOR Color);
-void             RADIO_SetDefaultImage     (const GUI_BITMAP * pBitmap, unsigned int Index);
-void             RADIO_SetDefaultTextColor (GUI_COLOR TextColor);
-const GUI_FONT * RADIO_GetDefaultFont      (void);
-GUI_COLOR        RADIO_GetDefaultTextColor (void);
+void             RADIO_SetDefaultImage(const GUI_BITMAP *pBitmap, unsigned int Index);
+void             RADIO_SetDefaultTextColor(GUI_COLOR TextColor);
+const GUI_FONT *RADIO_GetDefaultFont(void);
+GUI_COLOR        RADIO_GetDefaultTextColor(void);
 
 /*********************************************************************
 *
@@ -145,26 +146,26 @@ GUI_COLOR        RADIO_GetDefaultTextColor (void);
 **********************************************************************
 */
 
-void               RADIO_AddValue     (RADIO_Handle hObj, int Add);
-void               RADIO_Dec          (RADIO_Handle hObj);
-GUI_COLOR          RADIO_GetBkColor   (RADIO_Handle hObj);
+void               RADIO_AddValue(RADIO_Handle hObj, int Add);
+void               RADIO_Dec(RADIO_Handle hObj);
+GUI_COLOR          RADIO_GetBkColor(RADIO_Handle hObj);
 GUI_COLOR          RADIO_GetFocusColor(RADIO_Handle hObj);
-const GUI_FONT *   RADIO_GetFont      (RADIO_Handle hObj);
-const GUI_BITMAP * RADIO_GetImage     (RADIO_Handle hObj, unsigned int Index);
-int                RADIO_GetNumItems  (RADIO_Handle hObj);
-int                RADIO_GetText      (RADIO_Handle hObj, unsigned Index, char * pBuffer, int MaxLen);
-GUI_COLOR          RADIO_GetTextColor (RADIO_Handle hObj);
-int                RADIO_GetUserData  (RADIO_Handle hObj, void * pDest, int NumBytes);
-void               RADIO_Inc          (RADIO_Handle hObj);
-void               RADIO_SetBkColor   (RADIO_Handle hObj, GUI_COLOR Color);
+const GUI_FONT    *RADIO_GetFont(RADIO_Handle hObj);
+const GUI_BITMAP *RADIO_GetImage(RADIO_Handle hObj, unsigned int Index);
+int                RADIO_GetNumItems(RADIO_Handle hObj);
+int                RADIO_GetText(RADIO_Handle hObj, unsigned Index, char *pBuffer, int MaxLen);
+GUI_COLOR          RADIO_GetTextColor(RADIO_Handle hObj);
+int                RADIO_GetUserData(RADIO_Handle hObj, void *pDest, int NumBytes);
+void               RADIO_Inc(RADIO_Handle hObj);
+void               RADIO_SetBkColor(RADIO_Handle hObj, GUI_COLOR Color);
 GUI_COLOR          RADIO_SetFocusColor(RADIO_Handle hObj, GUI_COLOR Color);
-void               RADIO_SetFont      (RADIO_Handle hObj, const GUI_FONT * pFont);
-void               RADIO_SetGroupId   (RADIO_Handle hObj, U8 GroupId);
-void               RADIO_SetImage     (RADIO_Handle hObj, const GUI_BITMAP * pBitmap, unsigned int Index);
-void               RADIO_SetText      (RADIO_Handle hObj, const char* pText, unsigned Index);
-void               RADIO_SetTextColor (RADIO_Handle hObj, GUI_COLOR Color);
-void               RADIO_SetValue     (RADIO_Handle hObj, int v);
-int                RADIO_SetUserData  (RADIO_Handle hObj, const void * pSrc, int NumBytes);
+void               RADIO_SetFont(RADIO_Handle hObj, const GUI_FONT *pFont);
+void               RADIO_SetGroupId(RADIO_Handle hObj, U8 GroupId);
+void               RADIO_SetImage(RADIO_Handle hObj, const GUI_BITMAP *pBitmap, unsigned int Index);
+void               RADIO_SetText(RADIO_Handle hObj, const char *pText, unsigned Index);
+void               RADIO_SetTextColor(RADIO_Handle hObj, GUI_COLOR Color);
+void               RADIO_SetValue(RADIO_Handle hObj, int v);
+int                RADIO_SetUserData(RADIO_Handle hObj, const void *pSrc, int NumBytes);
 
 /*********************************************************************
 *
@@ -172,13 +173,13 @@ int                RADIO_SetUserData  (RADIO_Handle hObj, const void * pSrc, int
 *
 **********************************************************************
 */
-void RADIO_GetSkinFlexProps     (RADIO_SKINFLEX_PROPS * pProps, int Index);
-void RADIO_SetSkinClassic       (RADIO_Handle hObj);
-void RADIO_SetSkin              (RADIO_Handle hObj, WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
-int  RADIO_DrawSkinFlex         (const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo);
-void RADIO_SetSkinFlexProps     (const RADIO_SKINFLEX_PROPS * pProps, int Index);
+void RADIO_GetSkinFlexProps(RADIO_SKINFLEX_PROPS *pProps, int Index);
+void RADIO_SetSkinClassic(RADIO_Handle hObj);
+void RADIO_SetSkin(RADIO_Handle hObj, WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
+int  RADIO_DrawSkinFlex(const WIDGET_ITEM_DRAW_INFO *pDrawItemInfo);
+void RADIO_SetSkinFlexProps(const RADIO_SKINFLEX_PROPS *pProps, int Index);
 void RADIO_SetDefaultSkinClassic(void);
-WIDGET_DRAW_ITEM_FUNC * RADIO_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC * pfDrawSkin);
+WIDGET_DRAW_ITEM_FUNC *RADIO_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC *pfDrawSkin);
 
 #define RADIO_SKIN_FLEX    RADIO_DrawSkinFlex
 
@@ -191,7 +192,7 @@ WIDGET_DRAW_ITEM_FUNC * RADIO_SetDefaultSkin(WIDGET_DRAW_ITEM_FUNC * pfDrawSkin)
 int RADIO_GetValue(RADIO_Handle hObj);
 
 #if defined(__cplusplus)
-  }
+}
 #endif
 
 #endif  // GUI_WINSUPPORT
