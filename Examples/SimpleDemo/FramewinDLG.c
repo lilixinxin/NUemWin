@@ -272,10 +272,10 @@ WM_HWIN CreateFramewin(void)
 */
 void MainTask(void)
 {
-  	GUI_Init();
+    GUI_Init();
 
-	  CreateFramewin();
-	
+    CreateFramewin();
+
     while (1)
     {
         GUI_Delay(500);

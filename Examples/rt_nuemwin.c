@@ -15,9 +15,9 @@ int nuemwin_start(int argc, char **argv)
     if (!nuemwin_tid)
     {
         nuemwin_tid = rt_thread_create(DEF_NUEMWIN_DEMO_NAME,
-                               test_thread, RT_NULL,
-                               5120,
-                               RT_THREAD_PRIORITY_MAX - 2, 10);
+                                       test_thread, RT_NULL,
+                                       5120,
+                                       RT_THREAD_PRIORITY_MAX - 2, 10);
         if (nuemwin_tid != RT_NULL)
             rt_thread_startup(nuemwin_tid);
     }
@@ -37,7 +37,7 @@ static rt_err_t nuemwin_stop(int argc, char **argv)
         result = rt_thread_delete(nuemwin_tid);
         RT_ASSERT(result == RT_EOK);
 
-  			rt_kprintf("%s is stoped\n", DEF_NUEMWIN_DEMO_NAME);
+        rt_kprintf("%s is stoped\n", DEF_NUEMWIN_DEMO_NAME);
 
         nuemwin_tid = RT_NULL;
     }

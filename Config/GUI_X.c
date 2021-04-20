@@ -127,12 +127,18 @@ void GUI_X_Init(void)
 void GUI_X_InitOS(void)
 {
     /* Create the Mutex used by the two threads */
-    osMutex = rt_mutex_create("NUemWin", RT_IPC_FLAG_FIFO);
-    RT_ASSERT(osMutex != RT_NULL);
+    if (!osMutex)
+    {
+        osMutex = rt_mutex_create("NUemWin", RT_IPC_FLAG_FIFO);
+        RT_ASSERT(osMutex != RT_NULL);
+    }
 
     /* Create the Semaphore used by the two threads */
-    osSemaphore = rt_sem_create("NUemWin", 1, RT_IPC_FLAG_FIFO);
-    RT_ASSERT(osSemaphore != RT_NULL);
+    if (!osSemaphore)
+    {
+        osSemaphore = rt_sem_create("NUemWin", 1, RT_IPC_FLAG_FIFO);
+        RT_ASSERT(osSemaphore != RT_NULL);
+    }
 }
 
 void GUI_X_Unlock(void)

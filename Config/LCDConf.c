@@ -49,8 +49,8 @@ Purpose     : Display controller configuration (single layer)
 #include "lcd.h"
 
 #if GUI_SUPPORT_TOUCH
-#include "touch.h"
-#include "drv_adc.h"
+    #include "touch.h"
+    #include "drv_adc.h"
 #endif
 
 /*********************************************************************
@@ -129,51 +129,51 @@ static rt_sem_t     touch_sem = RT_NULL;
 static rt_err_t touch_rx_callback(rt_device_t dev, rt_size_t size)
 {
     rt_sem_release(touch_sem);
-  	return 0;
+    return 0;
 }
 
 static void touch_entry(void *parameter)
 {
-	  struct rt_touch_data touch_point;
+    struct rt_touch_data touch_point;
 
-	  rt_err_t result;
-	
-		touch_dev = rt_device_find(DEF_USE_TOUCH_DEVICE);
-  	if ( !touch_dev )
-			goto exit_touch_entry ;
+    rt_err_t result;
 
-  	if ( (result = rt_device_open(touch_dev, RT_DEVICE_FLAG_INT_RX)) != RT_EOK )
-			goto exit_touch_entry ;
+    touch_dev = rt_device_find(DEF_USE_TOUCH_DEVICE);
+    if (!touch_dev)
+        goto exit_touch_entry ;
 
-	  result = rt_device_set_rx_indicate(touch_dev, touch_rx_callback);
-	  RT_ASSERT(result==RT_EOK);
+    if ((result = rt_device_open(touch_dev, RT_DEVICE_FLAG_INT_RX)) != RT_EOK)
+        goto exit_touch_entry ;
+
+    result = rt_device_set_rx_indicate(touch_dev, touch_rx_callback);
+    RT_ASSERT(result == RT_EOK);
 
     touch_sem = rt_sem_create("touch_sem", 0, RT_IPC_FLAG_FIFO);
-	  RT_ASSERT(touch_sem!=RT_NULL);
+    RT_ASSERT(touch_sem != RT_NULL);
 
-	  result = nu_adc_touch_enable((rt_touch_t)touch_dev);
-	  RT_ASSERT(result==RT_EOK);
+    result = nu_adc_touch_enable((rt_touch_t)touch_dev);
+    RT_ASSERT(result == RT_EOK);
 
     while (1)
     {
         rt_sem_take(touch_sem, RT_WAITING_FOREVER);
 
-  			rt_memset(&touch_point, 0, sizeof(struct rt_touch_data));
+        rt_memset(&touch_point, 0, sizeof(struct rt_touch_data));
 
         if (rt_device_read(touch_dev, 0, &touch_point, 1) == 1)
         {
-				    if (touch_point.event == RT_TOUCH_EVENT_DOWN)
-					     GUI_TOUCH_StoreState(touch_point.x_coordinate, touch_point.y_coordinate);
+            if (touch_point.event == RT_TOUCH_EVENT_DOWN)
+                GUI_TOUCH_StoreState(touch_point.x_coordinate, touch_point.y_coordinate);
             else
-						   GUI_TOUCH_StoreState(-1, -1);
+                GUI_TOUCH_StoreState(-1, -1);
         }
 
-		    nu_adc_touch_detect(RT_TRUE);
+        nu_adc_touch_detect(RT_TRUE);
     }
 
 exit_touch_entry:
 
-		return;
+    return;
 }
 #endif
 
@@ -266,22 +266,22 @@ void LCD_X_Config(void)
 //
 #if GUI_SUPPORT_TOUCH
 
-		//GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
-		//GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
+    //GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
+    //GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
 
-		/* Create thread to get x, y value. */
-		if ( touch_thread == RT_NULL )
-		{
-			touch_thread = rt_thread_create("touch_thread",
-																			 touch_entry,
-																			 RT_NULL,
-																			 1024,
-																			 RT_THREAD_PRIORITY_MAX - 2,
-																			 5);
+    /* Create thread to get x, y value. */
+    if (touch_thread == RT_NULL)
+    {
+        touch_thread = rt_thread_create("touch_thread",
+                                        touch_entry,
+                                        RT_NULL,
+                                        1024,
+                                        RT_THREAD_PRIORITY_MAX - 2,
+                                        5);
 
-			if (touch_thread != RT_NULL)
-					rt_thread_startup(touch_thread);
-		}
+        if (touch_thread != RT_NULL)
+            rt_thread_startup(touch_thread);
+    }
 
 #endif
 
