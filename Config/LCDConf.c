@@ -42,16 +42,16 @@ Purpose     : Display controller configuration (single layer)
 */
 
 #include <rtthread.h>
-//#include <stddef.h>
-//#include <stdio.h>
-//#include "N9H30.h"
-//#include "TouchPanel.h"
 #include "GUI.h"
 #include "GUIDRV_Lin.h"
 //#include "GUIDRV_FlexColor.h"
 #include "LCDConf.h"
 #include "lcd.h"
 
+#if GUI_SUPPORT_TOUCH
+#include "touch.h"
+#include "drv_adc.h"
+#endif
 
 /*********************************************************************
 *
@@ -88,24 +88,14 @@ Purpose     : Display controller configuration (single layer)
     #define DISPLAY_ORIENTATION 0
 #endif
 
-// Touch panel
-//#define GUI_TOUCH_AD_LEFT   72
-//#define GUI_TOUCH_AD_TOP    926  //82
-//#define GUI_TOUCH_AD_RIGHT  938
-//#define GUI_TOUCH_AD_BOTTOM 82  //926
-
 /*********************************************************************
 *
 *       Public code
 *
 **********************************************************************
 */
-extern uint8_t *g_VAFrameBuf;
-extern int ts_phy2log(int *sumx, int *sumy);
-
 void GUI_TOUCH_X_ActivateX(void)
 {
-
 }
 
 void GUI_TOUCH_X_ActivateY(void)
@@ -122,6 +112,71 @@ int  GUI_TOUCH_X_MeasureY(void)
 {
     return -1;
 }
+
+#if GUI_SUPPORT_TOUCH
+
+/*********************************************************************
+*
+*       ADC_TOUCH
+*
+*/
+#define DEF_USE_TOUCH_DEVICE "adc_touch"
+
+static rt_device_t  touch_dev = RT_NULL;
+static rt_thread_t  touch_thread = RT_NULL;
+static rt_sem_t     touch_sem = RT_NULL;
+
+static rt_err_t touch_rx_callback(rt_device_t dev, rt_size_t size)
+{
+    rt_sem_release(touch_sem);
+  	return 0;
+}
+
+static void touch_entry(void *parameter)
+{
+	  struct rt_touch_data touch_point;
+
+	  rt_err_t result;
+	
+		touch_dev = rt_device_find(DEF_USE_TOUCH_DEVICE);
+  	if ( !touch_dev )
+			goto exit_touch_entry ;
+
+  	if ( (result = rt_device_open(touch_dev, RT_DEVICE_FLAG_INT_RX)) != RT_EOK )
+			goto exit_touch_entry ;
+
+	  result = rt_device_set_rx_indicate(touch_dev, touch_rx_callback);
+	  RT_ASSERT(result==RT_EOK);
+
+    touch_sem = rt_sem_create("touch_sem", 0, RT_IPC_FLAG_FIFO);
+	  RT_ASSERT(touch_sem!=RT_NULL);
+
+	  result = nu_adc_touch_enable((rt_touch_t)touch_dev);
+	  RT_ASSERT(result==RT_EOK);
+
+    while (1)
+    {
+        rt_sem_take(touch_sem, RT_WAITING_FOREVER);
+
+  			rt_memset(&touch_point, 0, sizeof(struct rt_touch_data));
+
+        if (rt_device_read(touch_dev, 0, &touch_point, 1) == 1)
+        {
+				    if (touch_point.event == RT_TOUCH_EVENT_DOWN)
+					     GUI_TOUCH_StoreState(touch_point.x_coordinate, touch_point.y_coordinate);
+            else
+						   GUI_TOUCH_StoreState(-1, -1);
+        }
+
+		    nu_adc_touch_detect(RT_TRUE);
+    }
+
+exit_touch_entry:
+
+		return;
+}
+#endif
+
 /*********************************************************************
 *
 *       LCD_X_Config
@@ -135,6 +190,9 @@ int  GUI_TOUCH_X_MeasureY(void)
 static rt_device_t g_LCDDev = RT_NULL;
 static struct rt_device_graphic_info g_sRTGraphicInfo = {0};
 
+#define DEF_USE_VPOST_LAYER "lcd"
+//#define DEF_USE_VPOST_LAYER "osd"
+
 void LCD_X_Config(void)
 {
     const LCD_API_COLOR_CONV *pColorConvAPI;
@@ -142,15 +200,15 @@ void LCD_X_Config(void)
 
     if (!g_LCDDev)
     {
-        g_LCDDev = rt_device_find("lcd");
+        g_LCDDev = rt_device_find(DEF_USE_VPOST_LAYER);
         if (!g_LCDDev)
         {
-            LOG_E("find %s failed!", "lcd");
+            LOG_E("find %s failed!", DEF_USE_VPOST_LAYER);
             goto exit_LCD_X_Config;
         }
         if (rt_device_open(g_LCDDev, RT_DEVICE_FLAG_RDWR) != RT_EOK)
         {
-            LOG_E("Fail to open %s!", "lcd");
+            LOG_E("Fail to open %s!", DEF_USE_VPOST_LAYER);
             goto exit_LCD_X_Config;
         }
     }
@@ -206,8 +264,26 @@ void LCD_X_Config(void)
 //
 // Calibrate touch screen
 //
-//  GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
-//  GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
+#if GUI_SUPPORT_TOUCH
+
+		//GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
+		//GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
+
+		/* Create thread to get x, y value. */
+		if ( touch_thread == RT_NULL )
+		{
+			touch_thread = rt_thread_create("touch_thread",
+																			 touch_entry,
+																			 RT_NULL,
+																			 1024,
+																			 RT_THREAD_PRIORITY_MAX - 2,
+																			 5);
+
+			if (touch_thread != RT_NULL)
+					rt_thread_startup(touch_thread);
+		}
+
+#endif
 
 exit_LCD_X_Config:
 
