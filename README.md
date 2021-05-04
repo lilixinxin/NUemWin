@@ -48,6 +48,6 @@ RT-Thread online packages
 
 無
 
-## 5、联系方式 & 感谢
+## 5、联系方式
 
 無
