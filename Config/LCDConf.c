@@ -50,8 +50,13 @@ Purpose     : Display controller configuration (single layer)
 
 #if GUI_SUPPORT_TOUCH
     #include "touch.h"
-    #include "drv_adc.h"
 #endif
+
+static rt_device_t g_LCDDev = RT_NULL;
+static struct rt_device_graphic_info g_sRTGraphicInfo = {0};
+
+#define DEF_USE_VPOST_LAYER "lcd"
+//#define DEF_USE_VPOST_LAYER "osd"
 
 /*********************************************************************
 *
@@ -126,6 +131,8 @@ static rt_device_t  touch_dev = RT_NULL;
 static rt_thread_t  touch_thread = RT_NULL;
 static rt_sem_t     touch_sem = RT_NULL;
 
+rt_bool_t    nu_adc_touch_run = RT_TRUE;
+
 static rt_err_t touch_rx_callback(rt_device_t dev, rt_size_t size)
 {
     rt_sem_release(touch_sem);
@@ -137,10 +144,23 @@ static void touch_entry(void *parameter)
     struct rt_touch_data touch_point;
 
     rt_err_t result;
+    int max_range;
+
+    rt_kprintf("ADC Touching detector: Hello!\n");
 
     touch_dev = rt_device_find(DEF_USE_TOUCH_DEVICE);
     if (!touch_dev)
         goto exit_touch_entry ;
+
+    touch_sem = rt_sem_create("touch_sem", 0, RT_IPC_FLAG_FIFO);
+    RT_ASSERT(touch_sem != RT_NULL);
+
+    max_range = g_sRTGraphicInfo.width;
+    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_SET_X_RANGE, (void *)&max_range);
+    RT_ASSERT(result == RT_EOK);
+
+    max_range = g_sRTGraphicInfo.height;
+    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_SET_Y_RANGE, (void *)&max_range);
 
     if ((result = rt_device_open(touch_dev, RT_DEVICE_FLAG_INT_RX)) != RT_EOK)
         goto exit_touch_entry ;
@@ -148,30 +168,40 @@ static void touch_entry(void *parameter)
     result = rt_device_set_rx_indicate(touch_dev, touch_rx_callback);
     RT_ASSERT(result == RT_EOK);
 
-    touch_sem = rt_sem_create("touch_sem", 0, RT_IPC_FLAG_FIFO);
-    RT_ASSERT(touch_sem != RT_NULL);
-
-    result = nu_adc_touch_enable((rt_touch_t)touch_dev);
+    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_POWER_ON, RT_NULL);
     RT_ASSERT(result == RT_EOK);
 
-    while (1)
+    while (nu_adc_touch_run)
     {
-        rt_sem_take(touch_sem, RT_WAITING_FOREVER);
+        if ((-RT_ETIMEOUT == rt_sem_take(touch_sem, rt_tick_from_millisecond(100))))
+            continue;
 
         rt_memset(&touch_point, 0, sizeof(struct rt_touch_data));
 
         if (rt_device_read(touch_dev, 0, &touch_point, 1) == 1)
         {
             if (touch_point.event == RT_TOUCH_EVENT_DOWN)
+            {
                 GUI_TOUCH_StoreState(touch_point.x_coordinate, touch_point.y_coordinate);
+            }
             else
+            {
                 GUI_TOUCH_StoreState(-1, -1);
+            }
         }
-
-        nu_adc_touch_detect(RT_TRUE);
     }
 
+    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_POWER_OFF, RT_NULL);
+    RT_ASSERT(result == RT_EOK);
+
+    result = rt_device_close(touch_dev);
+    RT_ASSERT(result == RT_EOK);
+
 exit_touch_entry:
+
+    rt_kprintf("ADC Touching detector: Exit!\n");
+
+    touch_thread = RT_NULL;
 
     return;
 }
@@ -186,12 +216,6 @@ exit_touch_entry:
 *   display driver configuration.
 *
 */
-
-static rt_device_t g_LCDDev = RT_NULL;
-static struct rt_device_graphic_info g_sRTGraphicInfo = {0};
-
-#define DEF_USE_VPOST_LAYER "lcd"
-//#define DEF_USE_VPOST_LAYER "osd"
 
 void LCD_X_Config(void)
 {
@@ -272,6 +296,7 @@ void LCD_X_Config(void)
     /* Create thread to get x, y value. */
     if (touch_thread == RT_NULL)
     {
+        nu_adc_touch_run = RT_TRUE;
         touch_thread = rt_thread_create("touch_thread",
                                         touch_entry,
                                         RT_NULL,

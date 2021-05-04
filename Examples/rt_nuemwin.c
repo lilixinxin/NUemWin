@@ -28,6 +28,7 @@ int nuemwin_start(int argc, char **argv)
 }
 MSH_CMD_EXPORT(nuemwin_start, start nuemwin demo);
 
+extern rt_bool_t nu_adc_touch_run;
 static rt_err_t nuemwin_stop(int argc, char **argv)
 {
     rt_err_t result;
@@ -39,6 +40,7 @@ static rt_err_t nuemwin_stop(int argc, char **argv)
 
         rt_kprintf("%s is stoped\n", DEF_NUEMWIN_DEMO_NAME);
 
+        nu_adc_touch_run = RT_FALSE;
         nuemwin_tid = RT_NULL;
     }
     return 0;

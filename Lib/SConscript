@@ -7,11 +7,11 @@ src = []
 
 LIBPATH = [cwd]
 LIBS = []
-if GetDepend(['ARCH_ARM_ARM9']):
+if GetDepend(['SOC_SERIES_N9H30']):
 	if rtconfig.CROSS_TOOL == 'keil':
-		LIBS += ['NUemWin_ARM9_Keil']
+		LIBS += ['NUemWin_N9H30_Keil']
 	elif rtconfig.CROSS_TOOL == 'gcc':
-		LIBS += ['libNUemWin_ARM9_GCC']
+		LIBS += ['libNUemWin_N9H30_GCC']
 
 CPPPATH = [cwd + '/../Include']
 
