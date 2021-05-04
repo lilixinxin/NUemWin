@@ -2,7 +2,7 @@
 
 ## 1、介绍
 
-N9H 系列免费为其用户提供经 SEGGER 正式授权，专为嵌入式系统打造的GUI软件链接库 ( emWin ) 和相关开发工具，让产品开发人员可以快速且容易地，开发出流畅、有质感的用户人机显示接口 ( Human Machine Interface, HMI ) ，为满足客户针对显示应用弹性设计的需求，N9H系列内建24位TFT RGB 接口、2D图形加速器以及电阻式触控屏幕。
+N9H 系列免费为其用户提供经 SEGGER 正式授权，专为嵌入式系统打造的 GUI 软件链接库 ( emWin ) 和相关开发工具，让产品开发人员可以快速且容易地，开发出流畅、有质感的用户人机显示接口 ( Human Machine Interface, HMI ) ，为满足客户针对显示应用弹性设计的需求，N9H 系列内建 24 位 TFT RGB 接口、2D 图形加速器以及电阻式触控屏幕。
 
 本源码实现了在 RT-Thread 上的移植。源码地址： <https://github.com/wosayttn/NUemWin>
 
