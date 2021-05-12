@@ -120,91 +120,20 @@ int  GUI_TOUCH_X_MeasureY(void)
 
 #if GUI_SUPPORT_TOUCH
 
-/*********************************************************************
-*
-*       ADC_TOUCH
-*
-*/
-#define DEF_USE_TOUCH_DEVICE "adc_touch"
-
-static rt_device_t  touch_dev = RT_NULL;
-static rt_thread_t  touch_thread = RT_NULL;
-static rt_sem_t     touch_sem = RT_NULL;
-
-rt_bool_t    nu_adc_touch_run = RT_TRUE;
-
-static rt_err_t touch_rx_callback(rt_device_t dev, rt_size_t size)
+void nuemwin_send_input_event(rt_int16_t x, rt_int16_t y, rt_uint8_t state)
 {
-    rt_sem_release(touch_sem);
-    return 0;
-}
-
-static void touch_entry(void *parameter)
-{
-    struct rt_touch_data touch_point;
-
-    rt_err_t result;
-    int max_range;
-
-    rt_kprintf("ADC Touching detector: Hello!\n");
-
-    touch_dev = rt_device_find(DEF_USE_TOUCH_DEVICE);
-    if (!touch_dev)
-        goto exit_touch_entry ;
-
-    touch_sem = rt_sem_create("touch_sem", 0, RT_IPC_FLAG_FIFO);
-    RT_ASSERT(touch_sem != RT_NULL);
-
-    max_range = g_sRTGraphicInfo.width;
-    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_SET_X_RANGE, (void *)&max_range);
-    RT_ASSERT(result == RT_EOK);
-
-    max_range = g_sRTGraphicInfo.height;
-    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_SET_Y_RANGE, (void *)&max_range);
-
-    if ((result = rt_device_open(touch_dev, RT_DEVICE_FLAG_INT_RX)) != RT_EOK)
-        goto exit_touch_entry ;
-
-    result = rt_device_set_rx_indicate(touch_dev, touch_rx_callback);
-    RT_ASSERT(result == RT_EOK);
-
-    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_POWER_ON, RT_NULL);
-    RT_ASSERT(result == RT_EOK);
-
-    while (nu_adc_touch_run)
+    switch (state)
     {
-        if ((-RT_ETIMEOUT == rt_sem_take(touch_sem, rt_tick_from_millisecond(100))))
-            continue;
-
-        rt_memset(&touch_point, 0, sizeof(struct rt_touch_data));
-
-        if (rt_device_read(touch_dev, 0, &touch_point, 1) == 1)
-        {
-            if (touch_point.event == RT_TOUCH_EVENT_DOWN)
-            {
-                GUI_TOUCH_StoreState(touch_point.x_coordinate, touch_point.y_coordinate);
-            }
-            else
-            {
-                GUI_TOUCH_StoreState(-1, -1);
-            }
-        }
+    case RT_TOUCH_EVENT_UP:
+        GUI_TOUCH_StoreState(-1, -1);
+        break;
+    case RT_TOUCH_EVENT_DOWN:
+    case RT_TOUCH_EVENT_MOVE:
+        GUI_TOUCH_StoreState(x, y);
+        break;
     }
-
-    result = rt_device_control(touch_dev, RT_TOUCH_CTRL_POWER_OFF, RT_NULL);
-    RT_ASSERT(result == RT_EOK);
-
-    result = rt_device_close(touch_dev);
-    RT_ASSERT(result == RT_EOK);
-
-exit_touch_entry:
-
-    rt_kprintf("ADC Touching detector: Exit!\n");
-
-    touch_thread = RT_NULL;
-
-    return;
 }
+
 #endif
 
 /*********************************************************************
@@ -282,32 +211,6 @@ void LCD_X_Config(void)
     //
 #if defined(PALETTE)
     LCD_SetLUTEx(0, PALETTE);
-#endif
-
-// LCD calibration
-//
-// Calibrate touch screen
-//
-#if GUI_SUPPORT_TOUCH
-
-    //GUI_TOUCH_Calibrate(GUI_COORD_X, 0, g_sRTGraphicInfo.width, 0, g_sRTGraphicInfo.width);
-    //GUI_TOUCH_Calibrate(GUI_COORD_Y, 0, g_sRTGraphicInfo.height, 0, g_sRTGraphicInfo.height);
-
-    /* Create thread to get x, y value. */
-    if (touch_thread == RT_NULL)
-    {
-        nu_adc_touch_run = RT_TRUE;
-        touch_thread = rt_thread_create("touch_thread",
-                                        touch_entry,
-                                        RT_NULL,
-                                        1024,
-                                        RT_THREAD_PRIORITY_MAX - 2,
-                                        5);
-
-        if (touch_thread != RT_NULL)
-            rt_thread_startup(touch_thread);
-    }
-
 #endif
 
 exit_LCD_X_Config:

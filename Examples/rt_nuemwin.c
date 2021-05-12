@@ -40,7 +40,6 @@ static rt_err_t nuemwin_stop(int argc, char **argv)
 
         rt_kprintf("%s is stoped\n", DEF_NUEMWIN_DEMO_NAME);
 
-        nu_adc_touch_run = RT_FALSE;
         nuemwin_tid = RT_NULL;
     }
     return 0;
